@@ -256,11 +256,17 @@ window.onload = ()=>{
 
 function loginGoogle(response){
 
+    console.log("LOGIN EJECUTADO");
+
     const datos = JSON.parse(atob(response.credential.split(".")[1]));
+
+    console.log(datos);
 
     usuarioGoogle = datos;
 
-    document.getElementById("usuario").style.display="block";
+    document.getElementById("loginGoogle").style.display = "none";
+
+    document.getElementById("juego").style.display = "block";
 
     document.getElementById("nombreUsuario").innerHTML = datos.name;
 
