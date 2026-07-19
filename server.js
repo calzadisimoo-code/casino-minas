@@ -15,82 +15,208 @@ app.use(express.static("public"));
 
 let jugadoresOnline = 0;
 
-// Jugadores esperando rival
+// Cola de espera
 let cola = [];
 
-io.on("connection", (socket) => {
+// Todas las partidas activas
+const partidas = {};
 
-    console.log("==================================");
-    console.log("Jugador conectado");
-    console.log("Socket ID:", socket.id);
-    console.log("==================================");
+// ---------- FUNCIONES ----------
+
+function crearTablero() {
+
+    const tablero = [];
+
+    for (let i = 0; i < 25; i++) {
+
+        tablero.push({
+
+            abierta: false,
+
+            mina: false
+
+        });
+
+    }
+
+    const mina = Math.floor(Math.random() * 25);
+
+    tablero[mina].mina = true;
+
+    return tablero;
+
+}
+
+function crearPartida(jugador1, jugador2, apuesta) {
+
+    const id = Date.now().toString() + Math.floor(Math.random()*9999);
+
+    const tablero = crearTablero();
+
+    partidas[id] = {
+
+        id,
+
+        apuesta,
+
+        tablero,
+
+        turno: jugador1.socket.id,
+
+        jugadores: [
+
+            {
+
+                socket: jugador1.socket,
+
+                nombre: jugador1.nombre
+
+            },
+
+            {
+
+                socket: jugador2.socket,
+
+                nombre: jugador2.nombre
+
+            }
+
+        ]
+
+    };
+
+    jugador1.socket.join(id);
+
+    jugador2.socket.join(id);
+
+    io.to(id).emit("partidaEncontrada",{
+
+        partida:id,
+
+        apuesta,
+
+        jugador1:jugador1.nombre,
+
+        jugador2:jugador2.nombre,
+
+        turno:jugador1.socket.id,
+
+        tablero
+
+    });
+
+}
+
+io.on("connection",(socket)=>{
 
     jugadoresOnline++;
 
-    io.emit("online", jugadoresOnline);
+    console.log("Jugador conectado");
 
-    socket.onAny((evento, datos) => {
+    io.emit("online",jugadoresOnline);
 
-        console.log("==================================");
-        console.log("Evento recibido:", evento);
-        console.log("Datos:", datos);
-        console.log("==================================");
+    socket.on("buscarPartida",(datos)=>{
 
-        if (evento !== "buscarPartida") return;
+        console.log(datos);
 
-        console.log("LLEGÓ buscarPartida");
+        const rival=cola.find(j=>j.apuesta==datos.apuesta);
 
-        // Buscar rival con la misma apuesta
-        const rival = cola.find(j => j.apuesta === datos.apuesta);
+        if(rival){
 
-        if (rival) {
+            cola=cola.filter(j=>j.socket.id!=rival.socket.id);
 
-            console.log("Rival encontrado:", rival.nombre);
+            crearPartida(
 
-            // Sacarlo de la cola
-            cola = cola.filter(j => j.socket.id !== rival.socket.id);
+                rival,
 
-            const partidaID = Date.now().toString();
+                {
 
-            socket.join(partidaID);
-            rival.socket.join(partidaID);
+                    socket,
 
-            io.to(partidaID).emit("partidaEncontrada", {
-                id: partidaID,
-                jugador1: rival.nombre,
-                jugador2: datos.nombre,
-                apuesta: datos.apuesta
-            });
+                    nombre:datos.nombre
 
-        } else {
+                },
 
-            console.log("No hay rival. Esperando...");
+                datos.apuesta
+
+            );
+
+        }else{
 
             cola.push({
+
                 socket,
-                nombre: datos.nombre,
-                apuesta: datos.apuesta
+
+                nombre:datos.nombre,
+
+                apuesta:datos.apuesta
+
             });
 
             socket.emit("esperando");
+
         }
 
     });
 
-    socket.on("disconnect", () => {
+    socket.on("abrirCasilla",(datos)=>{
 
-        console.log("Jugador desconectado");
+        const partida=partidas[datos.partida];
+
+        if(!partida) return;
+
+        if(partida.turno!=socket.id) return;
+
+        if(partida.tablero[datos.casilla].abierta) return;
+
+        partida.tablero[datos.casilla].abierta=true;
+
+        if(partida.tablero[datos.casilla].mina){
+
+            io.to(partida.id).emit("mina",{
+
+                casilla:datos.casilla,
+
+                perdedor:socket.id
+
+            });
+
+            delete partidas[partida.id];
+
+            return;
+
+        }
+
+        const siguiente=partida.jugadores.find(j=>j.socket.id!=socket.id);
+
+        partida.turno=siguiente.socket.id;
+
+        io.to(partida.id).emit("actualizar",{
+
+            tablero:partida.tablero,
+
+            turno:partida.turno
+
+        });
+
+    });
+
+    socket.on("disconnect",()=>{
 
         jugadoresOnline--;
 
-        io.emit("online", jugadoresOnline);
+        io.emit("online",jugadoresOnline);
 
-        cola = cola.filter(j => j.socket.id !== socket.id);
+        cola=cola.filter(j=>j.socket.id!=socket.id);
+
+        console.log("Jugador desconectado");
 
     });
 
 });
 
-server.listen(3000, () => {
+server.listen(3000,()=>{
+
     console.log("Servidor iniciado");
+
 });

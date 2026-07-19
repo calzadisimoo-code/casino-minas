@@ -20,39 +20,53 @@ padding:20px;
 
 background:#111;
 
+font-size:20px;
+
 }
 
 .contenedor{
 
-width:500px;
+width:650px;
 
 margin:auto;
 
 text-align:center;
 
+padding-top:30px;
+
+}
+
+h1{
+
+margin-bottom:30px;
+
 }
 
 input{
 
-width:250px;
+width:260px;
 
-padding:10px;
+padding:12px;
 
 margin:10px;
 
 font-size:18px;
 
+border-radius:8px;
+
+border:none;
+
 }
 
 button{
 
-padding:12px 35px;
+padding:12px 40px;
 
 font-size:20px;
 
 cursor:pointer;
 
-background:#18b218;
+background:#1db954;
 
 color:white;
 
@@ -60,11 +74,31 @@ border:none;
 
 border-radius:8px;
 
+margin-top:10px;
+
+}
+
+button:hover{
+
+background:#18a34a;
+
+}
+
+#estado{
+
+margin-top:25px;
+
+font-size:22px;
+
+font-weight:bold;
+
+min-height:80px;
+
 }
 
 #tablero{
 
-margin-top:40px;
+margin-top:35px;
 
 display:grid;
 
@@ -82,10 +116,40 @@ width:70px;
 
 height:70px;
 
-background:#444;
+background:#555;
+
+border-radius:8px;
 
 cursor:pointer;
 
-border-radius:8px;
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:30px;
+
+transition:0.2s;
+
+user-select:none;
+
+}
+
+.casilla:hover{
+
+background:#666;
+
+}
+
+.abierta{
+
+background:#16a34a;
+
+}
+
+.mina{
+
+background:#d11a2a;
 
 }

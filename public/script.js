@@ -1,82 +1,159 @@
 const socket = io();
 
 const tablero = document.getElementById("tablero");
-
 const btnJugar = document.getElementById("jugar");
-
 const nombre = document.getElementById("nombre");
-
 const apuesta = document.getElementById("apuesta");
-
 const estado = document.getElementById("estado");
-
 const activos = document.getElementById("activos");
 
-for(let i=0;i<25;i++){
+let miSocket = "";
+let miPartida = "";
+let miTurno = false;
 
-    const casilla=document.createElement("div");
-
-    casilla.className="casilla";
-
-    casilla.id="casilla"+i;
-
-    tablero.appendChild(casilla);
-
-}
+socket.on("connect", () => {
+    miSocket = socket.id;
+});
 
 btnJugar.onclick = () => {
 
-    console.log("Botón jugar");
+    if (nombre.value == "") {
+        alert("Escribe tu nombre");
+        return;
+    }
 
-    console.log(nombre.value);
-
-    console.log(apuesta.value);
+    if (apuesta.value == "") {
+        alert("Escribe una apuesta");
+        return;
+    }
 
     socket.emit("buscarPartida", {
         nombre: nombre.value,
         apuesta: Number(apuesta.value)
     });
 
+};
+
+socket.on("online", (cantidad) => {
+
+    activos.innerHTML = cantidad;
+
+});
+
+socket.on("esperando", () => {
+
+    estado.innerHTML = "⏳ Esperando rival...";
+
+});
+
+socket.on("partidaEncontrada", (datos) => {
+
+    miPartida = datos.partida;
+
+    miTurno = datos.turno == miSocket;
+
+    estado.innerHTML = `
+
+        <h2>
+
+        ${datos.jugador1}
+
+        <br>
+
+        VS
+
+        <br>
+
+        ${datos.jugador2}
+
+        </h2>
+
+        <h3>Apuesta ${datos.apuesta}</h3>
+
+        <h3 id="turno"></h3>
+
+    `;
+
+    dibujar(datos.tablero);
+
+    actualizarTurno();
+
+});
+
+socket.on("actualizar", (datos) => {
+
+    miTurno = datos.turno == miSocket;
+
+    dibujar(datos.tablero);
+
+    actualizarTurno();
+
+});
+
+socket.on("mina", (datos) => {
+
+    const casilla = document.getElementById("c" + datos.casilla);
+
+    casilla.innerHTML = "💥";
+
+    if (datos.perdedor == miSocket) {
+
+        alert("Perdiste");
+
+    } else {
+
+        alert("Ganaste");
+
+    }
+
+});
+
+function actualizarTurno() {
+
+    const turno = document.getElementById("turno");
+
+    if (!turno) return;
+
+    turno.innerHTML = miTurno
+        ? "🟢 Es tu turno"
+        : "🔴 Turno del rival";
+
 }
 
-socket.on("online",(cantidad)=>{
+function dibujar(tab) {
 
-    activos.innerHTML=cantidad;
+    tablero.innerHTML = "";
 
-});
+    tab.forEach((casilla, i) => {
 
-socket.on("esperando",()=>{
+        const div = document.createElement("div");
 
-    estado.innerHTML="⏳ Esperando rival...";
+        div.className = "casilla";
 
-});
+        div.id = "c" + i;
 
-socket.on("partidaEncontrada",(datos)=>{
+        if (casilla.abierta) {
 
-    estado.innerHTML=`
+            div.style.background = "#16a34a";
 
-<h2>
+        }
 
-${datos.jugador1}
+        div.onclick = () => {
 
-<br>
+            if (!miTurno) return;
 
-VS
+            socket.emit("abrirCasilla", {
 
-<br>
+                partida: miPartida,
 
-${datos.jugador2}
+                casilla: i
 
-</h2>
+            });
 
-<h3>
+        };
 
-Apuesta:
+        tablero.appendChild(div);
 
-${datos.apuesta}
+    });
 
-</h3>
-
-`;
-
-});
+}
