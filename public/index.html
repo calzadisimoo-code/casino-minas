@@ -4,51 +4,59 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Casino Minas</title>
+<title>Royal Casino</title>
 
 <link rel="stylesheet" href="style.css">
+
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 </head>
 
 <body>
 
-<div class="top">
-
-    <div>
-
-        🟢 Activos:
-        <span id="activos">0</span>
-
-    </div>
-
-    <div>
-
-        💎
-        <span id="misPuntos">10000</span>
-
-    </div>
-
-</div>
-
 <div class="contenedor">
 
-    <h1>CASINO MINAS</h1>
+<h1 id="titulo">🎰 ROYAL CASINO</h1>
 
-    <div id="loginGoogle"></div>
+<div id="loginGoogle"></div>
 
-<div id="usuario" style="display:none">
-    <img id="foto" width="50" style="border-radius:50%">
-    <h3 id="nombreUsuario"></h3>
-</div>
+<div id="juego" style="display:none;">
+
+    <div class="top">
+
+        <div>
+
+            🟢 Activos:
+            <span id="activos">0</span>
+
+        </div>
+
+        <div>
+
+            💎
+            <span id="misPuntos">10000</span>
+
+        </div>
+
+    </div>
+
+    <div id="usuario">
+
+        <img
+        id="foto"
+        width="60"
+        style="border-radius:50%;">
+
+        <h3 id="nombreUsuario"></h3>
+
+    </div>
 
     <input
-        id="apuesta"
-        type="number"
-        placeholder="Apuesta">
+    id="apuesta"
+    type="number"
+    placeholder="Apuesta">
 
     <button id="jugar">
 
@@ -56,14 +64,11 @@
 
     </button>
 
-    <div id="estado">
+    <div id="estado"></div>
 
+    <div id="tablero"></div>
 
-    </div>
-
-    <div id="tablero">
-
-    </div>
+</div>
 
 </div>
 
