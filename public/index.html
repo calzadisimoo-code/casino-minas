@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Casino</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="top">
+
+<div id="online">
+
+🟢 Activos:
+<span id="activos">0</span>
+
+</div>
+
+<div id="puntos">
+
+💎
+<span id="misPuntos">10000</span>
+
+</div>
+
+</div>
+
+<div class="contenedor">
+
+<h1>CASINO</h1>
+
+<input
+id="nombre"
+placeholder="Tu nombre">
+
+<input
+id="apuesta"
+type="number"
+placeholder="Apuesta">
+
+<button id="jugar">
+
+JUGAR
+
+</button>
+
+<div id="estado">
+
+Esperando...
+
+</div>
+
+<div id="tablero">
+
+</div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
