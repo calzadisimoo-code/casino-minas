@@ -54,17 +54,19 @@ function crearTablero(){
 
     }
 
-    let mina1 = Math.floor(Math.random()*25);
-    let mina2;
+    const posiciones = new Set();
 
-    do{
+while(posiciones.size < 5){
 
-        mina2 = Math.floor(Math.random()*25);
+    posiciones.add(Math.floor(Math.random()*25));
 
-    }while(mina2 == mina1);
+}
 
-    tablero[mina1].tipo = "mina";
-    tablero[mina2].tipo = "mina";
+for(const pos of posiciones){
+
+    tablero[pos].tipo = "mina";
+
+}
 
     return tablero;
 
@@ -112,6 +114,17 @@ function crearPartida(j1,j2,apuesta){
 
     j1.socket.join(id);
     j2.socket.join(id);
+	
+	puntos[j1.socket.id] -= apuesta;
+    puntos[j2.socket.id] -= apuesta;
+
+j1.socket.emit("misPuntos",{
+    puntos:puntos[j1.socket.id]
+});
+
+j2.socket.emit("misPuntos",{
+    puntos:puntos[j2.socket.id]
+});
 
     io.to(id).emit("partidaEncontrada",{
 
@@ -254,10 +267,7 @@ io.on("connection",(socket)=>{
 
             }
 
-            puntos[ganador.socket.id] += partida.apuesta;
-            puntos[ganador.socket.id] += partida.apuesta;
-
-            puntos[perdedor.socket.id] -= partida.apuesta;
+            puntos[ganador.socket.id] += partida.apuesta * 2;
 
             ganador.socket.emit("misPuntos",{
 

@@ -166,11 +166,19 @@ function dibujarTablero(tab){
 
         if(casilla.abierta){
 
-            div.style.background="#16a34a";
+    if(casilla.tipo=="diamante"){
 
-            div.innerHTML="✔";
+        div.innerHTML="💎";
+        div.style.background="#16a34a";
 
-        }
+    }else{
+
+        div.innerHTML="💣";
+        div.style.background="#d90429";
+
+    }
+
+}
 
         div.onclick=()=>{
 
