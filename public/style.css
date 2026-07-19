@@ -288,59 +288,75 @@ opacity:1;
 
 @media(max-width:700px){
 
-#titulo{
-
-font-size:38px;
-
-}
-
 .barraSuperior{
 
-flex-direction:column;
+width:100%;
 
-gap:15px;
+display:flex;
 
-}
+justify-content:space-between;
 
-input{
+align-items:flex-start;
 
-width:95%;
+padding:8px 12px;
 
-margin-bottom:10px;
-
-margin-right:0;
+margin-bottom:15px;
 
 }
 
-button{
+.perfil{
 
-width:95%;
+display:flex;
 
-}
-
-#tablero{
-
-grid-template-columns:repeat(5,65px);
+align-items:center;
 
 gap:8px;
 
 }
 
-.casilla{
+#foto{
 
-width:65px;
+width:45px;
 
-height:65px;
-
-font-size:28px;
+height:45px;
 
 }
 
-#foto{
+#nombreUsuario{
 
-width:55px;
+font-size:15px;
 
-height:55px;
+font-weight:bold;
+
+}
+
+.online{
+
+font-size:12px;
+
+}
+
+.saldo{
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+#titulo{
+
+font-size:34px;
+
+margin-top:10px;
+
+margin-bottom:20px;
+
+}
+
+.contenedor{
+
+padding:10px;
 
 }
 
