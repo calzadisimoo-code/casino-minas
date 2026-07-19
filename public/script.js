@@ -267,6 +267,16 @@ function loginGoogle(response){
     console.log(datos);
 
     usuarioGoogle = datos;
+	
+	socket.emit("cargarUsuario",{
+
+    googleId: datos.sub,
+
+    nombre: datos.name,
+
+    foto: datos.picture
+
+});
 
     document.getElementById("loginGoogle").style.display = "none";
 

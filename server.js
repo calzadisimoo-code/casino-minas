@@ -199,6 +199,33 @@ io.on("connection",(socket)=>{
     jugadoresOnline++;
 
     io.emit("online",jugadoresOnline);
+	
+	socket.on("cargarUsuario",(datos)=>{
+
+    const jugador = obtenerJugador(
+
+        datos.googleId,
+
+        datos.nombre,
+
+        datos.foto
+
+    );
+
+    jugador.nombre = datos.nombre;
+    jugador.foto = datos.foto;
+
+    socket.googleId = datos.googleId;
+
+    guardarUsuarios();
+
+    socket.emit("misPuntos",{
+
+        puntos: jugador.puntos
+
+    });
+
+});
 
     socket.on("buscarPartida",(datos)=>{
 		
