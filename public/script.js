@@ -24,30 +24,17 @@ for(let i=0;i<25;i++){
 
 }
 
-btnJugar.onclick=()=>{
+btnJugar.onclick = () => {
 
-    if(nombre.value==""){
+    console.log("Botón jugar");
 
-        alert("Escribe tu nombre");
+    console.log(nombre.value);
 
-        return;
+    console.log(apuesta.value);
 
-    }
-
-    if(apuesta.value==""){
-
-        alert("Escribe una apuesta");
-
-        return;
-
-    }
-
-    socket.emit("buscarPartida",{
-
-        nombre:nombre.value,
-
-        apuesta:Number(apuesta.value)
-
+    socket.emit("buscarPartida", {
+        nombre: nombre.value,
+        apuesta: Number(apuesta.value)
     });
 
 }
