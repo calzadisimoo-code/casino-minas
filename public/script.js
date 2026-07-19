@@ -37,13 +37,17 @@ btnJugar.onclick = ()=>{
 
     }
 
-    socket.emit("buscarPartida",{
+socket.emit("buscarPartida",{
 
-        nombre:usuarioGoogle.name,
+    googleId: usuarioGoogle.sub,
 
-        apuesta:Number(apuesta.value)
+    nombre: usuarioGoogle.name,
 
-    });
+    foto: usuarioGoogle.picture,
+
+    apuesta: Number(apuesta.value)
+
+});
 
 };
 

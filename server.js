@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const fs = require("fs");
 
 const app = express();
 const server = http.createServer(app);
@@ -24,17 +25,57 @@ const cola = [];
 const partidas = {};
 
 // Puntos de cada jugador
-const puntos = {};
+const ARCHIVO = "./usuarios.json";
 
-function obtenerPuntos(socket){
+let usuarios = {};
 
-    if(puntos[socket.id] == null){
+if(fs.existsSync(ARCHIVO)){
 
-        puntos[socket.id] = 10000;
+    usuarios = JSON.parse(fs.readFileSync(ARCHIVO));
+
+}else{
+
+    fs.writeFileSync(ARCHIVO,"{}");
+
+}
+
+function guardarUsuarios(){
+
+    fs.writeFileSync(
+
+        ARCHIVO,
+
+        JSON.stringify(usuarios,null,4)
+
+    );
+
+}
+
+function obtenerJugador(googleId,nombre,foto){
+
+    if(!usuarios[googleId]){
+
+        usuarios[googleId]={
+
+            googleId,
+
+            nombre,
+
+            foto,
+
+            puntos:10000,
+
+            victorias:0,
+
+            derrotas:0
+
+        };
+
+        guardarUsuarios();
 
     }
 
-    return puntos[socket.id];
+    return usuarios[googleId];
 
 }
 
@@ -92,38 +133,47 @@ function crearPartida(j1,j2,apuesta){
 
         jugadores:[
 
-            {
+    {
 
-                socket:j1.socket,
+        socket:j1.socket,
 
-                nombre:j1.nombre
+        googleId:j1.googleId,
 
-            },
+        nombre:j1.nombre
 
-            {
+    },
 
-                socket:j2.socket,
+    {
 
-                nombre:j2.nombre
+        socket:j2.socket,
 
-            }
+        googleId:j2.googleId,
 
-        ]
+        nombre:j2.nombre
+
+    }
+
+]
 
     };
 
     j1.socket.join(id);
     j2.socket.join(id);
 	
-	puntos[j1.socket.id] -= apuesta;
-    puntos[j2.socket.id] -= apuesta;
+const jugador1 = usuarios[j1.googleId];
+const jugador2 = usuarios[j2.googleId];
+
+jugador1.puntos -= apuesta;
+jugador2.puntos -= apuesta;
+
+guardarUsuarios();
 
 j1.socket.emit("misPuntos",{
-    puntos:puntos[j1.socket.id]
+    puntos: jugador1.puntos
 });
 
 j2.socket.emit("misPuntos",{
-    puntos:puntos[j2.socket.id]
+    puntos: jugador2.puntos
 });
 
     io.to(id).emit("partidaEncontrada",{
@@ -150,15 +200,31 @@ io.on("connection",(socket)=>{
 
     io.emit("online",jugadoresOnline);
 
-    obtenerPuntos(socket);
-
-    socket.emit("misPuntos",{
-
-        puntos:obtenerPuntos(socket)
-
-    });
-
     socket.on("buscarPartida",(datos)=>{
+		
+		const jugador = obtenerJugador(
+
+    datos.googleId,
+
+    datos.nombre,
+
+    datos.foto
+
+);
+
+jugador.nombre = datos.nombre;
+
+jugador.foto = datos.foto;
+
+socket.googleId = datos.googleId;
+
+socket.emit("misPuntos",{
+
+    puntos: jugador.puntos
+
+});
+
+guardarUsuarios();
 
         const apuesta = Number(datos.apuesta);
 
@@ -170,13 +236,13 @@ io.on("connection",(socket)=>{
 
         }
 
-        if(obtenerPuntos(socket)<apuesta){
+        if(jugador.puntos < apuesta){
 
-            socket.emit("mensaje","No tienes puntos suficientes");
+    socket.emit("mensaje","No tienes puntos suficientes");
 
-            return;
+    return;
 
-        }
+}
 
         const rival = cola.find(j=>j.apuesta==apuesta);
 
@@ -192,31 +258,39 @@ io.on("connection",(socket)=>{
 
             crearPartida(
 
-                rival,
+    rival,
 
-                {
+    {
 
-                    socket,
+        socket,
 
-                    nombre:datos.nombre
+        googleId:datos.googleId,
 
-                },
+        nombre:datos.nombre,
 
-                apuesta
+        foto:datos.foto
 
-            );
+    },
+
+    apuesta
+
+);
 
         }else{
 
             cola.push({
 
-                socket,
+    socket,
 
-                nombre:datos.nombre,
+    googleId:datos.googleId,
 
-                apuesta
+    nombre:datos.nombre,
 
-            });
+    foto:datos.foto,
+
+    apuesta
+
+});
 
             socket.emit("esperando");
 
@@ -267,20 +341,23 @@ io.on("connection",(socket)=>{
 
             }
 
-            puntos[ganador.socket.id] += partida.apuesta * 2;
+            const ganadorBD = usuarios[ganador.googleId];
+const perdedorBD = usuarios[perdedor.googleId];
 
-            ganador.socket.emit("misPuntos",{
+ganadorBD.puntos += partida.apuesta * 2;
+ganadorBD.victorias++;
 
-                puntos:puntos[ganador.socket.id]
+perdedorBD.derrotas++;
 
-            });
+guardarUsuarios();
 
-            perdedor.socket.emit("misPuntos",{
+ganador.socket.emit("misPuntos",{
+    puntos: ganadorBD.puntos
+});
 
-                puntos:puntos[perdedor.socket.id]
-
-            });
-
+perdedor.socket.emit("misPuntos",{
+    puntos: perdedorBD.puntos
+});
             io.to(partida.id).emit("finPartida",{
 
                 tablero:partida.tablero,
