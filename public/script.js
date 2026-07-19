@@ -78,6 +78,7 @@ socket.on("esperando",()=>{
 socket.on("partidaEncontrada",(datos)=>{
 
     miPartida = datos.partida;
+    document.getElementById("panelJuego").style.display = "none";
 
     miTurno = datos.turno == miSocket;
 
@@ -150,7 +151,13 @@ socket.on("finPartida",(datos)=>{
 
     }
 
-});
+}
+
+document.getElementById("panelJuego").style.display = "block";
+
+);
+
+
 
 // ==========================================
 // DIBUJAR TABLERO
