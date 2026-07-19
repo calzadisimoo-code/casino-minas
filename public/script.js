@@ -238,6 +238,32 @@ function actualizarTurno(){
 // ==========================================
 
 window.onload = ()=>{
+	
+	const guardado = localStorage.getItem("usuarioGoogle");
+
+if(guardado){
+
+    usuarioGoogle = JSON.parse(guardado);
+
+    document.getElementById("loginGoogle").style.display="none";
+
+    document.getElementById("juego").style.display="block";
+
+    document.getElementById("nombreUsuario").innerHTML = usuarioGoogle.name;
+
+    document.getElementById("foto").src = usuarioGoogle.picture;
+
+    socket.emit("cargarUsuario",{
+
+        googleId: usuarioGoogle.sub,
+
+        nombre: usuarioGoogle.name,
+
+        foto: usuarioGoogle.picture
+
+    });
+
+}
 
     google.accounts.id.initialize({
 
@@ -246,6 +272,8 @@ window.onload = ()=>{
         callback:loginGoogle
 
     });
+	
+	google.accounts.id.prompt();
 
     google.accounts.id.renderButton(
 
@@ -286,6 +314,14 @@ function loginGoogle(response){
     console.log(datos);
 
     usuarioGoogle = datos;
+	
+	localStorage.setItem(
+
+    "usuarioGoogle",
+
+    JSON.stringify(datos)
+
+);
 	
 	socket.emit("cargarUsuario",{
 
