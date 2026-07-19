@@ -4,7 +4,11 @@ const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*"
+    }
+});
 
 app.use(express.static("public"));
 
@@ -14,6 +18,13 @@ let jugadoresOnline = 0;
 let cola = [];
 
 io.on("connection", (socket) => {
+	
+	console.log("Socket ID:", socket.id);
+
+socket.onAny((evento, ...args) => {
+    console.log("EVENTO:", evento);
+    console.log(args);
+});
 
     jugadoresOnline++;
 
