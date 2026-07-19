@@ -189,19 +189,21 @@ function dibujarTablero(tab){
 
 }
 
-        div.onclick=()=>{
+div.onclick=()=>{
 
-            if(!miTurno) return;
+    if(miPartida=="") return;
 
-            socket.emit("abrirCasilla",{
+    if(!miTurno) return;
 
-                partida:miPartida,
+    socket.emit("abrirCasilla",{
 
-                casilla:i
+        partida:miPartida,
 
-            });
+        casilla:i
 
-        };
+    });
+
+};
 
         tablero.appendChild(div);
 
@@ -258,6 +260,18 @@ window.onload = ()=>{
             width:260
 
         }
+
+    );
+
+    dibujarTablero(
+
+        Array(25).fill({
+
+            abierta:false,
+
+            tipo:"diamante"
+
+        })
 
     );
 
