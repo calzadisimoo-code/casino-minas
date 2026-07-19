@@ -4,6 +4,7 @@ const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
+
 const io = new Server(server, {
     cors: {
         origin: "*"
@@ -18,70 +19,67 @@ let jugadoresOnline = 0;
 let cola = [];
 
 io.on("connection", (socket) => {
-	
-	console.log("Socket ID:", socket.id);
 
-socket.onAny((evento, ...args) => {
-    console.log("EVENTO:", evento);
-    console.log(args);
-});
+    console.log("==================================");
+    console.log("Jugador conectado");
+    console.log("Socket ID:", socket.id);
+    console.log("==================================");
 
     jugadoresOnline++;
 
-    console.log("Jugador conectado");
-
     io.emit("online", jugadoresOnline);
 
-   socket.on("buscarPartida", (datos) => {
+    socket.onAny((evento, datos) => {
 
-    console.log("LLEGÓ buscarPartida");
-    console.log(datos);
+        console.log("==================================");
+        console.log("Evento recibido:", evento);
+        console.log("Datos:", datos);
+        console.log("==================================");
 
-    // Buscar alguien con la misma apuesta
-    const rival = cola.find(j => j.apuesta == datos.apuesta);
+        if (evento !== "buscarPartida") return;
+
+        console.log("LLEGÓ buscarPartida");
+
+        // Buscar rival con la misma apuesta
+        const rival = cola.find(j => j.apuesta === datos.apuesta);
 
         if (rival) {
 
-            // quitar rival de la cola
+            console.log("Rival encontrado:", rival.nombre);
+
+            // Sacarlo de la cola
             cola = cola.filter(j => j.socket.id !== rival.socket.id);
 
-            // crear id de partida
             const partidaID = Date.now().toString();
 
             socket.join(partidaID);
             rival.socket.join(partidaID);
 
             io.to(partidaID).emit("partidaEncontrada", {
-
                 id: partidaID,
-
                 jugador1: rival.nombre,
-
                 jugador2: datos.nombre,
-
                 apuesta: datos.apuesta
-
             });
 
         } else {
 
+            console.log("No hay rival. Esperando...");
+
             cola.push({
-
                 socket,
-
                 nombre: datos.nombre,
-
                 apuesta: datos.apuesta
-
             });
 
             socket.emit("esperando");
-
         }
 
     });
 
     socket.on("disconnect", () => {
+
+        console.log("Jugador desconectado");
 
         jugadoresOnline--;
 
@@ -89,14 +87,10 @@ socket.onAny((evento, ...args) => {
 
         cola = cola.filter(j => j.socket.id !== socket.id);
 
-        console.log("Jugador desconectado");
-
     });
 
 });
 
 server.listen(3000, () => {
-
     console.log("Servidor iniciado");
-
 });
