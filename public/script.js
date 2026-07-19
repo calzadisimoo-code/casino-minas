@@ -2,7 +2,6 @@ const socket = io();
 
 const tablero = document.getElementById("tablero");
 const btnJugar = document.getElementById("jugar");
-const nombre = document.getElementById("nombre");
 const apuesta = document.getElementById("apuesta");
 
 const estado = document.getElementById("estado");
@@ -12,6 +11,7 @@ const misPuntos = document.getElementById("misPuntos");
 let miSocket = "";
 let miPartida = "";
 let miTurno = false;
+let usuarioGoogle = null;
 
 socket.on("connect",()=>{
 
@@ -21,9 +21,9 @@ socket.on("connect",()=>{
 
 btnJugar.onclick = ()=>{
 
-    if(nombre.value==""){
+    if(!usuarioGoogle){
 
-        alert("Escribe tu nombre");
+        alert("Primero inicia sesión con Google");
 
         return;
 
@@ -39,7 +39,7 @@ btnJugar.onclick = ()=>{
 
     socket.emit("buscarPartida",{
 
-        nombre:nombre.value,
+        nombre:usuarioGoogle.name,
 
         apuesta:Number(apuesta.value)
 
@@ -219,5 +219,51 @@ function actualizarTurno(){
         turno.innerHTML="🔴 Turno del rival";
 
     }
+
+}
+
+// ==========================================
+// LOGIN GOOGLE
+// ==========================================
+
+window.onload = ()=>{
+
+    google.accounts.id.initialize({
+
+        client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
+
+        callback:loginGoogle
+
+    });
+
+    google.accounts.id.renderButton(
+
+        document.getElementById("loginGoogle"),
+
+        {
+
+            theme:"filled_blue",
+
+            size:"large",
+
+            width:260
+
+        }
+
+    );
+
+};
+
+function loginGoogle(response){
+
+    const datos = JSON.parse(atob(response.credential.split(".")[1]));
+
+    usuarioGoogle = datos;
+
+    document.getElementById("usuario").style.display="block";
+
+    document.getElementById("nombreUsuario").innerHTML = datos.name;
+
+    document.getElementById("foto").src = datos.picture;
 
 }

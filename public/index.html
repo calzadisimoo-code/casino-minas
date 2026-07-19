@@ -10,6 +10,7 @@
 <title>Casino Minas</title>
 
 <link rel="stylesheet" href="style.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 </head>
 
@@ -37,10 +38,12 @@
 
     <h1>CASINO MINAS</h1>
 
-    <input
-        id="nombre"
-        type="text"
-        placeholder="Tu nombre">
+    <div id="loginGoogle"></div>
+
+<div id="usuario" style="display:none">
+    <img id="foto" width="50" style="border-radius:50%">
+    <h3 id="nombreUsuario"></h3>
+</div>
 
     <input
         id="apuesta"
