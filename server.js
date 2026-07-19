@@ -42,21 +42,29 @@ function crearTablero(){
 
     const tablero = [];
 
-    for(let i=0;i<TABLERO;i++){
+    for(let i=0;i<25;i++){
 
         tablero.push({
 
             abierta:false,
 
-            mina:false
+            tipo:"diamante"
 
         });
 
     }
 
-    const mina = Math.floor(Math.random()*TABLERO);
+    let mina1 = Math.floor(Math.random()*25);
+    let mina2;
 
-    tablero[mina].mina = true;
+    do{
+
+        mina2 = Math.floor(Math.random()*25);
+
+    }while(mina2 == mina1);
+
+    tablero[mina1].tipo = "mina";
+    tablero[mina2].tipo = "mina";
 
     return tablero;
 
@@ -227,7 +235,7 @@ io.on("connection",(socket)=>{
         // PISÓ LA MINA
         // ==========================================
 
-        if(casilla.mina){
+        if(casilla.tipo=="mina"){
 
             partida.terminada = true;
 
@@ -299,15 +307,17 @@ io.on("connection",(socket)=>{
 
         }
 
-        io.to(partida.id).emit("actualizarTablero",{
+io.to(partida.id).emit("actualizarTablero",{
 
-            tablero:partida.tablero,
+    tablero:partida.tablero,
 
-            turno:partida.turno
+    turno:partida.turno,
 
-        });
+    casilla:datos.casilla
 
-    });
+});
+
+});
 
     // ==========================================
     // DESCONECTAR
