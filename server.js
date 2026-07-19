@@ -21,12 +21,13 @@ io.on("connection", (socket) => {
 
     io.emit("online", jugadoresOnline);
 
-    socket.on("buscarPartida", (datos) => {
+   socket.on("buscarPartida", (datos) => {
 
-        console.log(datos);
+    console.log("LLEGÓ buscarPartida");
+    console.log(datos);
 
-        // Buscar alguien con la misma apuesta
-        const rival = cola.find(j => j.apuesta == datos.apuesta);
+    // Buscar alguien con la misma apuesta
+    const rival = cola.find(j => j.apuesta == datos.apuesta);
 
         if (rival) {
 
