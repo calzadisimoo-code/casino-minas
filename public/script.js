@@ -133,7 +133,7 @@ socket.on("finPartida",(datos)=>{
 
         estado.innerHTML=`
 
-            <h2>🏆 GANASTE</h2>
+            <h2 class="ganaste">🏆 GANASTE</h2>
 
             <h3>Ganaste la apuesta</h3>
 
@@ -151,11 +151,9 @@ socket.on("finPartida",(datos)=>{
 
     }
 
-}
+    document.getElementById("panelJuego").style.display = "block";
 
-document.getElementById("panelJuego").style.display = "block";
-
-);
+});
 
 
 
