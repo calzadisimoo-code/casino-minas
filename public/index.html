@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Royal Casino</title>
+<title>👑 Royal Casino</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -18,61 +18,60 @@
 
 <div class="contenedor">
 
-<h1 id="titulo">🎰 ROYAL CASINO</h1>
+    <h1 id="titulo">👑 ROYAL CASINO 👑</h1>
 
-<div id="loginGoogle"></div>
+    <div id="loginGoogle"></div>
 
-<div id="juego" style="display:none;">
+    <div id="juego" style="display:none;">
 
-    <div class="top">
+        <div class="barraSuperior">
 
-        <div>
+            <div class="perfil">
 
-            🟢 Activos:
-            <span id="activos">0</span>
+                <img id="foto">
+
+                <div>
+
+                    <div id="nombreUsuario"></div>
+
+                    <div class="online">
+
+                        🟢 <span id="activos">0</span> Online
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="saldo">
+
+                💎 <span id="misPuntos">10000</span>
+
+            </div>
 
         </div>
 
-        <div>
+        <div id="panelJuego">
 
-            💎
-            <span id="misPuntos">10000</span>
+            <input
+                id="apuesta"
+                type="number"
+                placeholder="¿Cuánto deseas apostar?">
+
+            <button id="jugar">
+
+                🎰 JUGAR
+
+            </button>
 
         </div>
 
-    </div>
+        <div id="estado"></div>
 
-    <div id="usuario">
-
-        <img
-        id="foto"
-        width="60"
-        style="border-radius:50%;">
-
-        <h3 id="nombreUsuario"></h3>
+        <div id="tablero"></div>
 
     </div>
-
-   <div id="panelJuego">
-
-    <input
-        id="apuesta"
-        type="number"
-        placeholder="Apuesta">
-
-    <button id="jugar">
-
-        JUGAR
-
-    </button>
-
-</div>
-
-    <div id="estado"></div>
-
-    <div id="tablero"></div>
-
-</div>
 
 </div>
 
