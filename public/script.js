@@ -4,149 +4,183 @@ const tablero = document.getElementById("tablero");
 const btnJugar = document.getElementById("jugar");
 const nombre = document.getElementById("nombre");
 const apuesta = document.getElementById("apuesta");
+
 const estado = document.getElementById("estado");
 const activos = document.getElementById("activos");
+const misPuntos = document.getElementById("misPuntos");
 
 let miSocket = "";
 let miPartida = "";
 let miTurno = false;
 
-socket.on("connect", () => {
+socket.on("connect",()=>{
+
     miSocket = socket.id;
+
 });
 
-btnJugar.onclick = () => {
+btnJugar.onclick = ()=>{
 
-    if (nombre.value == "") {
+    if(nombre.value==""){
+
         alert("Escribe tu nombre");
+
         return;
+
     }
 
-    if (apuesta.value == "") {
+    if(apuesta.value==""){
+
         alert("Escribe una apuesta");
+
         return;
+
     }
 
-    socket.emit("buscarPartida", {
-        nombre: nombre.value,
-        apuesta: Number(apuesta.value)
+    socket.emit("buscarPartida",{
+
+        nombre:nombre.value,
+
+        apuesta:Number(apuesta.value)
+
     });
 
 };
 
-socket.on("online", (cantidad) => {
+socket.on("online",(cantidad)=>{
 
     activos.innerHTML = cantidad;
 
 });
 
-socket.on("esperando", () => {
+socket.on("misPuntos",(datos)=>{
 
-    estado.innerHTML = "⏳ Esperando rival...";
+    misPuntos.innerHTML = datos.puntos;
 
 });
 
-socket.on("partidaEncontrada", (datos) => {
+socket.on("mensaje",(texto)=>{
+
+    alert(texto);
+
+});
+
+socket.on("esperando",()=>{
+
+    estado.innerHTML = "<h2>⏳ Esperando rival...</h2>";
+
+});
+
+socket.on("partidaEncontrada",(datos)=>{
 
     miPartida = datos.partida;
 
     miTurno = datos.turno == miSocket;
 
     estado.innerHTML = `
-
-        <h2>
-
-        ${datos.jugador1}
-
-        <br>
-
-        VS
-
-        <br>
-
-        ${datos.jugador2}
-
-        </h2>
-
-        <h3>Apuesta ${datos.apuesta}</h3>
-
+        <h2>${datos.jugador1}</h2>
+        <h3>VS</h3>
+        <h2>${datos.jugador2}</h2>
         <h3 id="turno"></h3>
-
     `;
 
-    dibujar(datos.tablero);
+    dibujarTablero(datos.tablero);
 
     actualizarTurno();
 
 });
 
-socket.on("actualizar", (datos) => {
+// ==========================================
+// ACTUALIZAR TABLERO
+// ==========================================
+
+socket.on("actualizarTablero",(datos)=>{
 
     miTurno = datos.turno == miSocket;
 
-    dibujar(datos.tablero);
+    dibujarTablero(datos.tablero);
 
     actualizarTurno();
 
 });
 
-socket.on("mina", (datos) => {
+// ==========================================
+// FIN DE PARTIDA
+// ==========================================
 
-    const casilla = document.getElementById("c" + datos.casilla);
+socket.on("finPartida",(datos)=>{
 
-    casilla.innerHTML = "💥";
+    miTurno = false;
 
-    if (datos.perdedor == miSocket) {
+    dibujarTablero(datos.tablero);
 
-        alert("Perdiste");
+    const mina = document.getElementById("c"+datos.casilla);
 
-    } else {
+    if(mina){
 
-        alert("Ganaste");
+        mina.innerHTML="💥";
+
+        mina.style.background="#d90429";
+
+    }
+
+    if(datos.ganadorID==miSocket){
+
+        estado.innerHTML=`
+
+            <h2>🏆 GANASTE</h2>
+
+            <h3>Ganaste la apuesta</h3>
+
+        `;
+
+    }else{
+
+        estado.innerHTML=`
+
+            <h2>💥 PERDISTE</h2>
+
+            <h3>La mina explotó</h3>
+
+        `;
 
     }
 
 });
 
-function actualizarTurno() {
+// ==========================================
+// DIBUJAR TABLERO
+// ==========================================
 
-    const turno = document.getElementById("turno");
+function dibujarTablero(tab){
 
-    if (!turno) return;
+    tablero.innerHTML="";
 
-    turno.innerHTML = miTurno
-        ? "🟢 Es tu turno"
-        : "🔴 Turno del rival";
+    tab.forEach((casilla,i)=>{
 
-}
+        const div=document.createElement("div");
 
-function dibujar(tab) {
+        div.className="casilla";
 
-    tablero.innerHTML = "";
+        div.id="c"+i;
 
-    tab.forEach((casilla, i) => {
+        if(casilla.abierta){
 
-        const div = document.createElement("div");
+            div.style.background="#16a34a";
 
-        div.className = "casilla";
-
-        div.id = "c" + i;
-
-        if (casilla.abierta) {
-
-            div.style.background = "#16a34a";
+            div.innerHTML="✔";
 
         }
 
-        div.onclick = () => {
+        div.onclick=()=>{
 
-            if (!miTurno) return;
+            if(!miTurno) return;
 
-            socket.emit("abrirCasilla", {
+            socket.emit("abrirCasilla",{
 
-                partida: miPartida,
+                partida:miPartida,
 
-                casilla: i
+                casilla:i
 
             });
 
@@ -155,5 +189,27 @@ function dibujar(tab) {
         tablero.appendChild(div);
 
     });
+
+}
+
+// ==========================================
+// ACTUALIZAR TURNO
+// ==========================================
+
+function actualizarTurno(){
+
+    const turno=document.getElementById("turno");
+
+    if(!turno) return;
+
+    if(miTurno){
+
+        turno.innerHTML="🟢 Es tu turno";
+
+    }else{
+
+        turno.innerHTML="🔴 Turno del rival";
+
+    }
 
 }
