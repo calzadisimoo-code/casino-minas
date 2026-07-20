@@ -304,15 +304,15 @@ text-shadow:0 0 12px gold;
 
 #panelJuego{
 
-margin:25px 0;
-
 display:flex;
-
-justify-content:center;
 
 align-items:center;
 
+justify-content:center;
+
 gap:10px;
+
+border:1px solid red;
 
 }
 
