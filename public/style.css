@@ -132,6 +132,20 @@ border:2px solid gold;
 
 object-fit:cover;
 
+background:#3b82f6;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-weight:bold;
+
+color:white;
+
+font-size:18px;
+
 }
 
 .nombreJugador{
