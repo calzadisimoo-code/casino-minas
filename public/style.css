@@ -196,36 +196,6 @@ box-shadow:0 0 10px #00b4ff;
 
 }
 
-.btnRetirar{
-
-width:90px !important;
-
-height:30px !important;
-
-padding:0 !important;
-
-font-size:11px !important;
-
-background:#0099ff !important;
-
-color:white;
-
-border:none;
-
-border-radius:20px;
-
-margin:0;
-
-}
-
-.btnRetirar:hover{
-
-transform:scale(1.05);
-
-box-shadow:0 0 10px #00b4ff;
-
-}
-
 .ladoDerecho{
 
 display:flex;
