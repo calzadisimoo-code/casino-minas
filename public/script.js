@@ -102,11 +102,21 @@ socket.on("partidaDemo",(datos)=>{
     document.getElementById("premioPartida").innerHTML =
     "$"+Number(datos.apuesta*2).toLocaleString("es-CO");
 	
-	document.getElementById("fotoJugador1").src =
-"https://i.pravatar.cc/100?img=12";
+crearAvatar(
 
-document.getElementById("fotoJugador2").src =
-"https://i.pravatar.cc/100?img=25";
+    "fotoJugador1",
+
+    datos.jugadores[0].nombre
+
+);
+
+crearAvatar(
+
+    "fotoJugador2",
+
+    datos.jugadores[1].nombre
+
+);
 
     dibujarTablero(datos.tablero);
 
@@ -160,9 +170,21 @@ socket.on("partidaEncontrada",(datos)=>{
 
 document.getElementById("nombreJugador2").innerHTML = datos.jugador2;
 
-document.getElementById("fotoJugador1").src = datos.foto1;
+crearAvatar(
 
-document.getElementById("fotoJugador2").src = datos.foto2;
+    "fotoJugador1",
+
+    datos.jugador1
+
+);
+
+crearAvatar(
+
+    "fotoJugador2",
+
+    datos.jugador2
+
+);
 
 document.getElementById("saldoJugador1").innerHTML =
 "$"+Number(datos.apuesta).toLocaleString("es-CO");
@@ -311,6 +333,38 @@ div.onclick=()=>{
         tablero.appendChild(div);
 
     });
+
+}
+
+function crearAvatar(id,nombre){
+
+    const avatar=document.getElementById(id);
+
+    avatar.innerHTML=nombre.charAt(0).toUpperCase();
+
+    const colores=[
+
+        "#2563eb",
+        "#16a34a",
+        "#dc2626",
+        "#9333ea",
+        "#ea580c",
+        "#0891b2",
+        "#ca8a04",
+        "#db2777"
+
+    ];
+
+    let suma=0;
+
+    for(let i=0;i<nombre.length;i++){
+
+        suma+=nombre.charCodeAt(i);
+
+    }
+
+    avatar.style.background=
+    colores[suma%colores.length];
 
 }
 

@@ -66,6 +66,30 @@ font-weight:bold;
 
 }
 
+.avatarInicial{
+
+width:42px;
+height:42px;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-weight:bold;
+font-size:18px;
+
+color:white;
+
+background:#3b82f6;
+
+border:2px solid gold;
+
+flex-shrink:0;
+
+}
+
 .valorPremio{
 
 font-size:24px;
