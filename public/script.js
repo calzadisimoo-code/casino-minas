@@ -509,7 +509,7 @@ function mostrarResultado(texto,clase){
 
     titulo.innerHTML = texto;
 
-    pantalla.style.display = "flex";
+    pantalla.style.display="block";
 
     setTimeout(()=>{
 

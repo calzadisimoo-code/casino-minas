@@ -601,8 +601,6 @@ transform:rotate(360deg);
 
 }
 
-}
-
 .tituloMesas{
 
 margin-top:35px;
@@ -835,9 +833,15 @@ position:fixed;
 
 inset:0;
 
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
 pointer-events:none;
 
-z-index:999999;
+z-index:9999999;
 
 }
 
@@ -851,7 +855,7 @@ left:50%;
 
 transform:translate(-50%,-50%);
 
-font-size:90px;
+font-size:clamp(50px,10vw,90px);
 
 font-weight:bold;
 
