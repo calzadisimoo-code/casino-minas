@@ -147,6 +147,20 @@ socket.on("partidaEncontrada",(datos)=>{
     document.getElementById("panelJuego").style.display="none";
 
     miTurno = datos.turno == miSocket;
+	
+	document.getElementById("nombreJugador1").innerHTML = datos.jugador1;
+
+document.getElementById("nombreJugador2").innerHTML = datos.jugador2;
+
+document.getElementById("fotoJugador1").src = datos.foto1;
+
+document.getElementById("fotoJugador2").src = datos.foto2;
+
+document.getElementById("saldoJugador1").innerHTML =
+"$"+Number(datos.apuesta).toLocaleString("es-CO");
+
+document.getElementById("saldoJugador2").innerHTML =
+"$"+Number(datos.apuesta).toLocaleString("es-CO");
 
     estado.innerHTML=`
         <h2>${datos.jugador1}</h2>

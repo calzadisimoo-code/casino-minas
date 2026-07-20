@@ -374,6 +374,10 @@ j2.socket.emit("misPuntos",{
 });
 
     io.to(id).emit("partidaEncontrada",{
+		
+		foto1:j1.foto,
+
+        foto2:j2.foto,
 
         partida:id,
 
