@@ -611,16 +611,14 @@ function iniciarMusica(){
 
     musica.volume = 0.2;
 
-    musica.play().then(()=>{
+    musica.play().catch(()=>{});
 
-        console.log("Música iniciada");
-
-    }).catch((e)=>{
-
-        console.log(e);
-
-    });
+    document.removeEventListener("pointerdown", iniciarMusica);
+    document.removeEventListener("touchstart", iniciarMusica);
+    document.removeEventListener("click", iniciarMusica);
 
 }
 
-document.addEventListener("pointerdown", iniciarMusica, { once:true });
+document.addEventListener("pointerdown", iniciarMusica);
+document.addEventListener("touchstart", iniciarMusica);
+document.addEventListener("click", iniciarMusica);
