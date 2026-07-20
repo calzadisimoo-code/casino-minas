@@ -66,7 +66,7 @@ socket.on("online",(cantidad)=>{
 
 socket.on("misPuntos",(datos)=>{
 
-    misPuntos.innerHTML = datos.puntos;
+    misPuntos.innerHTML = Number(datos.puntos).toLocaleString("es-CO");
 
 });
 
