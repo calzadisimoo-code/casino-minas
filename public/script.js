@@ -170,21 +170,9 @@ socket.on("partidaEncontrada",(datos)=>{
 
 document.getElementById("nombreJugador2").innerHTML = datos.jugador2;
 
-crearAvatar(
+document.getElementById("fotoJugador1").src = datos.foto1;
 
-    "fotoJugador1",
-
-    datos.jugador1
-
-);
-
-crearAvatar(
-
-    "fotoJugador2",
-
-    datos.jugador2
-
-);
+document.getElementById("fotoJugador2").src = datos.foto2;
 
 document.getElementById("saldoJugador1").innerHTML =
 "$"+Number(datos.apuesta).toLocaleString("es-CO");
@@ -338,33 +326,13 @@ div.onclick=()=>{
 
 function crearAvatar(id,nombre){
 
-    const avatar=document.getElementById(id);
+    const foto=document.getElementById(id);
 
-    avatar.innerHTML=nombre.charAt(0).toUpperCase();
+    foto.removeAttribute("src");
 
-    const colores=[
+    foto.alt=nombre.charAt(0).toUpperCase();
 
-        "#2563eb",
-        "#16a34a",
-        "#dc2626",
-        "#9333ea",
-        "#ea580c",
-        "#0891b2",
-        "#ca8a04",
-        "#db2777"
-
-    ];
-
-    let suma=0;
-
-    for(let i=0;i<nombre.length;i++){
-
-        suma+=nombre.charCodeAt(i);
-
-    }
-
-    avatar.style.background=
-    colores[suma%colores.length];
+    foto.style.background="#2563eb";
 
 }
 

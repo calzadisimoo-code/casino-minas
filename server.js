@@ -373,25 +373,23 @@ j2.socket.emit("misPuntos",{
     puntos: jugador2.puntos
 });
 
-    io.to(id).emit("partidaEncontrada",{
-		
-		foto1:j1.foto,
+io.to(id).emit("partidaEncontrada",{
 
-        foto2:j2.foto,
+    partida:id,
 
-        partida:id,
+    apuesta,
 
-        apuesta,
+    tablero,
 
-        tablero,
+    jugador1:j1.nombre,
+    foto1:j1.foto,
 
-        jugador1:j1.nombre,
+    jugador2:j2.nombre,
+    foto2:j2.foto,
 
-        jugador2:j2.nombre,
+    turno:j1.socket.id
 
-        turno:j1.socket.id
-
-    });
+});
 
 }
 
