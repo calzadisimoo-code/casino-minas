@@ -779,7 +779,7 @@ guardarUsuarios();
             const ganadorBD = usuarios[ganador.googleId];
 const perdedorBD = usuarios[perdedor.googleId];
 
-ganadorBD.puntos += partida.apuesta * 2;
+ganadorBD.puntos += partida.apuesta * 1.5;
 ganadorBD.victorias++;
 
 perdedorBD.derrotas++;

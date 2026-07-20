@@ -144,7 +144,7 @@ socket.on("esperando",()=>{
 socket.on("partidaEncontrada",(datos)=>{
 	
 	document.getElementById("premioPartida").innerHTML =
-"$"+Number(datos.apuesta*2).toLocaleString("es-CO");
+"$"+Number(datos.apuesta*1.5).toLocaleString("es-CO");
 	
 	viendoDemo = false;
 	document.getElementById("pantallaResultado").style.display="none";
@@ -251,7 +251,13 @@ viendoDemo = true;
 
 apuesta.value = "";
 
-document.getElementById("panelJuego").style.display = "block";
+document.getElementById("panelJuego").style.display = "flex";
+
+miPartida = "";
+miTurno = false;
+viendoDemo = true;
+
+document.getElementById("panelJuego").style.display = "flex";
 
 });
 
@@ -312,6 +318,13 @@ div.onclick=()=>{
     });
 
 }
+
+const musica = document.getElementById("musicaCasino");
+
+document.addEventListener("click", () => {
+    musica.volume = 0.25;
+    musica.play().catch(()=>{});
+}, { once: true });
 
 function crearAvatar(id,nombre){
 
