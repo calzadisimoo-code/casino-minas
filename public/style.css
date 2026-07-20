@@ -308,7 +308,7 @@ margin:25px 0;
 
 display:flex;
 
-align-items:stretch;
+justify-content:center;
 
 align-items:center;
 
@@ -324,6 +324,10 @@ height:52px;
 
 padding:0 14px;
 
+margin:0;
+
+vertical-align:middle;
+
 font-size:19px;
 
 border:none;
@@ -334,8 +338,6 @@ outline:none;
 
 text-align:center;
 
-margin-right:0;
-
 background:white;
 
 }
@@ -344,7 +346,15 @@ background:white;
 
 height:52px;
 
+margin:0;
+
 padding:0 40px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
 
 font-size:19px;
 
@@ -357,12 +367,6 @@ cursor:pointer;
 background:linear-gradient(45deg,#FFD700,#ff9d00);
 
 color:black;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
 
 }
 
