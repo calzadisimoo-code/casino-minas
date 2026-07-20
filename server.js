@@ -285,6 +285,9 @@ io.on("connection",(socket)=>{
     };
 
     mesas.push(mesa);
+	
+	console.log("Mesa creada:", mesa);
+console.log("Todas las mesas:", mesas);
 
     enviarMesas();
 
@@ -309,6 +312,9 @@ socket.on("cancelarMesa",()=>{
 });
 
 socket.on("aceptarMesa",(datos)=>{
+	
+	console.log("ID recibido:", datos.mesa);
+console.log("Mesas actuales:", mesas);
 
     const mesa = mesas.find(m=>m.id==datos.mesa);
 
