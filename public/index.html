@@ -41,13 +41,17 @@
                 </div>
 
             </div>
-			    <button id="depositar" class="btnDepositar">
+<div class="ladoDerecho">
 
-        💳 DEPOSITAR
-
+    <button id="depositar" class="btnDepositar">
+        💳 Depositar
     </button>
 
-            <div class="saldo">
+    <div class="saldo">
+        💎 <span id="misPuntos">10000</span>
+    </div>
+
+</div>
 
                 $ <span id="misPuntos">10000</span>
 
@@ -77,6 +81,34 @@
 		<div id="turno"></div><br>
         <div id="tablero"></div>
 		<div id="estado"></div>
+
+    </div>
+
+</div>
+
+<div id="modalPerfil" class="modalPerfil">
+
+    <div class="ventanaPerfil">
+
+        <img id="fotoPerfilModal" src="">
+
+        <h2 id="nombrePerfil"></h2>
+
+        <h3>
+            💎 <span id="saldoPerfil"></span>
+        </h3>
+
+        <button class="btnPerfil" id="btnDepositarModal">
+            💳 Depositar
+        </button>
+
+        <button class="btnPerfil">
+            💸 Retirar
+        </button>
+
+        <button class="btnCerrar" onclick="cerrarPerfil()">
+            Cerrar
+        </button>
 
     </div>
 

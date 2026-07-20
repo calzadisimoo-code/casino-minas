@@ -346,5 +346,33 @@ function loginGoogle(response){
     document.getElementById("nombreUsuario").innerHTML = datos.name;
 
     document.getElementById("foto").src = datos.picture;
+	document.getElementById("foto").onclick = abrirPerfil;
 
 }
+
+function abrirPerfil(){
+
+    document.getElementById("fotoPerfilModal").src =
+    usuarioGoogle.picture;
+
+    document.getElementById("nombrePerfil").innerHTML =
+    usuarioGoogle.name;
+
+    document.getElementById("saldoPerfil").innerHTML =
+    misPuntos.innerHTML;
+
+    document.getElementById("modalPerfil").style.display="flex";
+
+}
+
+function cerrarPerfil(){
+
+    document.getElementById("modalPerfil").style.display="none";
+
+}
+
+document.getElementById("btnDepositarModal").onclick=()=>{
+
+    window.location.href="/deposito.html";
+
+};
