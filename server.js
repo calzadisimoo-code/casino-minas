@@ -20,14 +20,31 @@ let jugadoresOnline = 0;
 
 // Cola de espera
 const cola = [];
+const mesas = [];
 
 // Partidas activas
 const partidas = {};
 
 // Puntos de cada jugador
 const ARCHIVO = "./usuarios.json";
+if(fs.existsSync(ARCHIVO_DEPOSITOS)){
+
+    depositos = JSON.parse(
+        fs.readFileSync(ARCHIVO_DEPOSITOS)
+    );
+
+}else{
+
+    fs.writeFileSync(
+        ARCHIVO_DEPOSITOS,
+        "[]"
+    );
+
+}
+const ARCHIVO_DEPOSITOS = "./depositos.json";
 
 let usuarios = {};
+let depositos = [];
 
 if(fs.existsSync(ARCHIVO)){
 
@@ -46,6 +63,18 @@ function guardarUsuarios(){
         ARCHIVO,
 
         JSON.stringify(usuarios,null,4)
+
+    );
+
+}
+
+function guardarDepositos(){
+
+    fs.writeFileSync(
+
+        ARCHIVO_DEPOSITOS,
+
+        JSON.stringify(depositos,null,4)
 
     );
 
@@ -110,6 +139,12 @@ for(const pos of posiciones){
 }
 
     return tablero;
+
+}
+
+function enviarMesas(){
+
+    io.emit("listaMesas",mesas);
 
 }
 
@@ -195,6 +230,106 @@ j2.socket.emit("misPuntos",{
 }
 
 io.on("connection",(socket)=>{
+	
+	socket.on("crearMesa",(datos)=>{
+
+    const jugador = obtenerJugador(
+
+        datos.googleId,
+
+        datos.nombre,
+
+        datos.foto
+
+    );
+
+    if(jugador.puntos < datos.apuesta){
+
+        socket.emit(
+
+            "mensaje",
+
+            "No tienes puntos suficientes"
+
+        );
+
+        return;
+
+    }
+
+    const mesa={
+
+        id:Date.now(),
+
+        socket:socket.id,
+
+        googleId:datos.googleId,
+
+        nombre:datos.nombre,
+
+        foto:datos.foto,
+
+        apuesta:datos.apuesta
+
+    };
+
+    mesas.push(mesa);
+
+    enviarMesas();
+
+});
+
+socket.on("cancelarMesa",()=>{
+
+    const indice = mesas.findIndex(
+
+        m=>m.socket==socket.id
+
+    );
+
+    if(indice!=-1){
+
+        mesas.splice(indice,1);
+
+    }
+
+    enviarMesas();
+
+});
+	
+	socket.on("nuevoDeposito",(datos)=>{
+
+    depositos.push({
+
+        id:Date.now(),
+
+        googleId:datos.googleId,
+
+        nombre:datos.nombre,
+
+        monto:datos.monto,
+
+        metodo:datos.metodo,
+
+        referencia:datos.referencia,
+
+        estado:"Pendiente",
+
+        fecha:new Date().toLocaleString("es-CO")
+
+    });
+
+    guardarDepositos();
+
+    socket.emit(
+
+        "mensaje",
+
+        "Solicitud enviada correctamente."
+
+    );
+
+});
 
     jugadoresOnline++;
 
@@ -442,6 +577,14 @@ io.to(partida.id).emit("actualizarTablero",{
         jugadoresOnline--;
 
         io.emit("online",jugadoresOnline);
+		
+		socket.emit(
+
+    "listaMesas",
+
+    mesas
+
+);
 
         for(let i=cola.length-1;i>=0;i--){
 
@@ -452,6 +595,20 @@ io.to(partida.id).emit("actualizarTablero",{
             }
 
         }
+		
+		const indiceMesa = mesas.findIndex(
+
+    m=>m.socket==socket.id
+
+);
+
+if(indiceMesa!=-1){
+
+    mesas.splice(indiceMesa,1);
+
+    enviarMesas();
+
+}
 
         console.log("Jugador desconectado");
 
