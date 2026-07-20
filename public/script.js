@@ -9,10 +9,16 @@ const activos = document.getElementById("activos");
 const misPuntos = document.getElementById("misPuntos");
 const btnDepositar = document.getElementById("depositar");
 
+const listaMesas = document.getElementById("listaMesas");
+const btnCancelar = document.getElementById("cancelarBusqueda");
+
 let miSocket = "";
 let miPartida = "";
 let miTurno = false;
 let usuarioGoogle = null;
+
+let mesas = [];
+let buscandoMesa = false;
 
 socket.on("connect",()=>{
 
@@ -44,17 +50,21 @@ btnJugar.onclick = ()=>{
 
     }
 
-socket.emit("buscarPartida",{
+    buscandoMesa = true;
 
-    googleId: usuarioGoogle.sub,
+    socket.emit("crearMesa",{
 
-    nombre: usuarioGoogle.name,
+        googleId: usuarioGoogle.sub,
 
-    foto: usuarioGoogle.picture,
+        nombre: usuarioGoogle.name,
 
-    apuesta: Number(apuesta.value)
+        foto: usuarioGoogle.picture,
 
-});
+        apuesta:Number(apuesta.value)
+
+    });
+
+    document.getElementById("pantallaBusqueda").style.display="flex";
 
 };
 
@@ -83,24 +93,12 @@ socket.on("esperando",()=>{
 });
 
 socket.on("partidaEncontrada",(datos)=>{
-	
-	document.getElementById("esperando").style.display="none";
 
-    miPartida = datos.partida;
-    document.getElementById("panelJuego").style.display = "none";
+    document.getElementById("esperando").style.display="none";
 
-    miTurno = datos.turno == miSocket;
+    document.getElementById("pantallaBusqueda").style.display="none";
 
-estado.innerHTML = `
-    <h2>${datos.jugador1}</h2>
-    <h3>VS</h3>
-    <h2>${datos.jugador2}</h2>
-`;
-
-    dibujarTablero(datos.tablero);
-
-    actualizarTurno();
-
+    ...
 });
 
 // ==========================================
@@ -363,9 +361,6 @@ function abrirPerfil(){
     document.getElementById("nombrePerfil").innerHTML =
     usuarioGoogle.name;
 
-    document.getElementById("saldoPerfil").innerHTML =
-    misPuntos.innerHTML;
-
     document.getElementById("modalPerfil").style.display="flex";
 
 }
@@ -385,5 +380,71 @@ document.getElementById("btnDepositarModal").onclick=()=>{
 document.getElementById("btnRetirar").onclick=()=>{
 
     window.location.href="/retiro.html";
+
+};
+
+function actualizarListaMesas(lista){
+
+    mesas = lista;
+
+    if(!listaMesas) return;
+
+    listaMesas.innerHTML = "";
+
+    lista.forEach(mesa=>{
+
+        const div = document.createElement("div");
+
+        div.className = "mesa";
+
+        div.innerHTML = `
+
+            <h3>👤 ${mesa.nombre}</h3>
+
+            <h2>💎 ${Number(mesa.apuesta).toLocaleString("es-CO")}</h2>
+
+            <button onclick="aceptarMesa(${mesa.id})">
+
+                ✅ Aceptar
+
+            </button>
+
+        `;
+
+        listaMesas.appendChild(div);
+
+    });
+
+}
+
+socket.on("listaMesas",(lista)=>{
+
+    actualizarListaMesas(lista);
+
+});
+
+function aceptarMesa(id){
+
+    socket.emit("aceptarMesa",{
+
+        mesa:id
+
+    });
+
+}
+
+function cancelarBusqueda(){
+
+    buscandoMesa=false;
+
+    socket.emit("cancelarMesa");
+
+    document.getElementById("pantallaBusqueda").style.display="none";
+
+}
+
+btnCancelar.onclick=()=>{
+
+    cancelarBusqueda();
 
 };
