@@ -414,19 +414,21 @@ function actualizarListaMesas(lista){
 
 div.innerHTML = `
 
-<div class="infoMesa">
+<div class="nombreMesa">
 
-    <div class="nombreMesa">
+👤 ${mesa.nombre}
 
-        👤 ${mesa.nombre}
+</div>
 
-    </div>
+<div class="textoMesa">
 
-    <div class="apuestaMesa">
+Quiere apostar
 
-        💎 $${Number(mesa.apuesta).toLocaleString("es-CO")}
+<b>$${Number(mesa.apuesta).toLocaleString("es-CO")}</b>
 
-    </div>
+<br><br>
+
+¿Aceptas el desafío?
 
 </div>
 
@@ -434,7 +436,7 @@ div.innerHTML = `
 class="btnAceptar"
 onclick="aceptarMesa(${mesa.id})">
 
-    ACEPTAR
+🎰 ACEPTAR
 
 </button>
 

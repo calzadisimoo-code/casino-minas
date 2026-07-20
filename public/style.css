@@ -634,23 +634,75 @@ margin-bottom:30px;
 
 .mesa{
 
-background:rgba(20,20,20,.95);
+width:100%;
 
-border:2px solid #FFD700;
+max-width:340px;
 
-border-radius:15px;
+margin:10px auto;
 
-padding:18px;
+background:#1c1c1c;
 
-display:flex;
+border:2px solid gold;
 
-justify-content:space-between;
+border-radius:12px;
 
-align-items:center;
+padding:12px;
 
-box-shadow:0 0 15px rgba(255,215,0,.2);
+text-align:center;
 
-transition:.2s;
+box-shadow:0 0 12px rgba(255,215,0,.25);
+
+}
+
+.nombreMesa{
+
+font-size:18px;
+
+font-weight:bold;
+
+color:white;
+
+margin-bottom:8px;
+
+}
+
+.textoMesa{
+
+font-size:15px;
+
+color:#ddd;
+
+margin-bottom:12px;
+
+line-height:1.4;
+
+}
+
+.btnAceptar{
+
+width:140px;
+
+height:42px;
+
+font-size:16px;
+
+font-weight:bold;
+
+background:#00b140;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+.btnAceptar:hover{
+
+background:#00d64d;
 
 }
 
