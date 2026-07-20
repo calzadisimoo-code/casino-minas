@@ -78,11 +78,13 @@ socket.on("mensaje",(texto)=>{
 
 socket.on("esperando",()=>{
 
-    estado.innerHTML = "<h2>⏳ Esperando rival...</h2>";
+    document.getElementById("esperando").style.display="flex";
 
 });
 
 socket.on("partidaEncontrada",(datos)=>{
+	
+	document.getElementById("esperando").style.display="none";
 
     miPartida = datos.partida;
     document.getElementById("panelJuego").style.display = "none";
@@ -120,6 +122,8 @@ socket.on("actualizarTablero",(datos)=>{
 // ==========================================
 
 socket.on("finPartida",(datos)=>{
+	
+	document.getElementById("esperando").style.display="none";
 
     miTurno = false;
 
