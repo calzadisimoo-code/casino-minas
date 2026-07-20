@@ -304,29 +304,29 @@ text-shadow:0 0 12px gold;
 
 #panelJuego{
 
-margin:25px 0;
-
 display:flex;
 
 justify-content:center;
 
-align-items:center;
+align-items:stretch;
 
 gap:10px;
 
-}
-
-input{
-
-width:260px;
+margin:25px 0;
 
 height:52px;
 
-padding:0 14px;
+}
+
+#apuesta{
+
+width:260px;
+
+height:100%;
 
 margin:0;
 
-vertical-align:middle;
+padding:0 14px;
 
 font-size:19px;
 
@@ -336,19 +336,9 @@ border-radius:10px;
 
 outline:none;
 
-text-align:center;
-
-background:white;
-
 }
 
 #jugar{
-
-height:52px;
-
-margin:0;
-
-padding:0 40px;
 
 display:flex;
 
@@ -356,7 +346,15 @@ align-items:center;
 
 justify-content:center;
 
+height:100%;
+
+padding:0 40px;
+
+margin:0;
+
 font-size:19px;
+
+font-weight:bold;
 
 border:none;
 
