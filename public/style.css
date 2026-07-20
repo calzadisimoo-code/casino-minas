@@ -473,6 +473,23 @@ opacity:1;
 }
 
 @media(max-width:700px){
+	
+	#panelJuego{
+
+display:flex;
+
+justify-content:center;
+
+align-items:stretch;
+
+gap:10px;
+
+margin:25px 0;
+width: 90%; 
+
+height:52px;
+
+}
 
 .barraSuperior{
 
