@@ -239,15 +239,19 @@ socket.on("finPartida",(datos)=>{
 
 }
 
-miPartida = "";
+setTimeout(()=>{
 
-miTurno = false;
+    miPartida = "";
 
-viendoDemo = true;
+    miTurno = false;
 
-apuesta.value = "";
+    viendoDemo = true;
 
-document.getElementById("panelJuego").style.display = "flex";
+    apuesta.value = "";
+
+    document.getElementById("panelJuego").style.display = "flex";
+
+},3000);
 
 miPartida = "";
 miTurno = false;
