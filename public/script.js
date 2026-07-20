@@ -43,13 +43,6 @@ btnJugar.onclick = ()=>{
 
     }
 
-    if(apuesta.value==""){
-
-        alert("Escribe una apuesta");
-
-        return;
-
-    }
 
     buscandoMesa = true;
 
@@ -61,7 +54,7 @@ btnJugar.onclick = ()=>{
 
         foto: usuarioGoogle.picture,
 
-        apuesta:Number(apuesta.value)
+        apuesta: Number(apuesta.value || 0)
 
     });
 
