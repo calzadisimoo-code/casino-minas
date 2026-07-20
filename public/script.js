@@ -175,12 +175,6 @@ document.getElementById("saldoJugador1").innerHTML =
 document.getElementById("saldoJugador2").innerHTML =
 "$"+Number(datos.apuesta).toLocaleString("es-CO");
 
-    estado.innerHTML=`
-        <h2>${datos.jugador1}</h2>
-        <h3>VS</h3>
-        <h2>${datos.jugador2}</h2>
-    `;
-
     dibujarTablero(datos.tablero);
 
     actualizarTurno();
