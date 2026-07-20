@@ -408,11 +408,17 @@ function actualizarListaMesas(lista){
 
     lista.forEach(mesa=>{
 
-        const div = document.createElement("div");
+    if(usuarioGoogle && mesa.googleId == usuarioGoogle.sub){
 
-        div.className = "mesa";
+        return;
 
-div.innerHTML = `
+    }
+
+    const div = document.createElement("div");
+
+    div.className = "mesa";
+
+    div.innerHTML = 
 
 <div class="nombreMesa">
 
