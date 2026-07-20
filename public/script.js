@@ -16,6 +16,7 @@ let miSocket = "";
 let miPartida = "";
 let miTurno = false;
 let usuarioGoogle = null;
+let viendoDemo = true;
 
 let mesas = [];
 let buscandoMesa = false;
@@ -80,6 +81,46 @@ socket.on("misPuntos",(datos)=>{
 
 });
 
+socket.on("partidaDemo",(datos)=>{
+
+    if(miPartida!="") return;
+
+    viendoDemo = true;
+
+    estado.innerHTML=`
+
+        <h2>${datos.jugadores[0].nombre}</h2>
+
+        <h3>VS</h3>
+
+        <h2>${datos.jugadores[1].nombre}</h2>
+
+    `;
+
+    document.getElementById("turno").innerHTML=
+
+        "💎 Apuesta: $"+
+
+        Number(datos.apuesta).toLocaleString("es-CO");
+
+    dibujarTablero(datos.tablero);
+
+});
+
+socket.on("demoGanador",(datos)=>{
+
+    if(miPartida!="") return;
+
+    mostrarResultado(
+
+        "🏆 "+datos.ganador+" GANÓ",
+
+        "ganar"
+
+    );
+
+});
+
 socket.on("mensaje",(texto)=>{
 
     alert(texto);
@@ -93,6 +134,9 @@ socket.on("esperando",()=>{
 });
 
 socket.on("partidaEncontrada",(datos)=>{
+	
+	viendoDemo = false;
+	document.getElementById("pantallaResultado").style.display="none";
 
     document.getElementById("esperando").style.display="none";
 
@@ -179,23 +223,14 @@ socket.on("finPartida",(datos)=>{
 }
 
 miPartida = "";
-miTurno = false;
-
-apuesta.value = "";
-
-document.getElementById("tablero").innerHTML = "";
-
-document.getElementById("estado").innerHTML = "";
-
-document.getElementById("turno").innerHTML = "";
-
-miPartida = "";
 
 miTurno = false;
 
+viendoDemo = true;
+
 apuesta.value = "";
 
-    document.getElementById("panelJuego").style.display = "block";
+document.getElementById("panelJuego").style.display = "block";
 
 });
 
@@ -234,6 +269,8 @@ function dibujarTablero(tab){
 }
 
 div.onclick=()=>{
+
+    if(viendoDemo) return;
 
     if(miPartida=="") return;
 
@@ -509,7 +546,7 @@ function mostrarResultado(texto,clase){
 
     titulo.innerHTML = texto;
 
-    pantalla.style.display="block";
+    pantalla.style.display="flex";
 
     setTimeout(()=>{
 

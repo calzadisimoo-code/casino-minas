@@ -25,6 +25,25 @@ const mesas = [];
 // Partidas activas
 const partidas = {};
 
+let partidaDemo = null;
+
+const nombresDemo = [
+
+"Camilo",
+"Juan",
+"Daniel",
+"Sebastian",
+"Nicolas",
+"Santiago",
+"Mateo",
+"Sara",
+"Laura",
+"Sofia",
+"Valentina",
+"Alejandra"
+
+];
+
 // Puntos de cada jugador
 const ARCHIVO = "./usuarios.json";
 const ARCHIVO_DEPOSITOS = "./depositos.json";
@@ -150,6 +169,138 @@ for(const pos of posiciones){
 }
 
     return tablero;
+
+}
+
+function crearPartidaDemo(){
+
+    const tablero = crearTablero();
+
+    const jugadores=[
+
+        {
+
+            nombre:nombresDemo[
+                Math.floor(Math.random()*nombresDemo.length)
+            ]
+
+        },
+
+        {
+
+            nombre:nombresDemo[
+                Math.floor(Math.random()*nombresDemo.length)
+            ]
+
+        }
+
+    ];
+
+    const apuestas=[
+
+        10000,
+        20000,
+        50000,
+        100000,
+        200000,
+        500000,
+        1000000
+
+    ];
+
+    partidaDemo={
+
+        jugadores,
+
+        apuesta:
+
+        apuestas[
+            Math.floor(Math.random()*apuestas.length)
+        ],
+
+        tablero,
+
+        turno:0,
+
+        terminada:false
+
+    };
+
+}
+
+function moverDemo(){
+
+    if(!partidaDemo) return;
+
+    if(partidaDemo.terminada) return;
+
+    const libres = partidaDemo.tablero.filter(c=>!c.abierta);
+
+    if(libres.length==0){
+
+        crearPartidaDemo();
+
+        io.emit("partidaDemo",partidaDemo);
+
+        return;
+
+    }
+
+    let indice;
+
+    do{
+
+        indice=Math.floor(Math.random()*25);
+
+    }while(partidaDemo.tablero[indice].abierta);
+
+    partidaDemo.tablero[indice].abierta=true;
+
+    io.emit("partidaDemo",partidaDemo);
+
+    if(partidaDemo.tablero[indice].tipo=="mina"){
+
+        partidaDemo.terminada=true;
+
+        io.emit("demoGanador",{
+
+            ganador:
+
+            partidaDemo.jugadores[
+
+                Math.floor(Math.random()*2)
+
+            ].nombre
+
+        });
+
+        setTimeout(()=>{
+
+            crearPartidaDemo();
+
+            io.emit("partidaDemo",partidaDemo);
+
+        },3000);
+
+    }
+
+}
+
+function enviarDemo(socket){
+
+    if(!partidaDemo){
+
+        crearPartidaDemo();
+
+    }
+
+    socket.emit(
+
+        "partidaDemo",
+
+        partidaDemo
+
+    );
 
 }
 
@@ -478,6 +629,7 @@ console.log("Mesas actuales:", mesas);
         puntos: jugador.puntos
 
     });
+	enviarDemo(socket);
 
 });
 
@@ -655,9 +807,17 @@ perdedor.socket.emit("misPuntos",{
 
             });
 
-            delete partidas[partida.id];
+delete partidas[partida.id];
 
-            return;
+if(Object.keys(partidas).length==0){
+
+    crearPartidaDemo();
+
+    io.emit("partidaDemo",partidaDemo);
+
+}
+
+return;
 
         }
 
@@ -728,6 +888,14 @@ if(indiceMesa!=-1){
     });
 
 });
+
+setInterval(()=>{
+
+    if(Object.keys(partidas).length>0) return;
+
+    moverDemo();
+
+},2500);
 
 server.listen(3000,()=>{
 
