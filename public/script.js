@@ -99,7 +99,7 @@ socket.on("partidaDemo",(datos)=>{
 
     document.getElementById("turno").innerHTML=
 
-        "💎 Apuesta: $"+
+        "Apuesta: $"+
 
         Number(datos.apuesta).toLocaleString("es-CO");
 
@@ -304,7 +304,7 @@ function actualizarTurno(){
 
     if(miTurno){
 
-        turno.innerHTML="🟢 Es tu turno";
+        turno.innerHTML="🟢 Tu turno";
 
     }else{
 
