@@ -87,21 +87,26 @@ socket.on("partidaDemo",(datos)=>{
 
     viendoDemo = true;
 
-    estado.innerHTML=`
+    document.getElementById("nombreJugador1").innerHTML =
+    datos.jugadores[0].nombre;
 
-        <h2>${datos.jugadores[0].nombre}</h2>
+    document.getElementById("nombreJugador2").innerHTML =
+    datos.jugadores[1].nombre;
 
-        <h3>VS</h3>
+    document.getElementById("saldoJugador1").innerHTML =
+    "$"+Number(datos.apuesta).toLocaleString("es-CO");
 
-        <h2>${datos.jugadores[1].nombre}</h2>
+    document.getElementById("saldoJugador2").innerHTML =
+    "$"+Number(datos.apuesta).toLocaleString("es-CO");
 
-    `;
+    document.getElementById("premioPartida").innerHTML =
+    "$"+Number(datos.apuesta*2).toLocaleString("es-CO");
+	
+	document.getElementById("fotoJugador1").src =
+"https://i.pravatar.cc/100?img=12";
 
-    document.getElementById("turno").innerHTML=
-
-        "Apuesta: $"+
-
-        Number(datos.apuesta).toLocaleString("es-CO");
+document.getElementById("fotoJugador2").src =
+"https://i.pravatar.cc/100?img=25";
 
     dibujarTablero(datos.tablero);
 
@@ -134,6 +139,9 @@ socket.on("esperando",()=>{
 });
 
 socket.on("partidaEncontrada",(datos)=>{
+	
+	document.getElementById("premioPartida").innerHTML =
+"$"+Number(datos.apuesta*2).toLocaleString("es-CO");
 	
 	viendoDemo = false;
 	document.getElementById("pantallaResultado").style.display="none";

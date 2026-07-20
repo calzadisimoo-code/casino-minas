@@ -42,6 +42,44 @@ max-width:470px;
 
 }
 
+.premioCentro{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+min-width:120px;
+
+}
+
+.tituloPremio{
+
+font-size:13px;
+
+color:#FFD700;
+
+font-weight:bold;
+
+}
+
+.valorPremio{
+
+font-size:24px;
+
+font-weight:bold;
+
+color:#00ff84;
+
+text-shadow:0 0 12px #00ff84;
+
+margin-top:4px;
+
+}
+
 .jugadorInfo{
 
 display:flex;
