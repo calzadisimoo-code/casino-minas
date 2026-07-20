@@ -97,7 +97,7 @@ function crearTablero(){
 
     const posiciones = new Set();
 
-while(posiciones.size < 5){
+while(posiciones.size < 2){
 
     posiciones.add(Math.floor(Math.random()*25));
 
