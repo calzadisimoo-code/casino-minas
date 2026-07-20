@@ -93,7 +93,7 @@ socket.on("partidaDemo",(datos)=>{
     "$"+Number(datos.apuesta).toLocaleString("es-CO");
 
     document.getElementById("premioPartida").innerHTML =
-    "$"+Number(datos.apuesta*2).toLocaleString("es-CO");
+"$"+Number(datos.apuesta*1.5).toLocaleString("es-CO");
 	
 crearAvatar(
 
