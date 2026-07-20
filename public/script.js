@@ -20,9 +20,11 @@ socket.on("connect",()=>{
 
 });
 
-btnDepositar.onclick = ()=>{
+   btnDepositar.onclick = ()=>{
 
-    alert("Próximamente podrás depositar saldo.");
+    window.location.href = "/deposito.html";
+
+};
 
 };
 
