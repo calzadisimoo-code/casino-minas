@@ -198,7 +198,6 @@ box-shadow:0 0 10px #00b4ff;
 
 .btnRetirar{
 
-a
 width:90px !important;
 
 height:30px !important;
@@ -217,25 +216,13 @@ border-radius:20px;
 
 margin:0;
 
-}{
+}
 
-width:90px !important;
+.btnRetirar:hover{
 
-height:30px !important;
+transform:scale(1.05);
 
-padding:0 !important;
-
-font-size:11px !important;
-
-background:#0099ff !important;
-
-color:white;
-
-border:none;
-
-border-radius:20px;
-
-margin:0;
+box-shadow:0 0 10px #00b4ff;
 
 }
 
