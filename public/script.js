@@ -328,8 +328,27 @@ div.onclick=()=>{
 
 function crearAvatar(id,nombre){
 
-    document.getElementById(id).src =
-    `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(nombre)}`;
+    const foto = document.getElementById(id);
+
+    const inicial = nombre.trim().charAt(0).toUpperCase();
+
+    const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+        <rect width="100%" height="100%" fill="#2563eb"/>
+        <text x="50%" y="54%"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-size="55"
+            fill="white"
+            font-family="Arial"
+            font-weight="bold">
+            ${inicial}
+        </text>
+    </svg>`;
+
+    foto.src =
+    "data:image/svg+xml;charset=UTF-8,"+
+    encodeURIComponent(svg);
 
 }
 
