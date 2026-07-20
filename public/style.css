@@ -962,6 +962,45 @@ padding:35px;
 text-align:center;
 
 box-shadow:0 0 30px gold;
+padding-bottom:45px;
+
+}
+
+#cancelarBusqueda{
+
+width:100%;
+
+height:52px;
+
+margin-top:35px;
+
+background:linear-gradient(45deg,#ff4d4d,#d90429);
+
+color:white;
+
+font-size:17px;
+
+font-weight:bold;
+
+border:none;
+
+border-radius:14px;
+
+cursor:pointer;
+
+transition:.25s;
+
+box-shadow:0 0 18px rgba(255,0,0,.35);
+
+}
+
+#cancelarBusqueda:hover{
+
+transform:translateY(-2px) scale(1.03);
+
+background:linear-gradient(45deg,#ff6666,#ff0033);
+
+box-shadow:0 0 28px rgba(255,0,0,.6);
 
 }
 
