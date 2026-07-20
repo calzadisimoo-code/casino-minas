@@ -7,6 +7,7 @@ const apuesta = document.getElementById("apuesta");
 const estado = document.getElementById("estado");
 const activos = document.getElementById("activos");
 const misPuntos = document.getElementById("misPuntos");
+const btnDepositar = document.getElementById("depositar");
 
 let miSocket = "";
 let miPartida = "";
@@ -18,6 +19,12 @@ socket.on("connect",()=>{
     miSocket = socket.id;
 
 });
+
+btnDepositar.onclick = ()=>{
+
+    alert("Próximamente podrás depositar saldo.");
+
+};
 
 btnJugar.onclick = ()=>{
 
