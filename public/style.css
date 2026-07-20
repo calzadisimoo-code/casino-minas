@@ -474,20 +474,35 @@ opacity:1;
 
 @media(max-width:700px){
 	
-	#panelJuego{
+#panelJuego{
 
-display:flex;
+    width:100%;
 
-justify-content:center;
+    gap:8px;
 
-align-items:stretch;
+    padding:0 8px;
 
-gap:10px;
+}
 
-margin:25px 0;
-width: 70%; 
+#apuesta{
 
-height:52px;
+    width:100%;
+
+    flex:1;
+
+    min-width:0;
+
+    margin-bottom:0;
+
+}
+
+#jugar{
+
+    padding:0 20px;
+
+    white-space:nowrap;
+
+    flex-shrink:0;
 
 }
 
