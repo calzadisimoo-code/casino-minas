@@ -34,13 +34,13 @@ background:linear-gradient(45deg,#00b4ff,#0077ff);
 
 color:white;
 
-margin-top:12px;
+margin-top:8px;
 
 }
 
 .btnDepositar:hover{
 
-box-shadow:0 0 20px #00b4ff;
+box-shadow:0 0 4px #00b4ff;
 
 }
 
