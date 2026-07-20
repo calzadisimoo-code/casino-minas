@@ -189,6 +189,12 @@ document.getElementById("estado").innerHTML = "";
 
 document.getElementById("turno").innerHTML = "";
 
+miPartida = "";
+
+miTurno = false;
+
+apuesta.value = "";
+
     document.getElementById("panelJuego").style.display = "block";
 
 });
@@ -494,8 +500,6 @@ btnCancelar.onclick=()=>{
 };
 
 function mostrarResultado(texto,clase){
-
-    alert(texto);
 
     const pantalla = document.getElementById("pantallaResultado");
 
