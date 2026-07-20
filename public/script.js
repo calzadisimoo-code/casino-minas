@@ -420,15 +420,7 @@ div.innerHTML = `
 
 </div>
 
-<div class="textoMesa">
-
-Quiere apostar
-
-<b>$${Number(mesa.apuesta).toLocaleString("es-CO")}</b>
-
-<br><br>
-
-¿Aceptas el desafío?
+<div class="textoMesa"> Quiere apostar $${Number(mesa.apuesta).toLocaleString("es-CO")} ¿Aceptas?
 
 </div>
 
