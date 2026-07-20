@@ -793,31 +793,35 @@ ganador.socket.emit("misPuntos",{
 perdedor.socket.emit("misPuntos",{
     puntos: perdedorBD.puntos
 });
-            io.to(partida.id).emit("finPartida",{
+io.to(partida.id).emit("finPartida",{
 
-                tablero:partida.tablero,
+    tablero:partida.tablero,
 
-                casilla:datos.casilla,
+    casilla:datos.casilla,
 
-                ganador:ganador.nombre,
+    ganador:ganador.nombre,
 
-                perdedor:perdedor.nombre,
+    perdedor:perdedor.nombre,
 
-                ganadorID:ganador.socket.id,
+    ganadorID:ganador.socket.id,
 
-                perdedorID:perdedor.socket.id
+    perdedorID:perdedor.socket.id
 
-            });
+});
 
-delete partidas[partida.id];
+setTimeout(()=>{
 
-if(Object.keys(partidas).length==0){
+    delete partidas[partida.id];
 
-    crearPartidaDemo();
+    if(Object.keys(partidas).length==0){
 
-    io.emit("partidaDemo",partidaDemo);
+        crearPartidaDemo();
 
-}
+        io.emit("partidaDemo",partidaDemo);
+
+    }
+
+},3000);
 
 return;
 
