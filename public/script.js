@@ -509,6 +509,14 @@ document.getElementById("btnRetirar").onclick=()=>{
 
 };
 
+const popupMesa = document.getElementById("popupMesa");
+
+const popupNombre = document.getElementById("popupNombre");
+
+const popupTexto = document.getElementById("popupTexto");
+
+const popupAceptar = document.getElementById("popupAceptar");
+
 function actualizarListaMesas(lista){
 
     mesas = lista;
@@ -519,17 +527,17 @@ function actualizarListaMesas(lista){
 
     lista.forEach(mesa=>{
 
-    if(usuarioGoogle && mesa.googleId == usuarioGoogle.sub){
+        if(usuarioGoogle && mesa.googleId == usuarioGoogle.sub){
 
-        return;
+            return;
 
-    }
+        }
 
         const div = document.createElement("div");
 
         div.className = "mesa";
 
-div.innerHTML = `
+        div.innerHTML = `
 
 <div class="nombreMesa">
 
@@ -537,8 +545,8 @@ div.innerHTML = `
 
 </div>
 
-<div class="textoMesa"> Quiere apostar $${Number(mesa.apuesta).toLocaleString("es-CO")} ¿Aceptas?
-
+<div class="textoMesa">
+Quiere apostar $${Number(mesa.apuesta).toLocaleString("es-CO")} ¿Aceptas?
 </div>
 
 <button
@@ -554,6 +562,44 @@ onclick="aceptarMesa(${mesa.id})">
         listaMesas.appendChild(div);
 
     });
+
+    // 👇 PEGA TODO ESTO AQUÍ
+
+    if(lista.length){
+
+        const mesa = lista.find(m=>!usuarioGoogle || m.googleId != usuarioGoogle.sub);
+
+        if(mesa){
+
+            popupNombre.innerHTML = "👤 " + mesa.nombre;
+
+            popupTexto.innerHTML =
+            "Quiere apostar $" +
+            Number(mesa.apuesta).toLocaleString("es-CO");
+
+            popupAceptar.onclick = ()=>{
+
+                aceptarMesa(mesa.id);
+
+                popupMesa.style.display = "none";
+
+            };
+
+            popupMesa.style.display = "block";
+
+        }else{
+
+            popupMesa.style.display = "none";
+
+        }
+
+    }else{
+
+        popupMesa.style.display = "none";
+
+    }
+
+    // 👆 HASTA AQUÍ
 
 }
 
