@@ -178,6 +178,17 @@ socket.on("finPartida",(datos)=>{
 
 }
 
+miPartida = "";
+miTurno = false;
+
+apuesta.value = "";
+
+document.getElementById("tablero").innerHTML = "";
+
+document.getElementById("estado").innerHTML = "";
+
+document.getElementById("turno").innerHTML = "";
+
     document.getElementById("panelJuego").style.display = "block";
 
 });
@@ -484,11 +495,13 @@ btnCancelar.onclick=()=>{
 
 function mostrarResultado(texto,clase){
 
+    alert(texto);
+
     const pantalla = document.getElementById("pantallaResultado");
+
     const titulo = document.getElementById("textoResultado");
 
-    titulo.className = "";
-    titulo.classList.add(clase);
+    titulo.className = clase;
 
     titulo.innerHTML = texto;
 
