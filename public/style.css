@@ -308,7 +308,7 @@ margin:25px 0;
 
 display:flex;
 
-justify-content:center;
+align-items:stretch;
 
 align-items:center;
 
@@ -320,7 +320,9 @@ input{
 
 width:260px;
 
-padding:14px;
+height:52px;
+
+padding:0 14px;
 
 font-size:19px;
 
@@ -346,8 +348,6 @@ padding:0 40px;
 
 font-size:19px;
 
-font-weight:bold;
-
 border:none;
 
 border-radius:10px;
@@ -358,7 +358,11 @@ background:linear-gradient(45deg,#FFD700,#ff9d00);
 
 color:black;
 
-transition:.25s;
+display:flex;
+
+align-items:center;
+
+justify-content:center;
 
 }
 
