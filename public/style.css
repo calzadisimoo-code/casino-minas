@@ -176,7 +176,7 @@ padding:0 !important;
 
 font-size:11px !important;
 
-background:#0099ff !important;
+background:linear-gradient(45deg,#FFD700,#ff9d00) !important;
 
 color:white;
 
@@ -192,7 +192,7 @@ margin:0;
 
 transform:scale(1.05);
 
-box-shadow:0 0 10px #00b4ff;
+box-shadow:0 0 12px gold;
 
 }
 
@@ -643,25 +643,7 @@ cursor:pointer;
 
 }
 
-.btnPerfilretirar{
-
-width:100%;
-
-margin-top:12px;
-
-padding:15px;
-
-font-size:18px;
-
-background:linear-gradient(45deg,#FFD700,#ff9d00);
-
-border:none;
-
-border-radius:10px;
-
-cursor:pointer;
-
-}
+btnPerfilretirar
 
 .btnCerrar{
 
