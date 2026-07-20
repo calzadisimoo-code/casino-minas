@@ -377,3 +377,9 @@ document.getElementById("btnDepositarModal").onclick=()=>{
     window.location.href="/deposito.html";
 
 };
+
+document.getElementById("btnRetirar").onclick=()=>{
+
+    window.location.href="/retiro.html";
+
+};
