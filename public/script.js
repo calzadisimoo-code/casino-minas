@@ -152,27 +152,31 @@ socket.on("finPartida",(datos)=>{
 
     }
 
-    if(datos.ganadorID==miSocket){
+   if(datos.ganadorID==miSocket){
 
-        estado.innerHTML=`
+    mostrarResultado(
 
-            <h2 class="ganaste">🏆 GANASTE</h2>
+        "🏆 GANASTE",
 
-            <h3>Ganaste la apuesta</h3>
+        "ganar"
 
-        `;
+    );
 
-    }else{
+    estado.innerHTML="";
 
-        estado.innerHTML=`
+}else{
 
-            <h2>💥 PERDISTE</h2>
+    mostrarResultado(
 
-            <h3>La mina explotó</h3>
+        "💥 PERDISTE",
 
-        `;
+        "perder"
 
-    }
+    );
+
+    estado.innerHTML="";
+
+}
 
     document.getElementById("panelJuego").style.display = "block";
 
@@ -477,3 +481,23 @@ btnCancelar.onclick=()=>{
     cancelarBusqueda();
 
 };
+
+function mostrarResultado(texto,clase){
+
+    const pantalla = document.getElementById("pantallaResultado");
+
+    const titulo = document.getElementById("textoResultado");
+
+    titulo.className = clase;
+
+    titulo.innerHTML = texto;
+
+    pantalla.style.display = "flex";
+
+    setTimeout(()=>{
+
+        pantalla.style.display = "none";
+
+    },1500);
+
+}
