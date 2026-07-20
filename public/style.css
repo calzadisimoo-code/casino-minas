@@ -468,17 +468,17 @@ opacity:1;
 
 .barraSuperior{
 
-position:relative;
-
 display:flex;
 
 justify-content:space-between;
 
-align-items:flex-start;
+align-items:center;
 
-width:100%;
+margin-bottom:30px;
 
-margin-bottom:25px;
+transform:scale(0.90);
+
+transform-origin:top center;
 
 }
 
