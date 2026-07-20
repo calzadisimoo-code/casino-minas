@@ -609,15 +609,20 @@ const musica = document.getElementById("musicaCasino");
 
 function iniciarMusica(){
 
+    if(!musica.paused) return;
+
     musica.volume = 0.2;
 
     musica.play().catch(()=>{});
 
     document.removeEventListener("touchstart", iniciarMusica);
+    document.removeEventListener("pointerdown", iniciarMusica);
     document.removeEventListener("click", iniciarMusica);
 
 }
 
-document.addEventListener("touchstart", iniciarMusica, { once:true });
+document.addEventListener("touchstart", iniciarMusica, { passive:true });
 
-document.addEventListener("click", iniciarMusica, { once:true });
+document.addEventListener("pointerdown", iniciarMusica);
+
+document.addEventListener("click", iniciarMusica);
