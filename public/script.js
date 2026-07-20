@@ -26,8 +26,6 @@ socket.on("connect",()=>{
 
 };
 
-};
-
 btnJugar.onclick = ()=>{
 
     if(!usuarioGoogle){
