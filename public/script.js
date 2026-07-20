@@ -515,6 +515,6 @@ function mostrarResultado(texto,clase){
 
         pantalla.style.display = "none";
 
-    },1500);
+    },3000);
 
 }
