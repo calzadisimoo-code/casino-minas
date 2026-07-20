@@ -30,19 +30,33 @@ overflow-x:hidden;
 
 .btnDepositar{
 
+width:120px;
+
+height:38px;
+
+padding:0;
+
+font-size:13px;
+
+font-weight:bold;
+
 background:linear-gradient(45deg,#00b4ff,#0077ff);
 
 color:white;
-width: 3px;
-heigth: 5px;
 
-margin-top:8px;
+border:none;
+
+border-radius:8px;
+
+margin:0;
 
 }
 
 .btnDepositar:hover{
 
-box-shadow:0 0 4px #00b4ff;
+transform:scale(1.05);
+
+box-shadow:0 0 10px #00b4ff;
 
 }
 
