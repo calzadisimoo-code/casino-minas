@@ -607,12 +607,17 @@ function mostrarResultado(texto,clase){
 
 const musica = document.getElementById("musicaCasino");
 
-document.addEventListener("click", () => {
+function iniciarMusica(){
 
     musica.volume = 0.2;
 
-    musica.play()
-        .then(() => console.log("Música iniciada"))
-        .catch(err => console.log(err));
+    musica.play().catch(()=>{});
 
-}, { once: true });
+    document.removeEventListener("touchstart", iniciarMusica);
+    document.removeEventListener("click", iniciarMusica);
+
+}
+
+document.addEventListener("touchstart", iniciarMusica, { once:true });
+
+document.addEventListener("click", iniciarMusica, { once:true });
