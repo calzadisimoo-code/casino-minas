@@ -98,7 +98,22 @@ socket.on("partidaEncontrada",(datos)=>{
 
     document.getElementById("pantallaBusqueda").style.display="none";
 
-    ...
+    miPartida = datos.partida;
+
+    document.getElementById("panelJuego").style.display="none";
+
+    miTurno = datos.turno == miSocket;
+
+    estado.innerHTML=`
+        <h2>${datos.jugador1}</h2>
+        <h3>VS</h3>
+        <h2>${datos.jugador2}</h2>
+    `;
+
+    dibujarTablero(datos.tablero);
+
+    actualizarTurno();
+
 });
 
 // ==========================================
