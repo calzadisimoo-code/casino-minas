@@ -170,6 +170,8 @@ socket.on("partidaEncontrada",(datos)=>{
 
 document.getElementById("nombreJugador2").innerHTML = datos.jugador2;
 
+console.log(datos);
+
 document.getElementById("fotoJugador1").src = datos.foto1;
 
 document.getElementById("fotoJugador2").src = datos.foto2;
@@ -326,13 +328,8 @@ div.onclick=()=>{
 
 function crearAvatar(id,nombre){
 
-    const foto=document.getElementById(id);
-
-    foto.removeAttribute("src");
-
-    foto.alt=nombre.charAt(0).toUpperCase();
-
-    foto.style.background="#2563eb";
+    document.getElementById(id).src =
+    `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(nombre)}`;
 
 }
 
