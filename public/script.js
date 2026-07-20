@@ -227,8 +227,6 @@ socket.on("finPartida",(datos)=>{
 
     );
 
-    estado.innerHTML="";
-
 }else{
 
     mostrarResultado(
@@ -238,8 +236,6 @@ socket.on("finPartida",(datos)=>{
         "perder"
 
     );
-
-    estado.innerHTML="";
 
 }
 
@@ -318,13 +314,6 @@ div.onclick=()=>{
     });
 
 }
-
-const musica = document.getElementById("musicaCasino");
-
-document.addEventListener("click", () => {
-    musica.volume = 0.25;
-    musica.play().catch(()=>{});
-}, { once: true });
 
 function crearAvatar(id,nombre){
 
