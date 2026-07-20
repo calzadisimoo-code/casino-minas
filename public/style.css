@@ -30,23 +30,21 @@ overflow-x:hidden;
 
 .btnDepositar{
 
-width:120px;
+width:90px !important;
 
-height:38px;
+height:30px !important;
 
-padding:0;
+padding:0 !important;
 
-font-size:13px;
+font-size:11px !important;
 
-font-weight:bold;
-
-background:linear-gradient(45deg,#00b4ff,#0077ff);
+background:#0099ff !important;
 
 color:white;
 
 border:none;
 
-border-radius:8px;
+border-radius:20px;
 
 margin:0;
 
@@ -184,7 +182,7 @@ background:white;
 
 }
 
-button{
+#jugar{
 
 padding:14px 40px;
 
@@ -206,7 +204,7 @@ transition:.25s;
 
 }
 
-button:hover{
+#jugar:hover{
 
 transform:scale(1.08);
 
