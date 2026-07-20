@@ -89,12 +89,11 @@ socket.on("partidaEncontrada",(datos)=>{
 
     miTurno = datos.turno == miSocket;
 
-    estado.innerHTML = `
-        <h2>${datos.jugador1}</h2>
-        <h3>VS</h3>
-        <h2>${datos.jugador2}</h2>
-        <h3 id="turno"></h3>
-    `;
+estado.innerHTML = `
+    <h2>${datos.jugador1}</h2>
+    <h3>VS</h3>
+    <h2>${datos.jugador2}</h2>
+`;
 
     dibujarTablero(datos.tablero);
 
