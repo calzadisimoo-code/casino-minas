@@ -58,6 +58,16 @@ box-shadow:0 0 10px #00b4ff;
 
 }
 
+.ladoDerecho{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
 .contenedor{
 
 width:100%;
@@ -143,12 +153,6 @@ margin-top:3px;
 }
 
 .saldo{
-
-position:absolute;
-
-top:0;
-
-right:0;
 
 font-size:30px;
 
