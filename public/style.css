@@ -144,6 +144,12 @@ margin-top:3px;
 
 .saldo{
 
+position:absolute;
+
+top:0;
+
+right:0;
+
 font-size:30px;
 
 font-weight:bold;
@@ -320,7 +326,7 @@ opacity:1;
 
 .barraSuperior{
 
-width:100%;
+position:relative;
 
 display:flex;
 
@@ -328,9 +334,19 @@ justify-content:space-between;
 
 align-items:flex-start;
 
-padding:8px 12px;
+width:100%;
 
-margin-bottom:15px;
+margin-bottom:25px;
+
+}
+
+#tablero{
+
+grid-template-columns:repeat(5,55px);
+
+gap:6px;
+
+justify-content:center;
 
 }
 
@@ -368,9 +384,11 @@ font-size:12px;
 
 .saldo{
 
-font-size:22px;
+right:8px;
 
-font-weight:bold;
+top:8px;
+
+font-size:20px;
 
 }
 
@@ -387,6 +405,16 @@ margin-bottom:20px;
 #apuesta{
 
     margin-bottom:25px;
+
+}
+
+.casilla{
+
+width:55px;
+
+height:55px;
+
+font-size:24px;
 
 }
 
