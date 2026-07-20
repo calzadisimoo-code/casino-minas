@@ -304,6 +304,8 @@ text-shadow:0 0 12px gold;
 
 #panelJuego{
 
+margin:25px 0;
+
 display:flex;
 
 justify-content:center;
@@ -311,8 +313,6 @@ justify-content:center;
 align-items:center;
 
 gap:10px;
-
-height:48px;
 
 }
 
@@ -344,27 +344,19 @@ background:white;
 
 #jugar{
 
-width:auto;
-
 height:52px;
-
-padding:0 40px;
 
 margin:0;
 
-display:inline-flex;
+padding:0 40px;
+
+display:flex;
 
 align-items:center;
 
 justify-content:center;
 
-vertical-align:middle;
-
-line-height:1;
-
 font-size:19px;
-
-font-weight:bold;
 
 border:none;
 
@@ -375,8 +367,6 @@ cursor:pointer;
 background:linear-gradient(45deg,#FFD700,#ff9d00);
 
 color:black;
-
-transition:.25s;
 
 }
 
