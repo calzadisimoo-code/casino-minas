@@ -27,6 +27,21 @@ const partidas = {};
 
 // Puntos de cada jugador
 const ARCHIVO = "./usuarios.json";
+const ARCHIVO_DEPOSITOS = "./depositos.json";
+
+let usuarios = {};
+let depositos = [];
+
+if(fs.existsSync(ARCHIVO)){
+
+    usuarios = JSON.parse(fs.readFileSync(ARCHIVO));
+
+}else{
+
+    fs.writeFileSync(ARCHIVO,"{}");
+
+}
+
 if(fs.existsSync(ARCHIVO_DEPOSITOS)){
 
     depositos = JSON.parse(
@@ -41,10 +56,6 @@ if(fs.existsSync(ARCHIVO_DEPOSITOS)){
     );
 
 }
-const ARCHIVO_DEPOSITOS = "./depositos.json";
-
-let usuarios = {};
-let depositos = [];
 
 if(fs.existsSync(ARCHIVO)){
 
@@ -578,13 +589,7 @@ io.to(partida.id).emit("actualizarTablero",{
 
         io.emit("online",jugadoresOnline);
 		
-		socket.emit(
-
-    "listaMesas",
-
-    mesas
-
-);
+enviarMesas();
 
         for(let i=cola.length-1;i>=0;i--){
 
