@@ -615,3 +615,15 @@ function mostrarResultado(texto,clase){
     },3000);
 
 }
+
+const musica = document.getElementById("musicaCasino");
+
+document.addEventListener("click", () => {
+
+    musica.volume = 0.2;
+
+    musica.play()
+        .then(() => console.log("Música iniciada"))
+        .catch(err => console.log(err));
+
+}, { once: true });
