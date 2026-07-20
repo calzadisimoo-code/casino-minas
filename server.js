@@ -307,6 +307,108 @@ socket.on("cancelarMesa",()=>{
     enviarMesas();
 
 });
+
+socket.on("aceptarMesa",(datos)=>{
+
+    const mesa = mesas.find(m=>m.id==datos.mesa);
+
+    if(!mesa){
+
+        socket.emit(
+            "mensaje",
+            "Esta mesa ya no está disponible."
+        );
+
+        return;
+
+    }
+
+    if(mesa.socket==socket.id){
+
+        socket.emit(
+            "mensaje",
+            "No puedes aceptar tu propia mesa."
+        );
+
+        return;
+
+    }
+
+    const jugador2 = obtenerJugador(
+
+        socket.googleId,
+
+        usuarios[socket.googleId].nombre,
+
+        usuarios[socket.googleId].foto
+
+    );
+
+    if(jugador2.puntos < mesa.apuesta){
+
+        socket.emit(
+            "mensaje",
+            "No tienes puntos suficientes."
+        );
+
+        return;
+
+    }
+
+    const creador = io.sockets.sockets.get(mesa.socket);
+
+    if(!creador){
+
+        mesas.splice(
+            mesas.indexOf(mesa),
+            1
+        );
+
+        enviarMesas();
+
+        socket.emit(
+            "mensaje",
+            "El creador ya se desconectó."
+        );
+
+        return;
+
+    }
+
+    mesas.splice(
+        mesas.indexOf(mesa),
+        1
+    );
+
+    enviarMesas();
+
+    crearPartida(
+
+        {
+
+            socket:creador,
+
+            googleId:mesa.googleId,
+
+            nombre:mesa.nombre
+
+        },
+
+        {
+
+            socket,
+
+            googleId:socket.googleId,
+
+            nombre:usuarios[socket.googleId].nombre
+
+        },
+
+        mesa.apuesta
+
+    );
+
+});
 	
 	socket.on("nuevoDeposito",(datos)=>{
 
