@@ -485,10 +485,10 @@ btnCancelar.onclick=()=>{
 function mostrarResultado(texto,clase){
 
     const pantalla = document.getElementById("pantallaResultado");
-
     const titulo = document.getElementById("textoResultado");
 
-    titulo.className = clase;
+    titulo.className = "";
+    titulo.classList.add(clase);
 
     titulo.innerHTML = texto;
 
