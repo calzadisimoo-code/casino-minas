@@ -9,7 +9,7 @@ const activos = document.getElementById("activos");
 const misPuntos = document.getElementById("misPuntos");
 const btnDepositar = document.getElementById("depositar");
 
-const listaMesas = document.getElementById("listaMesas");
+const listaMesas = document.getElementById("listaMesasBusqueda");
 const btnCancelar = document.getElementById("cancelarBusqueda");
 
 let miSocket = "";
@@ -412,19 +412,33 @@ function actualizarListaMesas(lista){
 
         div.className = "mesa";
 
-        div.innerHTML = `
+div.innerHTML = `
 
-            <h3>👤 ${mesa.nombre}</h3>
+<div class="infoMesa">
 
-            <h2>💎 ${Number(mesa.apuesta).toLocaleString("es-CO")}</h2>
+    <div class="nombreMesa">
 
-            <button onclick="aceptarMesa(${mesa.id})">
+        👤 ${mesa.nombre}
 
-                ✅ Aceptar
+    </div>
 
-            </button>
+    <div class="apuestaMesa">
 
-        `;
+        💎 $${Number(mesa.apuesta).toLocaleString("es-CO")}
+
+    </div>
+
+</div>
+
+<button
+class="btnAceptar"
+onclick="aceptarMesa(${mesa.id})">
+
+    ACEPTAR
+
+</button>
+
+`;
 
         listaMesas.appendChild(div);
 
