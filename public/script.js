@@ -414,11 +414,11 @@ function actualizarListaMesas(lista){
 
     }
 
-    const div = document.createElement("div");
+        const div = document.createElement("div");
 
-    div.className = "mesa";
+        div.className = "mesa";
 
-    div.innerHTML = 
+div.innerHTML = `
 
 <div class="nombreMesa">
 
