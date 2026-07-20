@@ -496,6 +496,14 @@ opacity:1;
 
     margin-bottom:0;
 
+    font-size:15px;
+
+}
+
+#apuesta::placeholder{
+
+    font-size:13px;
+
 }
 
 #jugar{
