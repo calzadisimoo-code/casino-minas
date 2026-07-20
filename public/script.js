@@ -258,6 +258,7 @@ if(guardado){
     document.getElementById("nombreUsuario").innerHTML = usuarioGoogle.name;
 
     document.getElementById("foto").src = usuarioGoogle.picture;
+	document.getElementById("foto").onclick = abrirPerfil;
 
     socket.emit("cargarUsuario",{
 
