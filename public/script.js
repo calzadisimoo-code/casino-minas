@@ -25,13 +25,13 @@ const linkPago = "https://checkout.wompi.co/l/VPOS_hP5CXs";
 
 document.getElementById("depositar").onclick = () => {
 
-    window.location.href = "/depositar.html";
+    window.open(linkPago,"_blank");
 
 };
 
 document.getElementById("btnDepositarModal").onclick = () => {
 
-    window.location.href = "/depositar.html";
+    window.open(linkPago,"_blank");
 
 };
 
