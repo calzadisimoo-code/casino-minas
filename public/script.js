@@ -884,6 +884,12 @@ btnEntrarSala.onclick = ()=>{
         return;
 
     }
+	
+	popupAmigos.style.display = "none";
+
+document.getElementById("panelJuego").style.display = "none";
+
+document.getElementById("esperando").style.display = "flex";
 
     socket.emit("entrarSalaPrivada",{
 
