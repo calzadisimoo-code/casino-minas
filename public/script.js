@@ -84,6 +84,12 @@ btnJugar.onclick = ()=>{
         apuesta: Number(apuesta.value || 0)
 
     });
+	
+	document.getElementById("tituloEspera").innerHTML =
+"🔎 Buscando rival...";
+
+document.getElementById("textoEspera").innerHTML =
+"Espera un momento";
 
     document.getElementById("pantallaBusqueda").style.display="flex";
 
@@ -884,6 +890,12 @@ btnEntrarSala.onclick = ()=>{
         return;
 
     }
+	
+	document.getElementById("tituloEspera").innerHTML =
+"👥 Esperando a tu amigo...";
+
+document.getElementById("textoEspera").innerHTML =
+"La partida comenzará cuando tu amigo escriba el mismo código.";
 	
 	popupAmigos.style.display = "none";
 
