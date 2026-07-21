@@ -169,11 +169,7 @@ socket.on("esperando",()=>{
 });
 
 socket.on("partidaEncontrada",(datos)=>{
-	
-	// Si ya estoy jugando, ignoro cualquier otra partida
-if(miPartida !== "" && datos.turno === "espectador"){
-    return;
-}
+
 	
 	buscandoMesa = false;
 	
