@@ -467,6 +467,16 @@ io.on("connection",(socket)=>{
 console.log("Todas las mesas:", mesas);
 
     enviarMesas();
+	
+	setTimeout(()=>{
+
+    const sigue = mesas.find(m=>m.id==mesa.id);
+
+    if(!sigue) return;
+
+    console.log("🤖 Entró el bot");
+
+},5000);
 
 });
 
