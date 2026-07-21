@@ -1,9 +1,8 @@
 const socket = io();
 
-const usuarioGoogle = JSON.parse(
+let usuarioGoogle = JSON.parse(
     localStorage.getItem("usuarioGoogle")
 );
-
 
 function ponerMonto(valor){
 
@@ -79,29 +78,6 @@ function cerrarPopup(){
 
 function confirmarPago(){
 
-    socket.emit("nuevoDeposito",{
-
-        googleId:usuarioGoogle.sub,
-
-        nombre:usuarioGoogle.name,
-
-        monto:depositoActual.monto,
-
-        metodo:depositoActual.metodo,
-
-        referencia:depositoActual.referencia
-
-    });
-
-    cerrarPopup();
-
-    alert("Tu depósito quedó pendiente de aprobación.");
-
-}
-
-function continuarRetiro(){
-	
-	alert("Entró a la función");
 
     const monto = Number(document.getElementById("monto").value);
 
@@ -122,6 +98,9 @@ function continuarRetiro(){
         return;
 
     }
+	
+	console.log("Conectado:", socket.connected);
+    console.log(usuarioGoogle);
 
     socket.emit("solicitarRetiro",{
 
