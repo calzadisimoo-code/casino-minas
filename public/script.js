@@ -21,17 +21,26 @@ let viendoDemo = true;
 let mesas = [];
 let buscandoMesa = false;
 
+const linkPago = "https://checkout.wompi.co/l/VPOS_hP5CXs";
+
+document.getElementById("depositar").onclick = () => {
+
+    window.location.href = linkPago;
+
+};
+
+document.getElementById("btnDepositarModal").onclick = () => {
+
+    window.location.href = linkPago;
+
+};
+
 socket.on("connect",()=>{
 
     miSocket = socket.id;
 
 });
 
-   btnDepositar.onclick = ()=>{
-
-    window.location.href = "/deposito.html";
-
-};
 
 btnJugar.onclick = ()=>{
 
@@ -544,12 +553,6 @@ function cerrarPerfil(){
     document.getElementById("modalPerfil").style.display="none";
 
 }
-
-document.getElementById("btnDepositarModal").onclick=()=>{
-
-    window.location.href="/deposito.html";
-
-};
 
 document.getElementById("btnRetirar").onclick=()=>{
 
