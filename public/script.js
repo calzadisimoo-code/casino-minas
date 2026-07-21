@@ -697,8 +697,7 @@ if(mesa && miPartida==""){
 
 socket.on("listaMesas",(lista)=>{
 
-    // Si estoy jugando, no mostrar invitaciones
-    if(miPartida!="") return;
+    console.log("📢 RECIBÍ LISTA DE MESAS:", lista);
 
     actualizarListaMesas(lista);
 
