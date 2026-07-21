@@ -169,8 +169,6 @@ document.getElementById("panelJuego").style.display="flex";
 
     miPartida = datos.partida;
 
-    miTurno = datos.turno == miSocket;
-
     actualizarTurno();
 
 }
@@ -385,13 +383,10 @@ function crearAvatar(id,nombre){
 // ACTUALIZAR TURNO
 // ==========================================
 
-if(miPartida==""){
 
-    turno.innerHTML = "👀 Espectando";
-
-    return;
-
-}
+// ==========================================
+// ACTUALIZAR TURNO
+// ==========================================
 
 function actualizarTurno(){
 
@@ -418,7 +413,6 @@ function actualizarTurno(){
     }
 
 }
-
 // ==========================================
 // LOGIN GOOGLE
 // ==========================================
