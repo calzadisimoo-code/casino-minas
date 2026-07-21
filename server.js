@@ -48,6 +48,21 @@ const nombresDemo = [
 
 ];
 
+const fotosDemo = [
+
+"https://i.pravatar.cc/150?img=1",
+"https://i.pravatar.cc/150?img=2",
+"https://i.pravatar.cc/150?img=3",
+"https://i.pravatar.cc/150?img=4",
+"https://i.pravatar.cc/150?img=5",
+"https://i.pravatar.cc/150?img=6",
+"https://i.pravatar.cc/150?img=7",
+"https://i.pravatar.cc/150?img=8",
+"https://i.pravatar.cc/150?img=9",
+"https://i.pravatar.cc/150?img=10"
+
+];
+
 // Puntos de cada jugador
 const ARCHIVO = "./usuarios.json";
 const ARCHIVO_DEPOSITOS = "./depositos.json";
@@ -278,13 +293,51 @@ function moverDemo(){
 
         });
 
-        setTimeout(()=>{
+setTimeout(()=>{
 
-            crearPartidaDemo();
+    const sigue = mesas.find(m=>m.id==mesa.id);
 
-            io.emit("partidaDemo",partidaDemo);
+    if(!sigue) return;
 
-        },3000);
+    mesas.splice(mesas.indexOf(sigue),1);
+
+    enviarMesas();
+
+    crearPartida(
+
+        {
+
+            socket,
+
+            googleId:mesa.googleId,
+
+            nombre:mesa.nombre,
+
+            foto:mesa.foto
+
+        },
+
+        {
+
+            socket:{
+
+                id:"BOT"
+
+            },
+
+            googleId:"BOT",
+
+            nombre:"🤖 RoyalBot",
+
+            foto:"/img/bot.png"
+
+        },
+
+        mesa.apuesta
+
+    );
+
+},5000);
 
     }
 
