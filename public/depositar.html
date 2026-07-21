@@ -81,19 +81,23 @@ CONTINUAR
 
 function continuar(){
 
-const monto=document.getElementById("monto").value;
+    const monto = Number(document.getElementById("monto").value);
 
-if(monto<10000){
+    if(monto < 10000){
 
-alert("El mínimo es $10.000");
+        alert("El mínimo es $10.000");
 
-return;
+        return;
 
-}
+    }
 
-localStorage.setItem("montoDeposito",monto);
+    const referencia = "RC-" + Date.now();
 
-window.location.href="https://checkout.wompi.co/l/VPOS_hP5CXs";
+    localStorage.setItem("montoDeposito", monto);
+
+    localStorage.setItem("referenciaDeposito", referencia);
+
+    window.location.href = "https://checkout.wompi.co/l/VPOS_hP5CXs";
 
 }
 
