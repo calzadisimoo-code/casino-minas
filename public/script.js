@@ -39,6 +39,8 @@ socket.on("connect",()=>{
 
     miSocket = socket.id;
 
+    socket.emit("pedirMesas");
+
 });
 
 

@@ -368,6 +368,12 @@ if(j2.socket){
 
 }
 
+socket.on("pedirMesas",()=>{
+
+    socket.emit("listaMesas", mesas);
+
+});
+
 setTimeout(()=>{
 
     const jugador1 = usuarios[j1.googleId];
