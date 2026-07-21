@@ -1125,7 +1125,7 @@ io.to(partida.id).emit("actualizarTablero",{
 
     turno:partida.turno,
 
-    casilla:indice
+    casilla:datos.casilla
 
 });
 
