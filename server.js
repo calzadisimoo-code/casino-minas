@@ -530,7 +530,7 @@ setTimeout(()=>{
 
     );
 
-    /* const indice = mesas.findIndex(m=>m.id==mesa.id);
+    const indice = mesas.findIndex(m=>m.id==mesa.id);
 
     if(indice!=-1){
 
@@ -538,7 +538,7 @@ setTimeout(()=>{
 
     }
 
-    enviarMesas();*/
+    enviarMesas();
 
 },ESPERA_BOT);
 	
@@ -570,9 +570,12 @@ socket.on("cancelarMesa",()=>{
 
 socket.on("aceptarMesa",(datos)=>{
 	
-	console.log("ID recibido:", datos.mesa);
-console.log("Mesas actuales:", mesas);
+console.log("ID recibido:", datos.mesa);
+console.log("Mesas actuales:", JSON.stringify(mesas, null, 2));
 
+const mesa = mesas.find(m=>m.id==datos.mesa);
+
+console.log("Mesa encontrada:", mesa);
     const mesa = mesas.find(m=>m.id==datos.mesa);
 
     if(!mesa){
