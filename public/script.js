@@ -823,4 +823,6 @@ document.getElementById("btnRecibirBono").onclick=()=>{
 
     });
 
+    socket.emit("pedirMesas");
+
 };
