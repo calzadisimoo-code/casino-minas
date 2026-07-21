@@ -625,6 +625,8 @@ console.log("Mesas actuales:", mesas);
 });
 
 socket.on("solicitarRetiro",(datos)=>{
+	
+	console.log("LLEGÓ RETIRO:", datos);
 
     const jugador = usuarios[datos.googleId];
 
