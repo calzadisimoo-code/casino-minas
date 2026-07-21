@@ -1,4 +1,3 @@
-alert("deposito.js cargó");
 const socket = io();
 
 let usuarioGoogle = JSON.parse(
