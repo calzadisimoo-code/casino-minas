@@ -830,6 +830,22 @@ io.to(partida.id).emit("finPartida",{
 
 });
 
+io.except(partida.id).emit("finPartida",{
+
+    tablero:partida.tablero,
+
+    casilla:datos.casilla,
+
+    ganador:ganador.nombre,
+
+    perdedor:perdedor.nombre,
+
+    ganadorID:ganador.socket.id,
+
+    perdedorID:perdedor.socket.id
+
+});
+
 io.emit("actualizarTablero",{
 
     tablero:partida.tablero,
