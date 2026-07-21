@@ -929,12 +929,3 @@ document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
 
 };
 
-document.getElementById("cancelarEspera").onclick=()=>{
-
-    document.getElementById("esperando").style.display="none";
-
-    document.getElementById("panelJuego").style.display="flex";
-
-    socket.emit("cancelarSalaPrivada");
-
-};
