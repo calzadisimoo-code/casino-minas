@@ -126,7 +126,7 @@ function obtenerJugador(googleId,nombre,foto){
 
             foto,
 
-            puntos:0,
+            puntos:500,
 
             victorias:0,
 
