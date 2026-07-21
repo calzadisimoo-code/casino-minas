@@ -359,70 +359,76 @@ if(j2.socket){
     j2.socket.join(id);
 
 }
-	
-const jugador1 = usuarios[j1.googleId];
 
-jugador1.puntos -= apuesta;
+setTimeout(()=>{
 
-guardarUsuarios();
+    const jugador1 = usuarios[j1.googleId];
 
-j1.socket.emit("misPuntos",{
-
-    puntos: jugador1.puntos
-
-});
-
-if(j2.socket){
-
-    const jugador2 = usuarios[j2.googleId];
-
-    jugador2.puntos -= apuesta;
+    jugador1.puntos -= apuesta;
 
     guardarUsuarios();
 
-    j2.socket.emit("misPuntos",{
+    j1.socket.emit("misPuntos",{
 
-        puntos: jugador2.puntos
+        puntos: jugador1.puntos
 
     });
 
-}
+    if(j2.socket){
 
-io.to(id).emit("partidaEncontrada",{
+        const jugador2 = usuarios[j2.googleId];
 
-    partida:id,
+        jugador2.puntos -= apuesta;
 
-    apuesta,
+        guardarUsuarios();
 
-    tablero,
+        j2.socket.emit("misPuntos",{
 
-    jugador1:j1.nombre,
-    foto1:j1.foto,
+            puntos: jugador2.puntos
 
-    jugador2:j2.nombre,
-    foto2:j2.foto,
+        });
 
-    turno:j1.socket.id
+    }
 
-});
+    io.to(id).emit("partidaEncontrada",{
 
-io.except(id).emit("partidaEncontrada",{
+        partida:id,
 
-    partida:id,
+        apuesta,
 
-    apuesta,
+        tablero,
 
-    tablero,
+        jugador1:j1.nombre,
+        foto1:j1.foto,
 
-    jugador1:j1.nombre,
-    foto1:j1.foto,
+        jugador2:j2.nombre,
+        foto2:j2.foto,
 
-    jugador2:j2.nombre,
-    foto2:j2.foto,
+        turno:j1.socket.id
 
-    turno:"espectador"
+    });
 
-});
+    io.except(id).emit("partidaEncontrada",{
+
+        partida:id,
+
+        apuesta,
+
+        tablero,
+
+        jugador1:j1.nombre,
+        foto1:j1.foto,
+
+        jugador2:j2.nombre,
+        foto2:j2.foto,
+
+        turno:"espectador"
+
+    });
+
+    partidaEspectada = id;
+
+},100);
 
 partidaEspectada = id;
 
