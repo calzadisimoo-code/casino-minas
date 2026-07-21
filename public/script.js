@@ -499,6 +499,16 @@ document.getElementById("juego").style.display = "block";
 window.onload = ()=>{
 
     document.getElementById("juego").style.display="block";
+	
+	if(
+
+    !localStorage.getItem("usuarioGoogle")
+
+){
+
+    document.getElementById("popupBono").style.display="flex";
+
+}
 
     const guardado = localStorage.getItem("usuarioGoogle");
 
@@ -845,3 +855,17 @@ function iniciarMusica(){
 document.addEventListener("pointerdown", iniciarMusica);
 document.addEventListener("touchstart", iniciarMusica);
 document.addEventListener("click", iniciarMusica);
+
+document.getElementById("btnRecibirBono").onclick=()=>{
+
+    document.getElementById("popupBono").style.display="none";
+
+    document.getElementById("loginGoogle").scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"center"
+
+    });
+
+};
