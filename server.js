@@ -492,6 +492,8 @@ console.log(mesas);
 
 enviarMesas();
 	
+	
+	/*
 setTimeout(()=>{
 
     const sigue = mesas.find(m=>m.id===mesa.id);
@@ -540,7 +542,7 @@ setTimeout(()=>{
 
     enviarMesas();
 
-},ESPERA_BOT);
+},ESPERA_BOT); */
 	
 	console.log("Mesa creada:", mesa);
 console.log("Todas las mesas:", mesas);
