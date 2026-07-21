@@ -1396,18 +1396,3 @@ server.listen(3000,()=>{
 
 });
 
-socket.on("cancelarSalaPrivada",()=>{
-
-    for(const codigo in salasPrivadas){
-
-        if(salasPrivadas[codigo].socket.id==socket.id){
-
-            delete salasPrivadas[codigo];
-
-            break;
-
-        }
-
-    }
-
-});
