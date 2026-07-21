@@ -168,6 +168,8 @@ socket.on("esperando",()=>{
 
 socket.on("partidaEncontrada",(datos)=>{
 	
+	buscandoMesa = false;
+	
 	document.getElementById("premioPartida").innerHTML =
 "$"+Number(datos.apuesta*1.5).toLocaleString("es-CO");
 	
@@ -199,6 +201,8 @@ if(datos.turno=="espectador"){
     miTurno = datos.turno == miSocket;
 
     document.getElementById("panelJuego").style.display = "none";
+
+    buscandoMesa = false;
 
     actualizarTurno();
 
@@ -421,13 +425,21 @@ function actualizarTurno(){
 
     if(!turno) return;
 
-    if(miPartida==""){
+if(miPartida==""){
+
+    if(buscandoMesa){
+
+        turno.innerHTML="";
+
+    }else{
 
         turno.innerHTML="👀 Espectando";
 
-        return;
-
     }
+
+    return;
+
+}
 
     if(miTurno){
 
