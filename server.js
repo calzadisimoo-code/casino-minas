@@ -558,11 +558,6 @@ socket.on("entrarSalaPrivada",(datos)=>{
 
     };
 
-    socket.emit(
-        "mensaje",
-        "⏳ Esperando a que tu amigo escriba el mismo código..."
-    );
-
 });
     // AQUÍ SIGUE TODO TU CÓDIGO ACTUAL DE crearMesa
 	
@@ -1398,5 +1393,21 @@ app.post("/webhook/wompi",(req,res)=>{
 server.listen(3000,()=>{
 
     console.log("Servidor iniciado en puerto 3000");
+
+});
+
+socket.on("cancelarSalaPrivada",()=>{
+
+    for(const codigo in salasPrivadas){
+
+        if(salasPrivadas[codigo].socket.id==socket.id){
+
+            delete salasPrivadas[codigo];
+
+            break;
+
+        }
+
+    }
 
 });

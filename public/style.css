@@ -1563,3 +1563,27 @@ JUGAR CON AMIGOS
     word-break:break-all;
 
 }
+
+#cancelarEspera{
+
+    margin-top:20px;
+
+    width:170px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#d90429;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
