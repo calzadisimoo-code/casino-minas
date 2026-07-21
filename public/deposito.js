@@ -91,3 +91,39 @@ function confirmarPago(){
     alert("Tu depósito quedó pendiente de aprobación.");
 
 }
+
+function continuarRetiro(){
+
+    const monto = Number(document.getElementById("monto").value);
+
+    if(monto <= 0){
+
+        alert("Ingresa un monto válido.");
+
+        return;
+
+    }
+
+    const metodo = document.querySelector('input[name="metodo"]:checked');
+
+    if(!metodo){
+
+        alert("Selecciona un método.");
+
+        return;
+
+    }
+
+    socket.emit("solicitarRetiro",{
+
+        googleId: usuarioGoogle.sub,
+
+        nombre: usuarioGoogle.name,
+
+        monto,
+
+        metodo: metodo.value
+
+    });
+
+}

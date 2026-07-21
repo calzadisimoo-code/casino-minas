@@ -624,6 +624,44 @@ console.log("Mesas actuales:", mesas);
 
 });
 
+socket.on("solicitarRetiro",(datos)=>{
+
+    const jugador = usuarios[datos.googleId];
+
+    if(!jugador){
+
+        socket.emit("mensaje","Usuario no encontrado.");
+
+        return;
+
+    }
+
+    if(jugador.puntos < datos.monto){
+
+        socket.emit("mensaje","❌ No tienes saldo suficiente.");
+
+        return;
+
+    }
+
+    jugador.puntos -= datos.monto;
+
+    guardarUsuarios();
+
+    socket.emit("misPuntos",{
+
+        puntos: jugador.puntos
+
+    });
+
+    socket.emit("mensaje",
+`✅ Solicitud enviada correctamente.
+
+Tu retiro de $${datos.monto.toLocaleString("es-CO")} fue recibido.
+
+Recibirás el dinero entre 1 y 24 horas.`);
+});
+
     jugadoresOnline++;
 
     io.emit("online",jugadoresOnline);
