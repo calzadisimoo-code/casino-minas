@@ -141,12 +141,6 @@ socket.on("mensaje",(texto)=>{
 
 });
 
-const socket = io();
-
-const usuarioGoogle = JSON.parse(
-    localStorage.getItem("usuarioGoogle")
-);
-
 socket.on("mensaje",(texto)=>{
 
     alert(texto);
