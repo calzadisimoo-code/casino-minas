@@ -316,9 +316,13 @@ function enviarMesas(){
 
 function crearPartida(j1,j2,apuesta){
 
-    const id = Date.now().toString() + Math.floor(Math.random()*999999);
+    const id =
+        Date.now().toString() +
+        Math.floor(Math.random()*999999);
 
     const tablero = crearTablero();
+
+    const modoBot = !j2.socket;
 
     partidas[id]={
 
@@ -332,105 +336,115 @@ function crearPartida(j1,j2,apuesta){
 
         terminada:false,
 
+        modoBot,
+
         jugadores:[
 
-    {
+            {
 
-        socket:j1.socket,
+                socket:j1.socket,
 
-        googleId:j1.googleId,
+                googleId:j1.googleId,
 
-        nombre:j1.nombre
+                nombre:j1.nombre,
 
-    },
+                foto:j1.foto
 
-    {
+            },
 
-        socket:j2.socket,
+            {
 
-        googleId:j2.googleId,
+                socket:j2.socket,
 
-        nombre:j2.nombre
+                googleId:j2.googleId,
 
-    }
+                nombre:j2.nombre,
 
-]
+                foto:j2.foto
+
+            }
+
+        ]
 
     };
 
-j1.socket.join(id);
+    j1.socket.join(id);
 
-if(j2.socket){
+    if(j2.socket){
 
-    j2.socket.join(id);
+        j2.socket.join(id);
 
-}
-	
-const jugador1 = usuarios[j1.googleId];
+    }
 
-jugador1.puntos -= apuesta;
+    const jugador1 = usuarios[j1.googleId];
 
-guardarUsuarios();
+    jugador1.puntos -= apuesta;
 
-j1.socket.emit("misPuntos",{
+    if(!modoBot){
 
-    puntos: jugador1.puntos
+        const jugador2 = usuarios[j2.googleId];
 
-});
+        jugador2.puntos -= apuesta;
 
-if(j2.socket){
-
-    const jugador2 = usuarios[j2.googleId];
-
-    jugador2.puntos -= apuesta;
+    }
 
     guardarUsuarios();
 
-    j2.socket.emit("misPuntos",{
+    j1.socket.emit("misPuntos",{
 
-        puntos: jugador2.puntos
+        puntos:jugador1.puntos
 
     });
 
-}
+    if(j2.socket){
 
-io.to(id).emit("partidaEncontrada",{
+        j2.socket.emit("misPuntos",{
 
-    partida:id,
+            puntos:usuarios[j2.googleId].puntos
 
-    apuesta,
+        });
 
-    tablero,
+    }
 
-    jugador1:j1.nombre,
-    foto1:j1.foto,
+    const datos={
 
-    jugador2:j2.nombre,
-    foto2:j2.foto,
+        partida:id,
 
-    turno:j1.socket.id
+        apuesta,
 
-});
+        tablero,
 
-io.except(id).emit("partidaEncontrada",{
+        jugador1:j1.nombre,
 
-    partida:id,
+        foto1:j1.foto,
 
-    apuesta,
+        jugador2:j2.nombre,
 
-    tablero,
+        foto2:j2.foto,
 
-    jugador1:j1.nombre,
-    foto1:j1.foto,
+        turno:j1.socket.id
 
-    jugador2:j2.nombre,
-    foto2:j2.foto,
+    };
 
-    turno:"espectador"
+    if(modoBot){
 
-});
+        j1.socket.emit("partidaEncontrada",datos);
 
-partidaEspectada = id;
+    }else{
+
+        io.to(id).emit("partidaEncontrada",datos);
+
+    }
+
+    io.except(id).emit("partidaEncontrada",{
+
+        ...datos,
+
+        turno:"espectador"
+
+    });
+
+    partidaEspectada=id;
 
 }
 
@@ -478,12 +492,48 @@ io.on("connection",(socket)=>{
 
     };
 
-    mesas.push(mesa);
-	
-	console.log("Mesa creada:", mesa);
+mesas.push(mesa);
+
+console.log("Mesa creada:", mesa);
 console.log("Todas las mesas:", mesas);
 
+enviarMesas();
+
+setTimeout(()=>{
+
+    const sigue = mesas.find(m=>m.id===mesa.id);
+
+    if(!sigue) return;
+
+    mesas.splice(mesas.indexOf(sigue),1);
+
     enviarMesas();
+
+    crearPartida(
+
+        {
+            socket,
+            googleId: mesa.googleId,
+            nombre: mesa.nombre,
+            foto: mesa.foto
+        },
+
+        {
+            socket: {
+                id: "BOT"
+            },
+            googleId: "BOT",
+            nombre: nombresDemo[
+                Math.floor(Math.random()*nombresDemo.length)
+            ],
+            foto: ""
+        },
+
+        mesa.apuesta
+
+    );
+
+},5000);
 	
 
 });
