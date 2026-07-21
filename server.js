@@ -24,6 +24,7 @@ let jugadoresOnline = 0;
 // Cola de espera
 const cola = [];
 const mesas = [];
+const salasPrivadas = {};
 
 // Partidas activas
 const partidas = {};
@@ -466,14 +467,76 @@ partidaEspectada = id;
 }
 
 io.on("connection",(socket)=>{
-	
-	socket.on("pedirMesas",()=>{
+
+socket.on("pedirMesas",()=>{
 
     console.log("📤 Enviando mesas al nuevo visitante");
 
     socket.emit("listaMesas", mesas);
 
 });
+
+
+//=====================================
+// CREAR SALA PRIVADA
+//=====================================
+
+socket.on("crearSalaPrivada",()=>{
+
+    const codigo = Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+    salasPrivadas[codigo]={
+
+        codigo,
+
+        socket:socket.id,
+
+        jugador2:null
+
+    };
+
+    socket.emit("salaPrivadaCreada",{
+
+        codigo
+
+    });
+
+});
+
+
+//=====================================
+// ENTRAR A SALA PRIVADA
+//=====================================
+
+socket.on("entrarSalaPrivada",(datos)=>{
+
+    const sala = salasPrivadas[datos.codigo];
+
+    if(!sala){
+
+        socket.emit("mensaje","Sala no encontrada.");
+
+        return;
+
+    }
+
+    sala.jugador2 = socket.id;
+
+    socket.emit("mensaje","Te uniste correctamente.");
+
+    const creador = io.sockets.sockets.get(sala.socket);
+
+    if(creador){
+
+        creador.emit("mensaje","🎉 Tu amigo entró a la sala.");
+
+    }
+
+});
+    // AQUÍ SIGUE TODO TU CÓDIGO ACTUAL DE crearMesa
 	
 	socket.on("crearMesa",(datos)=>{
 

@@ -838,3 +838,91 @@ document.getElementById("btnRecibirBono").onclick=()=>{
     socket.emit("pedirMesas");
 
 };
+
+//============================
+// JUGAR CON AMIGOS
+//============================
+
+const popupAmigos = document.getElementById("popupAmigos");
+
+const btnJugarAmigos = document.getElementById("jugarAmigos");
+
+const btnCrearSala = document.getElementById("crearSala");
+
+const btnEntrarSala = document.getElementById("entrarSala");
+
+const btnCerrarAmigos = document.getElementById("cerrarAmigos");
+
+const btnCopiarLink = document.getElementById("copiarLink");
+
+const codigoSala = document.getElementById("codigoSala");
+
+const linkSala = document.getElementById("linkSala");
+
+btnJugarAmigos.onclick = ()=>{
+
+    if(!usuarioGoogle){
+
+        alert("Primero inicia sesión con Google.");
+
+        return;
+
+    }
+
+    popupAmigos.style.display="flex";
+
+};
+
+btnCerrarAmigos.onclick = ()=>{
+
+    popupAmigos.style.display="none";
+
+};
+
+btnCrearSala.onclick = ()=>{
+
+    socket.emit("crearSalaPrivada");
+
+};
+
+socket.on("salaPrivadaCreada",(datos)=>{
+
+    codigoSala.value = datos.codigo;
+
+    const link =
+    location.origin + "/?sala=" + datos.codigo;
+
+    linkSala.innerHTML = link;
+
+    btnCopiarLink.style.display = "block";
+
+});
+
+btnCopiarLink.onclick = async ()=>{
+
+    const link =
+    location.origin + "/?sala=" + codigoSala.value;
+
+    await navigator.clipboard.writeText(link);
+
+    alert("✅ Enlace copiado");
+
+};
+
+btnEntrarSala.onclick = ()=>{
+
+    if(codigoSala.value.trim()==""){
+
+        alert("Escribe un código.");
+
+        return;
+
+    }
+
+    socket.emit("entrarSalaPrivada",{
+
+        codigo:codigoSala.value.trim().toUpperCase()
+
+    });
+
+};

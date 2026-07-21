@@ -1395,3 +1395,171 @@ cursor:pointer;
     gap:4px;
 
 }
+
+/*==========================
+JUGAR CON AMIGOS
+==========================*/
+
+#jugarAmigos{
+
+    margin-top:12px;
+    width:100%;
+    height:48px;
+
+    border:none;
+    border-radius:12px;
+
+    background:linear-gradient(45deg,#3b82f6,#2563eb);
+
+    color:white;
+
+    font-size:17px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+#jugarAmigos:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:0 0 18px #3b82f6;
+
+}
+
+.popupAmigos{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.75);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999999;
+
+}
+
+.ventanaAmigos{
+
+    width:90%;
+    max-width:360px;
+
+    background:#171717;
+
+    border:2px solid gold;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.ventanaAmigos h2{
+
+    margin-bottom:20px;
+
+    color:#FFD700;
+
+}
+
+#crearSala,
+#entrarSala,
+#copiarLink,
+#cerrarAmigos{
+
+    width:100%;
+    height:46px;
+
+    margin-top:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+#crearSala{
+
+    background:#16a34a;
+
+    color:white;
+
+}
+
+#entrarSala{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+#copiarLink{
+
+    background:#FFD700;
+
+    color:black;
+
+}
+
+#cerrarAmigos{
+
+    background:#d90429;
+
+    color:white;
+
+}
+
+#codigoSala{
+
+    width:100%;
+
+    height:46px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:0 12px;
+
+    font-size:16px;
+
+    text-align:center;
+
+}
+
+#linkSala{
+
+    margin-top:15px;
+
+    font-size:13px;
+
+    color:#FFD700;
+
+    word-break:break-all;
+
+}
