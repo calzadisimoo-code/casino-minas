@@ -100,6 +100,8 @@ function confirmarPago(){
 }
 
 function continuarRetiro(){
+	
+	alert("Entró a la función");
 
     const monto = Number(document.getElementById("monto").value);
 
@@ -134,12 +136,6 @@ function continuarRetiro(){
     });
 
 }
-
-socket.on("mensaje",(texto)=>{
-
-    alert(texto);
-
-});
 
 socket.on("mensaje",(texto)=>{
 
