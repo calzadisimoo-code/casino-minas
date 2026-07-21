@@ -474,37 +474,25 @@ io.on("connection",(socket)=>{
 
     mesas.push(mesa);
 	
-	setTimeout(()=>{
+setTimeout(()=>{
 
     const sigue = mesas.find(m=>m.id===mesa.id);
 
     if(!sigue) return;
 
-    socket.emit("crearBot",{
-
-        mesa:mesa.id
-
-    });
-
-},ESPERA_BOT);
-	
-	console.log("Mesa creada:", mesa);
-console.log("Todas las mesas:", mesas);
-
-    enviarMesas();
-	
-
-});
-
-socket.on("crearBot",(datos)=>{
-
-    const mesa = mesas.find(m=>m.id==datos.mesa);
-
-    if(!mesa) return;
-
     crearPartida(
 
-        mesa,
+        {
+
+            socket,
+
+            googleId:mesa.googleId,
+
+            nombre:mesa.nombre,
+
+            foto:mesa.foto
+
+        },
 
         {
 
@@ -524,15 +512,23 @@ socket.on("crearBot",(datos)=>{
 
     );
 
-   const indice = mesas.findIndex(m=>m.id==mesa.id);
+    const indice = mesas.findIndex(m=>m.id==mesa.id);
 
-if(indice!=-1){
+    if(indice!=-1){
 
-    mesas.splice(indice,1);
+        mesas.splice(indice,1);
 
-}
+    }
 
-    io.emit("listaMesas",mesas);
+    enviarMesas();
+
+},ESPERA_BOT);
+	
+	console.log("Mesa creada:", mesa);
+console.log("Todas las mesas:", mesas);
+
+    enviarMesas();
+	
 
 });
 
