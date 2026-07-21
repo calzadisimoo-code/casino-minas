@@ -390,17 +390,15 @@ font-weight:bold;
 
 #tablero{
 
+margin:10px auto;
+
 display:grid;
 
-grid-template-columns:repeat(5,55px);
+grid-template-columns:repeat(5,85px);
 
-gap:6px;
+gap:10px;
 
-width:fit-content;
-
-margin-left:auto;
-
-margin-right:auto;
+justify-content:center;
 
 }
 
@@ -536,11 +534,17 @@ transform-origin:top center;
 
 #tablero{
 
+display:grid;
+
 grid-template-columns:repeat(5,55px);
 
 gap:6px;
 
-justify-content:center;
+width:fit-content;
+
+margin-left:auto;
+
+margin-right:auto;
 
 }
 
