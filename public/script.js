@@ -495,92 +495,18 @@ document.getElementById("juego").style.display = "block";
         });
 
     }
-
-window.onload = ()=>{
-
-    document.getElementById("juego").style.display="block";
-
-    const guardado = localStorage.getItem("usuarioGoogle");
-
-    if(guardado){
-
-        usuarioGoogle = JSON.parse(guardado);
-
-        document.getElementById("loginGoogle").style.display="none";
-
-        document.getElementById("nombreUsuario").innerHTML = usuarioGoogle.name;
-
-        document.getElementById("foto").src = usuarioGoogle.picture;
-
-        document.getElementById("foto").onclick = abrirPerfil;
-
-        socket.emit("cargarUsuario",{
-
-            googleId: usuarioGoogle.sub,
-
-            nombre: usuarioGoogle.name,
-
-            foto: usuarioGoogle.picture
-
-        });
-
-    }
-
-    google.accounts.id.initialize({
-
-        client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
-
-        callback:loginGoogle
-
-    });
-
-    if(!usuarioGoogle){
-
-        google.accounts.id.prompt();
-
-        google.accounts.id.renderButton(
-
-            document.getElementById("loginGoogle"),
-
-            {
-
-                theme:"filled_blue",
-
-                size:"large",
-
-                width:260
-
-            }
-
-        );
-
-    }
-
-    dibujarTablero(
-
-        Array(25).fill({
-
-            abierta:false,
-
-            tipo:"diamante"
-
-        })
-
-    );
-
-};
-
-
-
-    google.accounts.id.initialize({
-
-        client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
-
-        callback:loginGoogle
-
-    });
 	
-	google.accounts.id.prompt();
+	google.accounts.id.initialize({
+
+    client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
+
+    callback:loginGoogle
+
+});
+
+if(!usuarioGoogle){
+
+    google.accounts.id.prompt();
 
     google.accounts.id.renderButton(
 
@@ -598,20 +524,22 @@ window.onload = ()=>{
 
     );
 
-    dibujarTablero(
+}
 
-        Array(25).fill({
+dibujarTablero(
 
-            abierta:false,
+    Array(25).fill({
 
-            tipo:"diamante"
+        abierta:false,
 
-        })
+        tipo:"diamante"
 
-    );
+    })
+
+);
 
 };
-
+	
 function loginGoogle(response){
 
     console.log("LOGIN EJECUTADO");
