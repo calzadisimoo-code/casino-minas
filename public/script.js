@@ -691,13 +691,8 @@ if(mesa){
     popupNombre.innerHTML =
     "🎰 ¡DESAFÍO!";
 
-    popupTexto.innerHTML = `
-<b>${mesa.nombre}</b><br><br>
-💰 Apuesta:
-<b>$${Number(mesa.apuesta).toLocaleString("es-CO")}</b><br><br>
-🏆 Premio:
-<b>$${Number(mesa.apuesta*1.5).toLocaleString("es-CO")}</b>
-`;
+popupTexto.innerHTML =
+`${mesa.nombre} quiere apostar contigo $${Number(mesa.apuesta).toLocaleString("es-CO")}. ¿Aceptas?`;
 
 popupAceptar.onclick = ()=>{
 
