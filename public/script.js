@@ -701,9 +701,9 @@ if(mesa){
 
 popupAceptar.onclick = ()=>{
 
-    popupMesa.style.display = "none";
-
     if(!usuarioGoogle){
+
+        alert("🔐 Primero debes iniciar sesión con Google para aceptar el desafío.");
 
         document.getElementById("loginGoogle").scrollIntoView({
 
@@ -726,6 +726,8 @@ popupAceptar.onclick = ()=>{
         return;
 
     }
+
+    popupMesa.style.display="none";
 
     aceptarMesa(mesa.id);
 
