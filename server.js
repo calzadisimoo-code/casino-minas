@@ -392,7 +392,7 @@ io.to(id).emit("partidaEncontrada",{
 
 });
 
-socket.broadcast.emit("partidaEncontrada",{
+io.emit("partidaEncontrada",{
 
     partida:id,
 
@@ -413,26 +413,6 @@ socket.broadcast.emit("partidaEncontrada",{
 });
 
 partidaEspectada = id;
-
-socket.broadcast.emit("espectando",{
-
-    partida:id,
-
-    apuesta,
-
-    tablero,
-
-    jugador1:j1.nombre,
-
-    foto1:j1.foto,
-
-    jugador2:j2.nombre,
-
-    foto2:j2.foto,
-
-    turno:j1.socket.id
-
-});
 
 }
 
@@ -852,6 +832,16 @@ io.to(partida.id).emit("finPartida",{
 
 });
 
+io.emit("actualizarTablero",{
+
+    tablero:partida.tablero,
+
+    turno:partida.turno,
+
+    casilla:datos.casilla
+
+});
+
 setTimeout(()=>{
 	
 	partidaEspectada = null;
@@ -895,6 +885,10 @@ io.emit("actualizarTablero",{
     casilla:datos.casilla
 
 });
+
+io.emit("actualizarEspectadores",{
+
+    partida:partida.id,
 
     tablero:partida.tablero,
 
