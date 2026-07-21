@@ -692,7 +692,7 @@ if(mesa){
     "🎰 ¡DESAFÍO!";
 
 popupTexto.innerHTML =
-`${mesa.nombre} quiere apostar contigo $${Number(mesa.apuesta).toLocaleString("es-CO")}. ¿Aceptas?`;
+`${mesa.nombre} quiere apostar contigo $${Number(mesa.apuesta).toLocaleString("es-CO")} ¿Aceptas?`;
 
 popupAceptar.onclick = ()=>{
 
