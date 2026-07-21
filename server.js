@@ -332,27 +332,21 @@ function crearPartida(j1,j2,apuesta){
 
         terminada:false,
 
-        jugadores:[
+jugadores:[
 
-    {
+{
+    socket:j1.socket,
+    googleId:j1.googleId,
+    nombre:j1.nombre,
+    foto:j1.foto || ""
+},
 
-        socket:j1.socket,
-
-        googleId:j1.googleId,
-
-        nombre:j1.nombre
-
-    },
-
-    {
-
-        socket:j2.socket,
-
-        googleId:j2.googleId,
-
-        nombre:j2.nombre
-
-    }
+{
+    socket:j2.socket,
+    googleId:j2.googleId,
+    nombre:j2.nombre,
+    foto:j2.foto || ""
+}
 
 ]
 
@@ -499,6 +493,46 @@ console.log("Todas las mesas:", mesas);
 
     enviarMesas();
 	
+
+});
+
+socket.on("crearBot",(datos)=>{
+
+    const mesa = mesas.find(m=>m.id==datos.mesa);
+
+    if(!mesa) return;
+
+    crearPartida(
+
+        mesa,
+
+        {
+
+            socket:null,
+
+            googleId:"BOT",
+
+            nombre:nombresDemo[
+                Math.floor(Math.random()*nombresDemo.length)
+            ],
+
+            foto:""
+
+        },
+
+        mesa.apuesta
+
+    );
+
+   const indice = mesas.findIndex(m=>m.id==mesa.id);
+
+if(indice!=-1){
+
+    mesas.splice(indice,1);
+
+}
+
+    io.emit("listaMesas",mesas);
 
 });
 
@@ -907,23 +941,39 @@ guardarUsuarios();
 
             }
 
-            const ganadorBD = usuarios[ganador.googleId];
-const perdedorBD = usuarios[perdedor.googleId];
+if(ganador.googleId!="BOT"){
 
-ganadorBD.puntos += partida.apuesta * 1.5;
-ganadorBD.victorias++;
+    const ganadorBD = usuarios[ganador.googleId];
 
-perdedorBD.derrotas++;
+    ganadorBD.puntos += partida.apuesta * 1.5;
 
-guardarUsuarios();
+    ganadorBD.victorias++;
 
-ganador.socket.emit("misPuntos",{
-    puntos: ganadorBD.puntos
-});
+    guardarUsuarios();
 
-perdedor.socket.emit("misPuntos",{
-    puntos: perdedorBD.puntos
-});
+    ganador.socket.emit("misPuntos",{
+
+        puntos: ganadorBD.puntos
+
+    });
+
+}
+
+if(perdedor.googleId!="BOT"){
+
+    const perdedorBD = usuarios[perdedor.googleId];
+
+    perdedorBD.derrotas++;
+
+    guardarUsuarios();
+
+    perdedor.socket.emit("misPuntos",{
+
+        puntos: perdedorBD.puntos
+
+    });
+
+}
 io.to(partida.id).emit("finPartida",{
 
     tablero:partida.tablero,
@@ -934,9 +984,9 @@ io.to(partida.id).emit("finPartida",{
 
     perdedor:perdedor.nombre,
 
-    ganadorID:ganador.socket.id,
+    ganadorID: ganador.socket ? ganador.socket.id : "BOT",
 
-    perdedorID:perdedor.socket.id
+    perdedorID: perdedor.socket ? perdedor.socket.id : "BOT"
 
 });
 
@@ -950,9 +1000,9 @@ io.except(partida.id).emit("finPartida",{
 
     perdedor:perdedor.nombre,
 
-    ganadorID:ganador.socket.id,
+    ganadorID: ganador.socket ? ganador.socket.id : "BOT",
 
-    perdedorID:perdedor.socket.id
+    perdedorID: perdedor.socket ? perdedor.socket.id : "BOT"
 
 });
 
