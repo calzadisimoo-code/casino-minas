@@ -487,13 +487,19 @@ window.onload = ()=>{
 
         });
 
-    }else{
+}else{
 
-        document.getElementById("loginGoogle").style.display = "flex";
+    document.getElementById("loginGoogle").style.display = "flex";
 
-        document.getElementById("popupBono").style.display = "flex";
+    document.getElementById("popupBono").style.display = "flex";
 
-    }
+    setTimeout(()=>{
+
+        socket.emit("pedirMesas");
+
+    },300);
+
+}
 
     google.accounts.id.initialize({
 
