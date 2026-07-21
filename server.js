@@ -484,8 +484,13 @@ io.on("connection",(socket)=>{
         apuesta:datos.apuesta
 
     };
+	
+	mesas.push(mesa);
 
-    mesas.push(mesa);
+console.log("MESA AGREGADA");
+console.log(mesas);
+
+enviarMesas();
 	
 setTimeout(()=>{
 
