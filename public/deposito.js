@@ -77,8 +77,7 @@ function cerrarPopup(){
 
 }
 
-function confirmarPago(){
-
+function continuarRetiro(){
 
     const monto = Number(document.getElementById("monto").value);
 
@@ -99,9 +98,6 @@ function confirmarPago(){
         return;
 
     }
-	
-	console.log("Conectado:", socket.connected);
-    console.log(usuarioGoogle);
 
     socket.emit("solicitarRetiro",{
 
