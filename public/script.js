@@ -847,17 +847,11 @@ const popupAmigos = document.getElementById("popupAmigos");
 
 const btnJugarAmigos = document.getElementById("jugarAmigos");
 
-const btnCrearSala = document.getElementById("crearSala");
-
 const btnEntrarSala = document.getElementById("entrarSala");
 
 const btnCerrarAmigos = document.getElementById("cerrarAmigos");
 
-const btnCopiarLink = document.getElementById("copiarLink");
-
 const codigoSala = document.getElementById("codigoSala");
-
-const linkSala = document.getElementById("linkSala");
 
 btnJugarAmigos.onclick = ()=>{
 
@@ -879,58 +873,11 @@ btnCerrarAmigos.onclick = ()=>{
 
 };
 
-socket.on("crearSalaPrivada",(datos)=>{
-
-    salasPrivadas[datos.codigo]={
-
-        codigo:datos.codigo,
-
-        socket,
-
-        googleId:datos.googleId,
-
-        nombre:datos.nombre,
-
-        foto:datos.foto,
-
-        apuesta:datos.apuesta
-
-    };
-
-    socket.emit("salaPrivadaCreada",{
-
-        codigo:datos.codigo
-
-    });
-
-});
-socket.on("salaPrivadaCreada",(datos)=>{
-
-    codigoSala.value = datos.codigo;
-
-    const link =
-    location.origin + "/?sala=" + datos.codigo;
-
-    linkSala.innerHTML = link;
-
-    btnCopiarLink.style.display = "block";
-
-});
-
-btnCopiarLink.onclick = async ()=>{
-
-    const link =
-    location.origin + "/?sala=" + codigoSala.value;
-
-    await navigator.clipboard.writeText(link);
-
-    alert("✅ Enlace copiado");
-
-};
-
 btnEntrarSala.onclick = ()=>{
 
-    if(codigoSala.value.trim()==""){
+    const codigo = codigoSala.value.trim().toUpperCase();
+
+    if(codigo==""){
 
         alert("Escribe un código.");
 
@@ -938,55 +885,31 @@ btnEntrarSala.onclick = ()=>{
 
     }
 
-socket.on("entrarSalaPrivada",(datos)=>{
+    socket.emit("entrarSalaPrivada",{
 
-    const sala = salasPrivadas[datos.codigo];
+        codigo,
 
-    if(!sala){
+        googleId:usuarioGoogle.sub,
 
-        socket.emit("mensaje","Sala no encontrada.");
+        nombre:usuarioGoogle.name,
 
-        return;
+        foto:usuarioGoogle.picture,
 
-    }
+        apuesta:Number(apuesta.value)
 
-    crearPartida(
-
-        {
-
-            socket:sala.socket,
-
-            googleId:sala.googleId,
-
-            nombre:sala.nombre,
-
-            foto:sala.foto
-
-        },
-
-        {
-
-            socket,
-
-            googleId:socket.googleId,
-
-            nombre:usuarios[socket.googleId].nombre,
-
-            foto:usuarios[socket.googleId].foto
-
-        },
-
-        sala.apuesta
-
-    );
-
-    delete salasPrivadas[datos.codigo];
-
-});
+    });
 
 };
 
 document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
+
+    const enlace="https://performs-montgomery-lovely-corporation.trycloudflare.com/";
+
+    await navigator.clipboard.writeText(enlace);
+
+    alert("✅ Enlace copiado. Envíaselo a tu amigo.");
+
+};
 
     const enlace = "https://performs-montgomery-lovely-corporation.trycloudflare.com/";
 

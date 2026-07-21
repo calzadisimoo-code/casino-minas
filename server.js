@@ -513,27 +513,55 @@ socket.on("crearSalaPrivada",()=>{
 
 socket.on("entrarSalaPrivada",(datos)=>{
 
-    const sala = salasPrivadas[datos.codigo];
+    const codigo = datos.codigo.trim().toUpperCase();
 
-    if(!sala){
+    // ¿Ya hay alguien esperando?
+    if(salasPrivadas[codigo]){
 
-        socket.emit("mensaje","Sala no encontrada.");
+        const espera = salasPrivadas[codigo];
+
+        delete salasPrivadas[codigo];
+
+        crearPartida(
+
+            {
+                socket:espera.socket,
+                googleId:espera.googleId,
+                nombre:espera.nombre,
+                foto:espera.foto
+            },
+
+            {
+                socket,
+                googleId:socket.googleId,
+                nombre:usuarios[socket.googleId].nombre,
+                foto:usuarios[socket.googleId].foto
+            },
+
+            espera.apuesta
+
+        );
 
         return;
 
     }
 
-    sala.jugador2 = socket.id;
+    // Si no existe, queda esperando
 
-    socket.emit("mensaje","Te uniste correctamente.");
+    salasPrivadas[codigo]={
 
-    const creador = io.sockets.sockets.get(sala.socket);
+        socket,
+        googleId:socket.googleId,
+        nombre:usuarios[socket.googleId].nombre,
+        foto:usuarios[socket.googleId].foto,
+        apuesta:Number(datos.apuesta)
 
-    if(creador){
+    };
 
-        creador.emit("mensaje","🎉 Tu amigo entró a la sala.");
-
-    }
+    socket.emit(
+        "mensaje",
+        "⏳ Esperando a que tu amigo escriba el mismo código..."
+    );
 
 });
     // AQUÍ SIGUE TODO TU CÓDIGO ACTUAL DE crearMesa
