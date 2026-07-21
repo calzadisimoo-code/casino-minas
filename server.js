@@ -200,17 +200,36 @@ function crearPartidaDemo(){
 
     ];
 
-    const apuestas=[
+const apuestas=[
 
-        10000,
-        20000,
-        50000,
-        100000,
-        200000,
-        500000,
-        1000000
+    // Muy comunes
+    20,20,20,
+    50,50,50,
+    100,100,100,
 
-    ];
+    // Comunes
+    200,200,
+    500,500,
+    1000,1000,
+
+    // Menos comunes
+    2000,
+    5000,
+    10000,
+
+    // Raras
+    20000,
+    50000,
+    100000,
+
+    // Muy raras
+    200000,
+    500000,
+
+    // Casi nunca
+    700000
+
+];
 
     partidaDemo={
 
