@@ -925,7 +925,7 @@ document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
 
     await navigator.clipboard.writeText(enlace);
 
-    alert("✅ Enlace copiado. Envíaselo a tu amigo.");
+    alert("✅ Enlace copiado. Envíaselo a tu amigo y dile que ponga el mismo codigo que uses.");
 
 };
 
