@@ -316,13 +316,9 @@ function enviarMesas(){
 
 function crearPartida(j1,j2,apuesta){
 
-    const id =
-        Date.now().toString() +
-        Math.floor(Math.random()*999999);
+    const id = Date.now().toString() + Math.floor(Math.random()*999999);
 
     const tablero = crearTablero();
-
-    const modoBot = !j2.socket;
 
     partidas[id]={
 
@@ -336,115 +332,105 @@ function crearPartida(j1,j2,apuesta){
 
         terminada:false,
 
-        modoBot,
-
         jugadores:[
 
-            {
+    {
 
-                socket:j1.socket,
+        socket:j1.socket,
 
-                googleId:j1.googleId,
+        googleId:j1.googleId,
 
-                nombre:j1.nombre,
+        nombre:j1.nombre
 
-                foto:j1.foto
+    },
 
-            },
+    {
 
-            {
+        socket:j2.socket,
 
-                socket:j2.socket,
+        googleId:j2.googleId,
 
-                googleId:j2.googleId,
+        nombre:j2.nombre
 
-                nombre:j2.nombre,
+    }
 
-                foto:j2.foto
-
-            }
-
-        ]
+]
 
     };
 
-    j1.socket.join(id);
+j1.socket.join(id);
 
-    if(j2.socket){
+if(j2.socket){
 
-        j2.socket.join(id);
+    j2.socket.join(id);
 
-    }
+}
+	
+const jugador1 = usuarios[j1.googleId];
 
-    const jugador1 = usuarios[j1.googleId];
+jugador1.puntos -= apuesta;
 
-    jugador1.puntos -= apuesta;
+guardarUsuarios();
 
-    if(!modoBot){
+j1.socket.emit("misPuntos",{
 
-        const jugador2 = usuarios[j2.googleId];
+    puntos: jugador1.puntos
 
-        jugador2.puntos -= apuesta;
+});
 
-    }
+if(j2.socket){
+
+    const jugador2 = usuarios[j2.googleId];
+
+    jugador2.puntos -= apuesta;
 
     guardarUsuarios();
 
-    j1.socket.emit("misPuntos",{
+    j2.socket.emit("misPuntos",{
 
-        puntos:jugador1.puntos
-
-    });
-
-    if(j2.socket){
-
-        j2.socket.emit("misPuntos",{
-
-            puntos:usuarios[j2.googleId].puntos
-
-        });
-
-    }
-
-    const datos={
-
-        partida:id,
-
-        apuesta,
-
-        tablero,
-
-        jugador1:j1.nombre,
-
-        foto1:j1.foto,
-
-        jugador2:j2.nombre,
-
-        foto2:j2.foto,
-
-        turno:j1.socket.id
-
-    };
-
-    if(modoBot){
-
-        j1.socket.emit("partidaEncontrada",datos);
-
-    }else{
-
-        io.to(id).emit("partidaEncontrada",datos);
-
-    }
-
-    io.except(id).emit("partidaEncontrada",{
-
-        ...datos,
-
-        turno:"espectador"
+        puntos: jugador2.puntos
 
     });
 
-    partidaEspectada=id;
+}
+
+io.to(id).emit("partidaEncontrada",{
+
+    partida:id,
+
+    apuesta,
+
+    tablero,
+
+    jugador1:j1.nombre,
+    foto1:j1.foto,
+
+    jugador2:j2.nombre,
+    foto2:j2.foto,
+
+    turno:j1.socket.id
+
+});
+
+io.except(id).emit("partidaEncontrada",{
+
+    partida:id,
+
+    apuesta,
+
+    tablero,
+
+    jugador1:j1.nombre,
+    foto1:j1.foto,
+
+    jugador2:j2.nombre,
+    foto2:j2.foto,
+
+    turno:"espectador"
+
+});
+
+partidaEspectada = id;
 
 }
 
@@ -492,48 +478,12 @@ io.on("connection",(socket)=>{
 
     };
 
-mesas.push(mesa);
-
-console.log("Mesa creada:", mesa);
+    mesas.push(mesa);
+	
+	console.log("Mesa creada:", mesa);
 console.log("Todas las mesas:", mesas);
 
-enviarMesas();
-
-setTimeout(()=>{
-
-    const sigue = mesas.find(m=>m.id===mesa.id);
-
-    if(!sigue) return;
-
-    mesas.splice(mesas.indexOf(sigue),1);
-
     enviarMesas();
-
-    crearPartida(
-
-        {
-            socket,
-            googleId: mesa.googleId,
-            nombre: mesa.nombre,
-            foto: mesa.foto
-        },
-
-        {
-            socket: {
-                id: "BOT"
-            },
-            googleId: "BOT",
-            nombre: nombresDemo[
-                Math.floor(Math.random()*nombresDemo.length)
-            ],
-            foto: ""
-        },
-
-        mesa.apuesta
-
-    );
-
-},5000);
 	
 
 });
@@ -870,8 +820,6 @@ guardarUsuarios();
 		console.log("⏰ PASARON 5 SEGUNDOS");
 
         cola.splice(cola.indexOf(sigue),1);
-		
-		console.log("🤖 CREANDO PARTIDA CON BOT");
 
         crearPartida(
 
