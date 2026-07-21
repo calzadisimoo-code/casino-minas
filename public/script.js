@@ -306,11 +306,23 @@ if(miPartida==""){
 
 setTimeout(()=>{
 
+    miPartida = "";
+
+    miTurno = false;
+
+    viendoDemo = true;
+
+    buscandoMesa = false;
+
+    apuesta.value = "";
+
+    document.getElementById("panelJuego").style.display = "flex";
+
+    document.getElementById("pantallaResultado").style.display = "none";
+
     actualizarTurno();
 
 },3000);
-
-});
 
 
 
