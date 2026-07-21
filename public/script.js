@@ -543,6 +543,12 @@ miTurno = false;
 
 actualizarTurno();
 
+setTimeout(()=>{
+
+    socket.emit("pedirMesas");
+
+},500);
+
 };
 
 function loginGoogle(response){
