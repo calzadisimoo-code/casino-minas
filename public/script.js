@@ -618,11 +618,15 @@ function actualizarListaMesas(lista){
 
     lista.forEach(mesa=>{
 
-        if(usuarioGoogle && mesa.googleId == usuarioGoogle.sub){
+if(usuarioGoogle){
 
-            return;
+    if(mesa.googleId == usuarioGoogle.sub){
 
-        }
+        return;
+
+    }
+
+}
 
         const div = document.createElement("div");
 
@@ -675,21 +679,37 @@ if(mesa){
 <b>$${Number(mesa.apuesta*1.5).toLocaleString("es-CO")}</b>
 `;
 
-    popupAceptar.onclick = ()=>{
+popupAceptar.onclick = ()=>{
 
-        popupMesa.style.display="none";
+    popupMesa.style.display = "none";
 
-        if(miPartida!=""){
+    if(!usuarioGoogle){
 
-            alert("⚠️ Primero termina tu partida actual.");
+        document.getElementById("loginGoogle").scrollIntoView({
 
-            return;
+            behavior:"smooth",
 
-        }
+            block:"center"
 
-        aceptarMesa(mesa.id);
+        });
 
-    };
+        google.accounts.id.prompt();
+
+        return;
+
+    }
+
+    if(miPartida!=""){
+
+        alert("⚠️ Primero termina tu partida actual.");
+
+        return;
+
+    }
+
+    aceptarMesa(mesa.id);
+
+};
 
     popupMesa.style.display="block";
 
