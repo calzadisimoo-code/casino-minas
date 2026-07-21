@@ -175,7 +175,7 @@ document.getElementById("panelJuego").style.display="flex";
 
 }
 
-    document.getElementById("panelJuego").style.display="none";
+    document.getElementById("panelJuego").style.display="flex";
 
     miTurno = datos.turno == miSocket;
 	
@@ -237,9 +237,17 @@ socket.on("finPartida",(datos)=>{
 
     }
 	
-	if(miPartida==""){
+if(miPartida==""){
 
-    mostrarResultado("🏁 Partida finalizada","ganar");
+    mostrarResultado("🏆 " + datos.ganador + " GANÓ","ganar");
+
+    setTimeout(()=>{
+
+        viendoDemo = true;
+
+        document.getElementById("turno").innerHTML = "";
+
+    },3000);
 
     return;
 
@@ -376,6 +384,14 @@ function crearAvatar(id,nombre){
 // ==========================================
 // ACTUALIZAR TURNO
 // ==========================================
+
+if(miPartida==""){
+
+    turno.innerHTML = "👀 Espectando";
+
+    return;
+
+}
 
 function actualizarTurno(){
 
