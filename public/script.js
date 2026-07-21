@@ -879,12 +879,31 @@ btnCerrarAmigos.onclick = ()=>{
 
 };
 
-btnCrearSala.onclick = ()=>{
+socket.on("crearSalaPrivada",(datos)=>{
 
-    socket.emit("crearSalaPrivada");
+    salasPrivadas[datos.codigo]={
 
-};
+        codigo:datos.codigo,
 
+        socket,
+
+        googleId:datos.googleId,
+
+        nombre:datos.nombre,
+
+        foto:datos.foto,
+
+        apuesta:datos.apuesta
+
+    };
+
+    socket.emit("salaPrivadaCreada",{
+
+        codigo:datos.codigo
+
+    });
+
+});
 socket.on("salaPrivadaCreada",(datos)=>{
 
     codigoSala.value = datos.codigo;
@@ -919,10 +938,50 @@ btnEntrarSala.onclick = ()=>{
 
     }
 
-    socket.emit("entrarSalaPrivada",{
+socket.on("entrarSalaPrivada",(datos)=>{
 
-        codigo:codigoSala.value.trim().toUpperCase()
+    const sala = salasPrivadas[datos.codigo];
 
-    });
+    if(!sala){
+
+        socket.emit("mensaje","Sala no encontrada.");
+
+        return;
+
+    }
+
+    crearPartida(
+
+        {
+
+            socket:sala.socket,
+
+            googleId:sala.googleId,
+
+            nombre:sala.nombre,
+
+            foto:sala.foto
+
+        },
+
+        {
+
+            socket,
+
+            googleId:socket.googleId,
+
+            nombre:usuarios[socket.googleId].nombre,
+
+            foto:usuarios[socket.googleId].foto
+
+        },
+
+        sala.apuesta
+
+    );
+
+    delete salasPrivadas[datos.codigo];
+
+});
 
 };
