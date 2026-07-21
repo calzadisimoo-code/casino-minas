@@ -873,39 +873,52 @@ guardarUsuarios();
 
     socket.emit("esperando");
 
-    setTimeout(()=>{
+setTimeout(()=>{
 
-        const sigue = cola.find(j=>j.socket.id==socket.id);
+    const sigue = mesas.find(m=>m.id===mesa.id);
 
-        if(!sigue) return;
-		
-		console.log("⏰ PASARON 5 SEGUNDOS");
+    if(!sigue){
 
-        cola.splice(cola.indexOf(sigue),1);
+        return;
 
-        crearPartida(
+    }
 
-            sigue,
+    // Si todavía nadie la aceptó,
+    // recién aquí crea la partida con el bot.
 
-            {
+    crearPartida(
 
-                socket:null,
+        {
+            socket,
+            googleId:mesa.googleId,
+            nombre:mesa.nombre,
+            foto:mesa.foto
+        },
 
-                googleId:"BOT",
+        {
+            socket:null,
+            googleId:"BOT",
+            nombre:nombresDemo[
+                Math.floor(Math.random()*nombresDemo.length)
+            ],
+            foto:""
+        },
 
-                nombre:nombresDemo[
-                    Math.floor(Math.random()*nombresDemo.length)
-                ],
+        mesa.apuesta
 
-                foto:""
+    );
 
-            },
+    const indice = mesas.findIndex(m=>m.id===mesa.id);
 
-            apuesta
+    if(indice!=-1){
 
-        );
+        mesas.splice(indice,1);
 
-    },5000);
+    }
+
+    enviarMesas();
+
+},5000);
 
 }
 
