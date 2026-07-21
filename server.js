@@ -278,51 +278,13 @@ function moverDemo(){
 
         });
 
-setTimeout(()=>{
+        setTimeout(()=>{
 
-    const sigue = mesas.find(m=>m.id==mesa.id);
+            crearPartidaDemo();
 
-    if(!sigue) return;
+            io.emit("partidaDemo",partidaDemo);
 
-    mesas.splice(mesas.indexOf(sigue),1);
-
-    enviarMesas();
-
-    crearPartida(
-
-        {
-
-            socket,
-
-            googleId:mesa.googleId,
-
-            nombre:mesa.nombre,
-
-            foto:mesa.foto
-
-        },
-
-        {
-
-            socket:{
-
-                id:"BOT"
-
-            },
-
-            googleId:"BOT",
-
-            nombre:"🤖 RoyalBot",
-
-            foto:"/img/bot.png"
-
-        },
-
-        mesa.apuesta
-
-    );
-
-},5000);
+        },3000);
 
     }
 
@@ -396,24 +358,33 @@ function crearPartida(j1,j2,apuesta){
 
     };
 
-    j1.socket.join(id);
-    if(j2.socket){
+j1.socket.join(id);
+
+if(j2.socket){
+
     j2.socket.join(id);
+
 }
 	
 const jugador1 = usuarios[j1.googleId];
-const jugador2 = usuarios[j2.googleId];
 
 jugador1.puntos -= apuesta;
-jugador2.puntos -= apuesta;
 
 guardarUsuarios();
 
 j1.socket.emit("misPuntos",{
+
     puntos: jugador1.puntos
+
 });
 
 if(j2.socket){
+
+    const jugador2 = usuarios[j2.googleId];
+
+    jugador2.puntos -= apuesta;
+
+    guardarUsuarios();
 
     j2.socket.emit("misPuntos",{
 
@@ -514,15 +485,6 @@ console.log("Todas las mesas:", mesas);
 
     enviarMesas();
 	
-	setTimeout(()=>{
-
-    const sigue = mesas.find(m=>m.id==mesa.id);
-
-    if(!sigue) return;
-
-    console.log("🤖 Entró el bot");
-
-},5000);
 
 });
 
@@ -833,25 +795,55 @@ guardarUsuarios();
 
 );
 
-        }else{
+}else{
 
-            cola.push({
+    const jugador = {
 
-    socket,
+        socket,
+        googleId:datos.googleId,
+        nombre:datos.nombre,
+        foto:datos.foto,
+        apuesta
 
-    googleId:datos.googleId,
+    };
 
-    nombre:datos.nombre,
+    cola.push(jugador);
 
-    foto:datos.foto,
+    socket.emit("esperando");
 
-    apuesta
+    setTimeout(()=>{
 
-});
+        const sigue = cola.find(j=>j.socket.id==socket.id);
 
-            socket.emit("esperando");
+        if(!sigue) return;
 
-        }
+        cola.splice(cola.indexOf(sigue),1);
+
+        crearPartida(
+
+            sigue,
+
+            {
+
+                socket:null,
+
+                googleId:"BOT",
+
+                nombre:nombresDemo[
+                    Math.floor(Math.random()*nombresDemo.length)
+                ],
+
+                foto:""
+
+            },
+
+            apuesta
+
+        );
+
+    },5000);
+
+}
 
     });
 	
@@ -868,6 +860,7 @@ guardarUsuarios();
         if(partida.terminada) return;
 
         if(partida.turno != socket.id) return;
+		const bot = partida.jugadores.find(j=>!j.socket);
 
         const casilla = partida.tablero[datos.casilla];
 
@@ -981,15 +974,19 @@ return;
         // CAMBIAR TURNO
         // ==========================================
 
-        if(partida.jugadores[0].socket.id == socket.id){
+if(bot){
 
-            partida.turno = partida.jugadores[1].socket.id;
+    partida.turno = "BOT";
 
-        }else{
+}else if(partida.jugadores[0].socket.id == socket.id){
 
-            partida.turno = partida.jugadores[0].socket.id;
+    partida.turno = partida.jugadores[1].socket.id;
 
-        }
+}else{
+
+    partida.turno = partida.jugadores[0].socket.id;
+
+}
 
 io.emit("actualizarTablero",{
 
@@ -1024,6 +1021,96 @@ io.emit("actualizarEspectadores",{
     casilla:datos.casilla
 
 });
+
+if(partida.turno=="BOT"){
+
+    setTimeout(()=>{
+
+        if(partida.terminada) return;
+
+        const libres = [];
+
+        for(let i=0;i<25;i++){
+
+            if(!partida.tablero[i].abierta){
+
+                libres.push(i);
+
+            }
+
+        }
+
+        if(libres.length==0){
+
+            return;
+
+        }
+
+        const indice = libres[
+            Math.floor(Math.random()*libres.length)
+        ];
+
+        const casilla = partida.tablero[indice];
+
+        casilla.abierta = true;
+
+        if(casilla.tipo=="mina"){
+
+            partida.terminada = true;
+
+            const ganador = partida.jugadores[0];
+
+            const ganadorBD = usuarios[ganador.googleId];
+
+            ganadorBD.puntos += partida.apuesta * 1.5;
+
+            ganadorBD.victorias++;
+
+            guardarUsuarios();
+
+            ganador.socket.emit("misPuntos",{
+
+                puntos:ganadorBD.puntos
+
+            });
+
+            io.to(partida.id).emit("finPartida",{
+
+                tablero:partida.tablero,
+
+                casilla:indice,
+
+                ganador:ganador.nombre,
+
+                perdedor:"Bot",
+
+                ganadorID:ganador.socket.id,
+
+                perdedorID:"BOT"
+
+            });
+
+            delete partidas[partida.id];
+
+            return;
+
+        }
+
+        partida.turno = partida.jugadores[0].socket.id;
+
+        io.emit("actualizarTablero",{
+
+            tablero:partida.tablero,
+
+            turno:partida.turno,
+
+            casilla:indice
+
+        });
+
+    },1000);
+
+}
 
 });
 
