@@ -389,6 +389,10 @@ setTimeout(()=>{
         });
 
     }
+	
+	console.log("✅ ENVIANDO PARTIDA", id);
+	
+	console.log(io.sockets.adapter.rooms.get(id));
 
     io.to(id).emit("partidaEncontrada",{
 
