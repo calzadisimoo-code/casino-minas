@@ -1359,3 +1359,21 @@ font-weight:bold;
 cursor:pointer;
 
 }
+
+.saldoUsuario{
+
+    margin-top:4px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    color:#FFD700;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+
+}
