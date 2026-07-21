@@ -43,6 +43,22 @@ socket.on("connect",()=>{
 
 
 btnJugar.onclick = ()=>{
+	
+	if(!usuarioGoogle){
+
+    document.getElementById("loginGoogle").scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"center"
+
+    });
+
+    alert("Primero inicia sesión con Google.");
+
+    return;
+
+}
 
     if(!usuarioGoogle){
 
