@@ -4,6 +4,9 @@ const { Server } = require("socket.io");
 const fs = require("fs");
 
 const app = express();
+
+app.use(express.json());
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -1015,6 +1018,15 @@ setInterval(()=>{
     moverDemo();
 
 },2500);
+
+app.post("/webhook/wompi",(req,res)=>{
+
+    console.log("=== EVENTO WOMPI ===");
+    console.log(req.body);
+
+    res.sendStatus(200);
+
+});
 
 server.listen(3000,()=>{
 
