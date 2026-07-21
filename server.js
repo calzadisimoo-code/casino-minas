@@ -967,6 +967,7 @@ setTimeout(()=>{
 
     socket.on("abrirCasilla",(datos)=>{
 
+console.log("CLICK EN CASILLA:", datos);
         const partida = partidas[datos.partida];
 
         if(!partida) return;
