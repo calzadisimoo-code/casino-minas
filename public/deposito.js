@@ -1,3 +1,10 @@
+const socket = io();
+
+const usuarioGoogle = JSON.parse(
+    localStorage.getItem("usuarioGoogle")
+);
+
+
 function ponerMonto(valor){
 
     document.getElementById("monto").value = valor;
@@ -127,3 +134,9 @@ function continuarRetiro(){
     });
 
 }
+
+socket.on("mensaje",(texto)=>{
+
+    alert(texto);
+
+});
