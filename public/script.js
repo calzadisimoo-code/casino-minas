@@ -656,44 +656,49 @@ onclick="aceptarMesa(${mesa.id})">
 
     // 👇 PEGA TODO ESTO AQUÍ
 
-    if(lista.length){
+  const mesa = lista.find(m=>{
 
-        const mesa = lista.find(m=>!usuarioGoogle || m.googleId != usuarioGoogle.sub);
+    return !usuarioGoogle || m.googleId != usuarioGoogle.sub;
 
-        if(mesa){
+});
 
-            popupNombre.innerHTML = "👤 " + mesa.nombre;
+if(mesa && miPartida==""){
 
-           popupTexto.innerHTML =
-`quiere apostar contigo $${Number(mesa.apuesta).toLocaleString("es-CO")}. ¿Aceptas?`;
+    popupNombre.innerHTML =
+    "🎰 ¡DESAFÍO!";
 
-            popupAceptar.onclick = ()=>{
+    popupTexto.innerHTML = `
+<b>${mesa.nombre}</b><br><br>
+💰 Apuesta:
+<b>$${Number(mesa.apuesta).toLocaleString("es-CO")}</b><br><br>
+🏆 Premio:
+<b>$${Number(mesa.apuesta*1.5).toLocaleString("es-CO")}</b>
+`;
 
-                aceptarMesa(mesa.id);
+    popupAceptar.onclick=()=>{
 
-                popupMesa.style.display = "none";
+        popupMesa.style.display="none";
 
-            };
+        aceptarMesa(mesa.id);
 
-            popupMesa.style.display = "block";
+    };
 
-        }else{
+    popupMesa.style.display="block";
 
-            popupMesa.style.display = "none";
+}else{
 
-        }
+    popupMesa.style.display="none";
 
-    }else{
-
-        popupMesa.style.display = "none";
-
-    }
+}
 
     // 👆 HASTA AQUÍ
 
 }
 
 socket.on("listaMesas",(lista)=>{
+
+    // Si estoy jugando, no mostrar invitaciones
+    if(miPartida!="") return;
 
     actualizarListaMesas(lista);
 
