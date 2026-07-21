@@ -448,6 +448,14 @@ partidaEspectada = id;
 
 io.on("connection",(socket)=>{
 	
+	socket.on("pedirMesas",()=>{
+
+    console.log("📤 Enviando mesas al nuevo visitante");
+
+    socket.emit("listaMesas", mesas);
+
+});
+	
 	socket.on("crearMesa",(datos)=>{
 
     const jugador = obtenerJugador(
