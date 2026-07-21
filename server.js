@@ -392,7 +392,7 @@ io.to(id).emit("partidaEncontrada",{
 
 });
 
-io.emit("partidaEncontrada",{
+io.except(id).emit("partidaEncontrada",{
 
     partida:id,
 
@@ -401,11 +401,9 @@ io.emit("partidaEncontrada",{
     tablero,
 
     jugador1:j1.nombre,
-
     foto1:j1.foto,
 
     jugador2:j2.nombre,
-
     foto2:j2.foto,
 
     turno:"espectador"
