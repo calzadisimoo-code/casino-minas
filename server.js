@@ -1070,7 +1070,7 @@ io.except(partida.id).emit("finPartida",{
 
 });
 
-io.emit("actualizarTablero",{
+io.to(partida.id).emit("actualizarTablero",{
 
     tablero:partida.tablero,
 
@@ -1118,17 +1118,17 @@ if(bot){
 
 }
 
-io.emit("actualizarTablero",{
+io.to(partida.id).emit("actualizarTablero",{
 
     tablero:partida.tablero,
 
     turno:partida.turno,
 
-    casilla:datos.casilla
+    casilla:indice
 
 });
 
-io.emit("actualizarEspectadores",{
+io.except(partida.id).emit("actualizarEspectadores",{
 
     partida:partida.id,
 
@@ -1140,7 +1140,7 @@ io.emit("actualizarEspectadores",{
 
 });
 
-io.emit("actualizarEspectadores",{
+io.except(partida.id).emit("actualizarEspectadores",{
 
     partida:partida.id,
 
@@ -1228,15 +1228,15 @@ if(partida.turno=="BOT"){
 
         partida.turno = partida.jugadores[0].socket.id;
 
-        io.emit("actualizarTablero",{
+io.to(partida.id).emit("actualizarTablero",{
 
-            tablero:partida.tablero,
+    tablero:partida.tablero,
 
-            turno:partida.turno,
+    turno:partida.turno,
 
-            casilla:indice
+    casilla:datos.casilla
 
-        });
+});
 
     },1000);
 
