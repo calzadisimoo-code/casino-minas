@@ -161,13 +161,17 @@ if(datos.turno=="espectador"){
 
     miTurno = false;
 
-document.getElementById("panelJuego").style.display="flex";
+    document.getElementById("panelJuego").style.display = "flex";
 
     document.getElementById("turno").innerHTML = "👀 Espectando";
 
 }else{
 
     miPartida = datos.partida;
+
+    miTurno = datos.turno == miSocket;
+
+    document.getElementById("panelJuego").style.display = "none";
 
     actualizarTurno();
 
