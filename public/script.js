@@ -680,11 +680,13 @@ onclick="aceptarMesa(${mesa.id})">
 
     // 👇 PEGA TODO ESTO AQUÍ
 
-  const mesa = lista.find(m=>{
+const mesasDisponibles = lista.filter(m=>{
 
     return !usuarioGoogle || m.googleId != usuarioGoogle.sub;
 
 });
+
+const mesa = mesasDisponibles[mesasDisponibles.length - 1];
 
 if(mesa){
 
