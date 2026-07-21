@@ -573,8 +573,8 @@ onclick="aceptarMesa(${mesa.id})">
 
             popupNombre.innerHTML = "👤 " + mesa.nombre;
 
-            popupTexto.innerHTML =
-`${mesa.nombre} quiere apostar contigo $${Number(mesa.apuesta).toLocaleString("es-CO")}. ¿Aceptas?`;
+           popupTexto.innerHTML =
+`quiere apostar contigo $${Number(mesa.apuesta).toLocaleString("es-CO")}. ¿Aceptas?`;
 
             popupAceptar.onclick = ()=>{
 
