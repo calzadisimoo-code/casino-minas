@@ -1168,57 +1168,53 @@ to{opacity:1;}
 
 #popupNombre{
 
-    font-size:16px;
+font-size:18px;
 
-    font-weight:bold;
+font-weight:bold;
 
-    color:#FFD700;
+margin-bottom:8px;
 
-    margin-bottom:8px;
-
-    text-align:center;
+color:white;
 
 }
 
 #popupTexto{
 
-    font-size:14px;
+font-size:13px;
 
-    color:white;
+color:#ddd;
 
-    text-align:center;
+white-space:nowrap;
 
-    line-height:20px;
-
-    margin-bottom:12px;
+margin-bottom:10px;
 
 }
 
 #popupAceptar{
 
-    width:100%;
+width:100%;
 
-    height:42px;
+height:42px;
 
-    border:none;
+border:none;
 
-    border-radius:10px;
+border-radius:10px;
 
-    background:#16a34a;
+font-size:16px;
 
-    color:white;
+font-weight:bold;
 
-    font-size:15px;
+background:#00b140;
 
-    font-weight:bold;
+color:white;
 
-    cursor:pointer;
+cursor:pointer;
 
 }
 
 #popupAceptar:hover{
 
-    background:#15803d;
+background:#00d64d;
 
 }
 
