@@ -536,6 +536,12 @@ window.onload = ()=>{
         })
 
     );
+	
+	viendoDemo = true;
+miPartida = "";
+miTurno = false;
+
+actualizarTurno();
 
 };
 
