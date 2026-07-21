@@ -445,14 +445,22 @@ function actualizarTurno(){
 // ==========================================
 
 window.onload = ()=>{
-	
-	const guardado = localStorage.getItem("usuarioGoogle");
 
-window.onload = ()=>{
+const guardado = localStorage.getItem("usuarioGoogle");
 
-    document.getElementById("juego").style.display="block";
+if(guardado){
 
-    const guardado = localStorage.getItem("usuarioGoogle");
+    usuarioGoogle = JSON.parse(guardado);
+
+    document.getElementById("loginGoogle").style.display = "none";
+
+}else{
+
+    document.getElementById("loginGoogle").style.display = "flex";
+
+}
+
+document.getElementById("juego").style.display = "block";
 
     if(guardado){
 
@@ -486,6 +494,8 @@ window.onload = ()=>{
 
     });
 
+if(!usuarioGoogle){
+
     google.accounts.id.prompt();
 
     google.accounts.id.renderButton(
@@ -495,14 +505,14 @@ window.onload = ()=>{
         {
 
             theme:"filled_blue",
-
             size:"large",
-
             width:260
 
         }
 
     );
+
+}
 
     dibujarTablero(
 
