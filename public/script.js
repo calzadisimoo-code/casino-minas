@@ -243,7 +243,7 @@ if(miPartida==""){
 
         viendoDemo = true;
 
-        document.getElementById("turno").innerHTML = "";
+        actualizarTurno();
 
     },3000);
 
@@ -655,6 +655,14 @@ socket.on("listaMesas",(lista)=>{
 });
 
 function aceptarMesa(id){
+
+    if(miPartida!=""){
+
+        alert("⚠️ Primero termina tu partida actual.");
+
+        return;
+
+    }
 
     socket.emit("aceptarMesa",{
 
