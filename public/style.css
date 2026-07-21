@@ -1148,33 +1148,29 @@ to{opacity:1;}
 
 .popupMesa{
 
-    position:fixed;
+position:fixed;
 
-    top:70px;
+top:15px;
 
-    right:8px;
+right:15px;
 
-    width:220px;
+width:310px;
 
-    height:auto;
+background:#1c1c1c;
 
-    min-height:unset;
+border:2px solid gold;
 
-    max-height:unset;
+border-radius:14px;
 
-    background:#1b1b1b;
+padding:12px;
 
-    border:2px solid gold;
+box-shadow:0 0 20px gold;
 
-    border-radius:14px;
+display:none;
 
-    padding:10px;
+z-index:99999;
 
-    display:none;
-
-    z-index:99999;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.45);
+animation:popup .3s;
 
 }
 
@@ -1258,9 +1254,9 @@ transform:translateY(0);
 
     position:fixed;
 
-    left:0%;
+    left:50%;
 
-    bottom:0px;
+    bottom:90px;
 
     transform:translateX(-50%);
 
@@ -1299,7 +1295,11 @@ transform:translateY(0);
 
     font-size:12px;
 
-    line-height:16px;
+    color:white;
+
+    text-align:center;
+
+    line-height:17px;
 
     margin-bottom:8px;
 
@@ -1313,7 +1313,15 @@ transform:translateY(0);
 
     font-size:13px;
 
+    border:none;
+
     border-radius:8px;
+
+    background:#00b140;
+
+    color:white;
+
+    font-weight:bold;
 
 }
 
