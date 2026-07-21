@@ -662,7 +662,7 @@ onclick="aceptarMesa(${mesa.id})">
 
 });
 
-if(mesa && miPartida==""){
+if(mesa){
 
     popupNombre.innerHTML =
     "🎰 ¡DESAFÍO!";
@@ -675,9 +675,17 @@ if(mesa && miPartida==""){
 <b>$${Number(mesa.apuesta*1.5).toLocaleString("es-CO")}</b>
 `;
 
-    popupAceptar.onclick=()=>{
+    popupAceptar.onclick = ()=>{
 
         popupMesa.style.display="none";
+
+        if(miPartida!=""){
+
+            alert("⚠️ Primero termina tu partida actual.");
+
+            return;
+
+        }
 
         aceptarMesa(mesa.id);
 
