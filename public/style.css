@@ -474,6 +474,19 @@ opacity:1;
 
 @media(max-width:700px){
 	
+	
+.jugadoresPartida{
+
+    margin-top:25px;
+
+}
+
+#tablero{
+
+    margin-top:20px;
+
+}
+	
 #panelJuego{
 
     width:80%;
