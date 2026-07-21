@@ -816,8 +816,12 @@ guardarUsuarios();
         const sigue = cola.find(j=>j.socket.id==socket.id);
 
         if(!sigue) return;
+		
+		console.log("⏰ PASARON 5 SEGUNDOS");
 
         cola.splice(cola.indexOf(sigue),1);
+		
+		console.log("🤖 CREANDO PARTIDA CON BOT");
 
         crearPartida(
 
