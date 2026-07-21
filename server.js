@@ -530,7 +530,7 @@ setTimeout(()=>{
 
     );
 
-    const indice = mesas.findIndex(m=>m.id==mesa.id);
+    /* const indice = mesas.findIndex(m=>m.id==mesa.id);
 
     if(indice!=-1){
 
@@ -538,7 +538,7 @@ setTimeout(()=>{
 
     }
 
-    enviarMesas();
+    enviarMesas();*/
 
 },ESPERA_BOT);
 	
