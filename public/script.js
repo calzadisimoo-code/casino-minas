@@ -313,6 +313,8 @@ setTimeout(()=>{
     viendoDemo = true;
 
     apuesta.value = "";
+	
+	const ESPERA_BOT = 5000;
 
     document.getElementById("panelJuego").style.display = "flex";
 

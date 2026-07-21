@@ -480,6 +480,20 @@ io.on("connection",(socket)=>{
 
     mesas.push(mesa);
 	
+	setTimeout(()=>{
+
+    const sigue = mesas.find(m=>m.id===mesa.id);
+
+    if(!sigue) return;
+
+    socket.emit("crearBot",{
+
+        mesa:mesa.id
+
+    });
+
+},ESPERA_BOT);
+	
 	console.log("Mesa creada:", mesa);
 console.log("Todas las mesas:", mesas);
 
