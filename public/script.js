@@ -456,33 +456,24 @@ if(miPartida==""){
 
 window.onload = ()=>{
 
-const guardado = localStorage.getItem("usuarioGoogle");
+    const guardado = localStorage.getItem("usuarioGoogle");
 
-if(guardado){
-
-    usuarioGoogle = JSON.parse(guardado);
-
-    document.getElementById("loginGoogle").style.display = "none";
-
-}else{
-
-    document.getElementById("loginGoogle").style.display = "flex";
-
-}
-
-document.getElementById("juego").style.display = "block";
+    document.getElementById("juego").style.display = "block";
 
     if(guardado){
 
         usuarioGoogle = JSON.parse(guardado);
 
-        document.getElementById("loginGoogle").style.display="none";
+        document.getElementById("loginGoogle").style.display = "none";
 
-        document.getElementById("nombreUsuario").innerHTML = usuarioGoogle.name;
+        document.getElementById("nombreUsuario").innerHTML =
+        usuarioGoogle.name;
 
-        document.getElementById("foto").src = usuarioGoogle.picture;
+        document.getElementById("foto").src =
+        usuarioGoogle.picture;
 
-        document.getElementById("foto").onclick = abrirPerfil;
+        document.getElementById("foto").onclick =
+        abrirPerfil;
 
         socket.emit("cargarUsuario",{
 
@@ -494,7 +485,57 @@ document.getElementById("juego").style.display = "block";
 
         });
 
+    }else{
+
+        document.getElementById("loginGoogle").style.display = "flex";
+
+        document.getElementById("popupBono").style.display = "flex";
+
     }
+
+    google.accounts.id.initialize({
+
+        client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
+
+        callback:loginGoogle
+
+    });
+
+    if(!usuarioGoogle){
+
+        google.accounts.id.prompt();
+
+        google.accounts.id.renderButton(
+
+            document.getElementById("loginGoogle"),
+
+            {
+
+                theme:"filled_blue",
+
+                size:"large",
+
+                width:260
+
+            }
+
+        );
+
+    }
+
+    dibujarTablero(
+
+        Array(25).fill({
+
+            abierta:false,
+
+            tipo:"diamante"
+
+        })
+
+    );
+
+};
 
 function loginGoogle(response){
 
