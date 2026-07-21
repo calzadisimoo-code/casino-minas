@@ -97,18 +97,30 @@ function continuarRetiro(){
         return;
 
     }
+	
+	const numeroCuenta = document.getElementById("numeroCuenta").value.trim();
 
-    socket.emit("solicitarRetiro",{
+if(numeroCuenta == ""){
 
-        googleId: usuarioGoogle.sub,
+    alert("Ingresa el número de la cuenta donde recibirás el dinero.");
 
-        nombre: usuarioGoogle.name,
+    return;
 
-        monto,
+}
 
-        metodo: metodo.value
+socket.emit("solicitarRetiro",{
 
-    });
+    googleId: usuarioGoogle.sub,
+
+    nombre: usuarioGoogle.name,
+
+    monto,
+
+    metodo: metodo.value,
+
+    numeroCuenta
+
+});
 
 }
 
