@@ -667,6 +667,32 @@ Tu retiro de $${datos.monto.toLocaleString("es-CO")} fue recibido.
 Recibirás el dinero entre 1 y 24 horas.`);
 });
 
+socket.on("aprobarDeposito",(datos)=>{
+
+    const jugador = usuarios[datos.googleId];
+
+    if(!jugador){
+
+        socket.emit("mensaje","Usuario no existe.");
+
+        return;
+
+    }
+
+    jugador.puntos += Number(datos.monto);
+
+    guardarUsuarios();
+
+    io.emit("misPuntos",{
+
+        puntos: jugador.puntos
+
+    });
+
+    socket.emit("mensaje","✅ Depósito aprobado.");
+
+});
+
     jugadoresOnline++;
 
     io.emit("online",jugadoresOnline);

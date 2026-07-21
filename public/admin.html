@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Admin</title>
+</head>
+
+<body>
+
+<h2>Aprobar depósito</h2>
+
+<input id="googleId" placeholder="Google ID">
+
+<br><br>
+
+<input id="monto" type="number" placeholder="Monto">
+
+<br><br>
+
+<button onclick="aprobar()">
+Aprobar depósito
+</button>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+
+const socket = io();
+
+function aprobar(){
+
+    socket.emit("aprobarDeposito",{
+
+        googleId:document.getElementById("googleId").value,
+
+        monto:Number(document.getElementById("monto").value)
+
+    });
+
+}
+
+socket.on("mensaje",(texto)=>{
+
+    alert(texto);
+
+});
+
+</script>
+
+</body>
+</html>
