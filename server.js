@@ -24,7 +24,19 @@ let jugadoresOnline = 0;
 // Cola de espera
 const cola = [];
 const mesas = [];
-const salasPrivadas = {};
+salasPrivadas = {
+
+   "123456":{
+
+      socket,
+      googleId,
+      nombre,
+      foto,
+      apuesta
+
+   }
+
+}
 
 // Partidas activas
 const partidas = {};
