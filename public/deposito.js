@@ -77,16 +77,6 @@ function cerrarPopup(){
 }
 
 function continuarRetiro(){
-	
-	const numeroCuenta = document.getElementById("numeroCuenta").value.trim();
-
-if(numeroCuenta == ""){
-
-    alert("Ingresa el número de tu cuenta.");
-
-    return;
-
-}
 
     const monto = Number(document.getElementById("monto").value);
 
@@ -108,19 +98,17 @@ if(numeroCuenta == ""){
 
     }
 
-socket.emit("solicitarRetiro",{
+    socket.emit("solicitarRetiro",{
 
-    googleId: usuarioGoogle.sub,
+        googleId: usuarioGoogle.sub,
 
-    nombre: usuarioGoogle.name,
+        nombre: usuarioGoogle.name,
 
-    monto,
+        monto,
 
-    metodo: metodo.value,
+        metodo: metodo.value
 
-    numeroCuenta
-
-});
+    });
 
 }
 
