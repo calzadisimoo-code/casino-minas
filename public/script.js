@@ -167,6 +167,8 @@ if(datos.turno=="espectador"){
 
 }else{
 
+    viendoDemo = false;
+
     miPartida = datos.partida;
 
     miTurno = datos.turno == miSocket;
@@ -176,10 +178,6 @@ if(datos.turno=="espectador"){
     actualizarTurno();
 
 }
-
-    document.getElementById("panelJuego").style.display="flex";
-
-    miTurno = datos.turno == miSocket;
 	
 	document.getElementById("nombreJugador1").innerHTML = datos.jugador1;
 
