@@ -153,7 +153,27 @@ socket.on("partidaEncontrada",(datos)=>{
 
     document.getElementById("pantallaBusqueda").style.display="none";
 
+if(datos.turno=="espectador"){
+
+    viendoDemo = false;
+
+    miPartida = "";
+
+    miTurno = false;
+
+    document.getElementById("panelJuego").style.display="none";
+
+    document.getElementById("turno").innerHTML = "👀 Espectando";
+
+}else{
+
     miPartida = datos.partida;
+
+    miTurno = datos.turno == miSocket;
+
+    actualizarTurno();
+
+}
 
     document.getElementById("panelJuego").style.display="none";
 
@@ -216,6 +236,14 @@ socket.on("finPartida",(datos)=>{
         mina.style.background="#d90429";
 
     }
+	
+	if(miPartida==""){
+
+    mostrarResultado("🏁 Partida finalizada","ganar");
+
+    return;
+
+}
 
    if(datos.ganadorID==miSocket){
 

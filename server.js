@@ -25,6 +25,7 @@ const mesas = [];
 // Partidas activas
 const partidas = {};
 
+let partidaEspectada = null;
 let partidaDemo = null;
 
 const nombresDemo = [
@@ -385,6 +386,48 @@ io.to(id).emit("partidaEncontrada",{
     foto1:j1.foto,
 
     jugador2:j2.nombre,
+    foto2:j2.foto,
+
+    turno:j1.socket.id
+
+});
+
+socket.broadcast.emit("partidaEncontrada",{
+
+    partida:id,
+
+    apuesta,
+
+    tablero,
+
+    jugador1:j1.nombre,
+
+    foto1:j1.foto,
+
+    jugador2:j2.nombre,
+
+    foto2:j2.foto,
+
+    turno:"espectador"
+
+});
+
+partidaEspectada = id;
+
+socket.broadcast.emit("espectando",{
+
+    partida:id,
+
+    apuesta,
+
+    tablero,
+
+    jugador1:j1.nombre,
+
+    foto1:j1.foto,
+
+    jugador2:j2.nombre,
+
     foto2:j2.foto,
 
     turno:j1.socket.id
@@ -810,6 +853,8 @@ io.to(partida.id).emit("finPartida",{
 });
 
 setTimeout(()=>{
+	
+	partidaEspectada = null;
 
     delete partidas[partida.id];
 
@@ -841,7 +886,27 @@ return;
 
         }
 
-io.to(partida.id).emit("actualizarTablero",{
+io.emit("actualizarTablero",{
+
+    tablero:partida.tablero,
+
+    turno:partida.turno,
+
+    casilla:datos.casilla
+
+});
+
+    tablero:partida.tablero,
+
+    turno:partida.turno,
+
+    casilla:datos.casilla
+
+});
+
+io.emit("actualizarEspectadores",{
+
+    partida:partida.id,
 
     tablero:partida.tablero,
 
