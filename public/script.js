@@ -910,10 +910,3 @@ document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
     alert("✅ Enlace copiado. Envíaselo a tu amigo.");
 
 };
-
-    const enlace = "https://performs-montgomery-lovely-corporation.trycloudflare.com/";
-
-    await navigator.clipboard.writeText(enlace);
-
-    alert("✅ Enlace copiado. Envíaselo a tu amigo.");
-};
