@@ -161,7 +161,7 @@ if(datos.turno=="espectador"){
 
     miTurno = false;
 
-    document.getElementById("panelJuego").style.display="none";
+document.getElementById("panelJuego").style.display="flex";
 
     document.getElementById("turno").innerHTML = "👀 Espectando";
 
@@ -379,9 +379,17 @@ function crearAvatar(id,nombre){
 
 function actualizarTurno(){
 
-    const turno=document.getElementById("turno");
+    const turno = document.getElementById("turno");
 
     if(!turno) return;
+
+    if(miPartida==""){
+
+        turno.innerHTML="👀 Espectando";
+
+        return;
+
+    }
 
     if(miTurno){
 
