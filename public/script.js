@@ -306,23 +306,9 @@ if(miPartida==""){
 
 setTimeout(()=>{
 
-    miPartida = "";
-
-    miTurno = false;
-
-    viendoDemo = true;
-
-    apuesta.value = "";
-
-    document.getElementById("panelJuego").style.display = "flex";
+    actualizarTurno();
 
 },3000);
-
-miPartida = "";
-miTurno = false;
-viendoDemo = true;
-
-document.getElementById("panelJuego").style.display = "flex";
 
 });
 
