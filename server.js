@@ -48,21 +48,6 @@ const nombresDemo = [
 
 ];
 
-const fotosDemo = [
-
-"https://i.pravatar.cc/150?img=1",
-"https://i.pravatar.cc/150?img=2",
-"https://i.pravatar.cc/150?img=3",
-"https://i.pravatar.cc/150?img=4",
-"https://i.pravatar.cc/150?img=5",
-"https://i.pravatar.cc/150?img=6",
-"https://i.pravatar.cc/150?img=7",
-"https://i.pravatar.cc/150?img=8",
-"https://i.pravatar.cc/150?img=9",
-"https://i.pravatar.cc/150?img=10"
-
-];
-
 // Puntos de cada jugador
 const ARCHIVO = "./usuarios.json";
 const ARCHIVO_DEPOSITOS = "./depositos.json";
@@ -412,7 +397,9 @@ function crearPartida(j1,j2,apuesta){
     };
 
     j1.socket.join(id);
+    if(j2.socket){
     j2.socket.join(id);
+}
 	
 const jugador1 = usuarios[j1.googleId];
 const jugador2 = usuarios[j2.googleId];
@@ -426,9 +413,15 @@ j1.socket.emit("misPuntos",{
     puntos: jugador1.puntos
 });
 
-j2.socket.emit("misPuntos",{
-    puntos: jugador2.puntos
-});
+if(j2.socket){
+
+    j2.socket.emit("misPuntos",{
+
+        puntos: jugador2.puntos
+
+    });
+
+}
 
 io.to(id).emit("partidaEncontrada",{
 
