@@ -117,3 +117,31 @@ socket.on("mensaje",(texto)=>{
     alert(texto);
 
 });
+
+document.querySelectorAll('input[name="metodo"]').forEach(r=>{
+
+    r.onchange=()=>{
+
+        const logo=document.getElementById("logoMetodo");
+
+        if(r.value=="Nequi"){
+
+            logo.innerHTML="<img src='https://seeklogo.com/images/N/nequi-logo-58A4F84B13-seeklogo.com.png' width='80'>";
+
+        }
+
+        if(r.value=="Daviplata"){
+
+            logo.innerHTML="<img src='https://upload.wikimedia.org/wikipedia/commons/4/49/Daviplata_logo.png' width='120'>";
+
+        }
+
+        if(r.value=="Bancolombia"){
+
+            logo.innerHTML="<img src='https://upload.wikimedia.org/wikipedia/commons/8/8f/Bancolombia_logo.svg' width='150'>";
+
+        }
+
+    }
+
+});
