@@ -310,7 +310,10 @@ function enviarDemo(socket){
 
 function enviarMesas(){
 
-    io.emit("listaMesas",mesas);
+    console.log("===== ENVIANDO MESAS =====");
+    console.log(mesas);
+
+    io.emit("listaMesas", mesas);
 
 }
 
