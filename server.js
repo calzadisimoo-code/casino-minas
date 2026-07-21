@@ -576,7 +576,6 @@ console.log("Mesas actuales:", JSON.stringify(mesas, null, 2));
 const mesa = mesas.find(m=>m.id==datos.mesa);
 
 console.log("Mesa encontrada:", mesa);
-    const mesa = mesas.find(m=>m.id==datos.mesa);
 
     if(!mesa){
 
