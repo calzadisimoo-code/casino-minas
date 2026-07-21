@@ -1148,21 +1148,29 @@ to{opacity:1;}
 
 .popupMesa{
 
-    position:fixed;
+position:fixed;
 
-    left:50%;
+top:15px;
 
-    bottom:20px;
+right:15px;
 
-    transform:translateX(-50%);
+width:310px;
 
-    width:92%;
+background:#1c1c1c;
 
-    max-width:320px;
+border:2px solid gold;
 
-    display:none;
+border-radius:14px;
 
-    z-index:9999;
+padding:12px;
+
+box-shadow:0 0 20px gold;
+
+display:none;
+
+z-index:99999;
+
+animation:popup .3s;
 
 }
 
