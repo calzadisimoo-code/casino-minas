@@ -1258,9 +1258,9 @@ transform:translateY(0);
 
     position:fixed;
 
-    left:50%;
+    left:0%;
 
-    bottom:90px;
+    bottom:0px;
 
     transform:translateX(-50%);
 
