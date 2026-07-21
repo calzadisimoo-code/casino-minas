@@ -308,12 +308,17 @@ function enviarDemo(socket){
 
 }
 
-function enviarMesas(){
+function enviarMesas(socket = null){
 
-    console.log("===== ENVIANDO MESAS =====");
-    console.log(mesas);
+    if(socket){
 
-    io.emit("listaMesas", mesas);
+        socket.emit("listaMesas", mesas);
+
+    }else{
+
+        io.emit("listaMesas", mesas);
+
+    }
 
 }
 
@@ -782,6 +787,7 @@ Recibirás el dinero entre 1 y 24 horas.`);
 
     });
 	enviarDemo(socket);
+	enviarMesas();
 
 });
 
