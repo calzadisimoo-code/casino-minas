@@ -226,9 +226,17 @@ console.log(datos);
 console.log("Foto 1:", datos.foto1);
 console.log("Foto 2:", datos.foto2);
 
-document.getElementById("fotoJugador1").src = datos.foto1;
+if (datos.foto1) {
+    document.getElementById("fotoJugador1").src = datos.foto1;
+} else {
+    crearAvatar("fotoJugador1", datos.jugador1);
+}
 
-document.getElementById("fotoJugador2").src = datos.foto2;
+if (datos.foto2) {
+    document.getElementById("fotoJugador2").src = datos.foto2;
+} else {
+    crearAvatar("fotoJugador2", datos.jugador2);
+}
 
 document.getElementById("saldoJugador1").innerHTML =
 "$"+Number(datos.apuesta).toLocaleString("es-CO");
