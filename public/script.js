@@ -97,7 +97,10 @@ document.getElementById("textoEspera").innerHTML =
 
 socket.on("online",(cantidad)=>{
 
-    activos.innerHTML = cantidad;
+    activos.innerHTML = new Intl.NumberFormat("es", {
+    notation: "compact",
+    maximumFractionDigits: 1
+}).format(cantidad).toUpperCase();
 
 });
 

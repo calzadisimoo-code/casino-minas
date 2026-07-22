@@ -481,6 +481,11 @@ socket.on("pedirMesas",()=>{
 
     socket.emit("listaMesas", mesas);
 
+    socket.emit(
+        "online",
+        USAR_ONLINE_REAL ? jugadoresOnline : onlineFake
+    );
+
 });
 
 
