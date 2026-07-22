@@ -23,6 +23,10 @@ const TABLERO = 25;
 
 let jugadoresOnline = 0;
 
+const USAR_ONLINE_REAL = false;
+
+let onlineFake = Math.floor(Math.random() * 14000) + 98000;
+
 // Cola de espera
 const cola = [];
 const mesas = [];
@@ -1372,6 +1376,32 @@ app.post("/webhook/wompi",(req,res)=>{
     res.sendStatus(200);
 
 });
+
+setInterval(() => {
+
+    if (USAR_ONLINE_REAL) return;
+
+    onlineFake += Math.floor(Math.random() * 31) - 15;
+
+    if (onlineFake < 103500) onlineFake = 103500;
+    if (onlineFake > 105500) onlineFake = 105500;
+
+    io.emit("online", onlineFake);
+
+}, 30000);
+
+setInterval(() => {
+
+    if (USAR_ONLINE_REAL) return;
+
+    onlineFake += Math.floor(Math.random() * 31) - 15;
+
+    if (onlineFake < 103500) onlineFake = 103500;
+    if (onlineFake > 105500) onlineFake = 105500;
+
+    io.emit("online", onlineFake);
+
+}, 30000);
 
 server.listen(3000,()=>{
 
