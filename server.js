@@ -5,6 +5,8 @@ const fs = require("fs");
 
 const app = express();
 
+const timersBot = {};
+
 app.use(express.json());
 
 const server = http.createServer(app);
@@ -606,7 +608,7 @@ socket.on("entrarSalaPrivada",(datos)=>{
 	
 	mesas.push(mesa);
 	
-	mesa.timeoutBot = setTimeout(() => {
+timersBot[mesa.id] = setTimeout(() => {
 
     const sigue = mesas.find(m => m.id === mesa.id);
 
@@ -727,8 +729,9 @@ console.log("Mesas actuales:", JSON.stringify(mesas, null, 2));
 
 const mesa = mesas.find(m=>m.id==datos.mesa);
 
-if (mesa.timeoutBot) {
-    clearTimeout(mesa.timeoutBot);
+if (timersBot[mesa.id]) {
+    clearTimeout(timersBot[mesa.id]);
+    delete timersBot[mesa.id];
 }
 
 console.log("Mesa encontrada:", mesa);
