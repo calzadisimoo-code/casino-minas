@@ -1022,52 +1022,6 @@ guardarUsuarios();
 
     socket.emit("esperando");
 
-setTimeout(()=>{
-
-    const sigue = mesas.find(m=>m.id===mesa.id);
-
-    if(!sigue){
-
-        return;
-
-    }
-
-    // Si todavía nadie la aceptó,
-    // recién aquí crea la partida con el bot.
-
-    crearPartida(
-
-        {
-            socket,
-            googleId:mesa.googleId,
-            nombre:mesa.nombre,
-            foto:mesa.foto
-        },
-
-        {
-            socket:null,
-            googleId:"BOT",
-            nombre:nombresDemo[
-                Math.floor(Math.random()*nombresDemo.length)
-            ],
-            foto:""
-        },
-
-        mesa.apuesta
-
-    );
-
-    const indice = mesas.findIndex(m=>m.id===mesa.id);
-
-    if(indice!=-1){
-
-        mesas.splice(indice,1);
-
-    }
-
-    enviarMesas();
-
-},5000);
 
 }
 
