@@ -909,9 +909,11 @@ Recibirás el dinero entre 1 y 24 horas.`);
 
 
 
-    jugadoresOnline++;
+jugadoresOnline++;
 
-    io.emit("online",jugadoresOnline);
+if (USAR_ONLINE_REAL) {
+    io.emit("online", jugadoresOnline);
+}
 	
 	socket.on("cargarUsuario",(datos)=>{
 
@@ -1329,9 +1331,11 @@ io.to(partida.id).emit("actualizarTablero",{
 
     socket.on("disconnect",()=>{
 
-        jugadoresOnline--;
+jugadoresOnline--;
 
-        io.emit("online",jugadoresOnline);
+if (USAR_ONLINE_REAL) {
+    io.emit("online", jugadoresOnline);
+}
 		
 enviarMesas();
 
