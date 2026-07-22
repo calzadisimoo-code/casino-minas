@@ -818,6 +818,8 @@ crearPartida(
 },
 mesa.apuesta
 );
+
+});
 	
 	socket.on("nuevoDeposito",(datos)=>{
 
