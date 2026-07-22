@@ -27,6 +27,7 @@ const mesas = [];
 const salasPrivadas = {};
 
 // Partidas activas
+const ESPERA_BOT = 5000;
 const partidas = {};
 
 let partidaEspectada = null;
@@ -604,6 +605,37 @@ socket.on("entrarSalaPrivada",(datos)=>{
     };
 	
 	mesas.push(mesa);
+	
+	mesa.timeoutBot = setTimeout(() => {
+
+    const sigue = mesas.find(m => m.id === mesa.id);
+
+    if (!sigue) return;
+
+    // Eliminar la mesa porque nadie la aceptó
+    mesas.splice(mesas.indexOf(sigue), 1);
+
+    enviarMesas();
+
+    crearPartida(
+        {
+            socket,
+            googleId: mesa.googleId,
+            nombre: mesa.nombre,
+            foto: mesa.foto
+        },
+        {
+            socket: null,
+            googleId: "BOT",
+            nombre: nombresDemo[
+                Math.floor(Math.random() * nombresDemo.length)
+            ],
+            foto: ""
+        },
+        mesa.apuesta
+    );
+
+}, ESPERA_BOT);
 
 console.log("MESA AGREGADA");
 console.log(mesas);
@@ -695,6 +727,10 @@ console.log("Mesas actuales:", JSON.stringify(mesas, null, 2));
 
 const mesa = mesas.find(m=>m.id==datos.mesa);
 
+if (mesa.timeoutBot) {
+    clearTimeout(mesa.timeoutBot);
+}
+
 console.log("Mesa encontrada:", mesa);
 
     if(!mesa){
@@ -767,33 +803,21 @@ console.log("Mesa encontrada:", mesa);
 
     enviarMesas();
 
-    crearPartida(
-
-        {
-
-            socket:creador,
-
-            googleId:mesa.googleId,
-
-            nombre:mesa.nombre
-
-        },
-
-        {
-
-            socket,
-
-            googleId:socket.googleId,
-
-            nombre:usuarios[socket.googleId].nombre
-
-        },
-
-        mesa.apuesta
-
-    );
-
-});
+crearPartida(
+{
+    socket: creador,
+    googleId: mesa.googleId,
+    nombre: mesa.nombre,
+    foto: mesa.foto
+},
+{
+    socket,
+    googleId: socket.googleId,
+    nombre: usuarios[socket.googleId].nombre,
+    foto: usuarios[socket.googleId].foto
+},
+mesa.apuesta
+);
 	
 	socket.on("nuevoDeposito",(datos)=>{
 
