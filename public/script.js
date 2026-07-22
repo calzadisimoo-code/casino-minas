@@ -494,8 +494,8 @@ window.onload = ()=>{
         document.getElementById("nombreUsuario").innerHTML =
         usuarioGoogle.name;
 
-        document.getElementById("foto").src =
-        usuarioGoogle.picture;
+const foto = usuarioGoogle.picture.replace("=s96-c", "=s200-c");
+document.getElementById("foto").src = foto;
 
         document.getElementById("foto").onclick =
         abrirPerfil;
@@ -614,7 +614,8 @@ function loginGoogle(response){
 
     document.getElementById("nombreUsuario").innerHTML = datos.name;
 
-    document.getElementById("foto").src = datos.picture;
+ const foto = datos.picture.replace("=s96-c", "=s200-c");
+document.getElementById("foto").src = foto;
 	document.getElementById("foto").onclick = abrirPerfil;
 
 }
