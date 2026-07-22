@@ -1308,7 +1308,16 @@ io.to(partida.id).emit("actualizarTablero",{
 
 });
 
-    },1000);
+const tiempoPensar = 800 + Math.random() * 2500;
+
+setTimeout(()=>{
+
+    if(partida.terminada) return;
+
+    // TODO el código que ya tienes del bot
+    // abrir casilla, revisar mina, cambiar turno...
+
+}, tiempoPensar);
 
 }
 
