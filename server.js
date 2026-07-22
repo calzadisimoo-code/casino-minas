@@ -447,24 +447,6 @@ setTimeout(()=>{
 
     });
 
-    io.except(id).emit("partidaEncontrada",{
-
-        partida:id,
-
-        apuesta,
-
-        tablero,
-
-        jugador1:j1.nombre,
-        foto1:j1.foto,
-
-        jugador2:j2.nombre,
-        foto2:j2.foto,
-
-        turno:"espectador"
-
-    });
-
     partidaEspectada = id;
 
 },100);
