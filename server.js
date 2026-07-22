@@ -29,7 +29,7 @@ const mesas = [];
 const salasPrivadas = {};
 
 // Partidas activas
-const ESPERA_BOT = 2000;
+const ESPERA_BOT = 1000;
 const partidas = {};
 
 let partidaEspectada = null;
@@ -390,8 +390,6 @@ if(j2.socket){
     j2.socket.join(id);
 
 }
-
-const tiempoPensar = 800 + Math.random() * 2500;
 
 setTimeout(()=>{
 
@@ -1310,7 +1308,7 @@ io.to(partida.id).emit("actualizarTablero",{
 
 });
 
-}, tiempoPensar);
+    },1000);
 
 }
 
