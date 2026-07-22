@@ -223,6 +223,9 @@ document.getElementById("nombreJugador2").innerHTML = datos.jugador2;
 
 console.log(datos);
 
+console.log("Foto 1:", datos.foto1);
+console.log("Foto 2:", datos.foto2);
+
 document.getElementById("fotoJugador1").src = datos.foto1;
 
 document.getElementById("fotoJugador2").src = datos.foto2;
