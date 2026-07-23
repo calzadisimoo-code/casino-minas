@@ -766,11 +766,8 @@ timersBot[mesa.id] = setTimeout(() => {
         },
         {
             socket: null,
-            googleId: "BOT",
-            nombre: nombresDemo[
-                Math.floor(Math.random() * nombresDemo.length)
-            ],
-            foto: ""
+...bots[Math.floor(Math.random()*bots.length)],
+socket:null
         },
         mesa.apuesta
     );
@@ -1224,6 +1221,18 @@ console.log("CLICK EN CASILLA:", datos);
             }
 
 if(ganador.googleId!="BOT"){
+	
+	else{
+
+    const bot = bots.find(b=>b.googleId==ganador.googleId);
+
+    if(bot){
+
+        bot.puntos += partida.apuesta * 1.5;
+
+    }
+
+}
 
     const ganadorBD = usuarios[ganador.googleId];
 
@@ -1242,6 +1251,24 @@ if(ganador.googleId!="BOT"){
 }
 
 if(perdedor.googleId!="BOT"){
+	
+	else{
+
+    const bot = bots.find(b=>b.googleId==perdedor.googleId);
+
+    if(bot){
+
+        bot.puntos -= partida.apuesta;
+
+        if(bot.puntos<500){
+
+            bot.puntos=500;
+
+        }
+
+    }
+
+}
 
     const perdedorBD = usuarios[perdedor.googleId];
 
@@ -1468,9 +1495,17 @@ io.to(partida.id).emit("actualizarTablero",{
 
 socket.on("pedirRanking",()=>{
 
-    const ranking = Object.values(usuarios)
-        .sort((a,b)=>b.puntos-a.puntos)
-        .slice(0,100);
+    const ranking = [
+
+        ...Object.values(usuarios),
+
+        ...bots
+
+    ]
+
+    .sort((a,b)=>b.puntos-a.puntos)
+
+    .slice(0,100);
 
     socket.emit("ranking",ranking);
 
