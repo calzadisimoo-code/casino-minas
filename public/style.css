@@ -1609,3 +1609,65 @@ JUGAR CON AMIGOS
     transform:scale(.96);
 
 }
+
+.filaRanking{
+
+    display:grid;
+
+    grid-template-columns:40px 40px 1fr auto;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:10px 8px;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+}
+
+.posRanking{
+
+    color:#FFD700;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+    text-align:center;
+
+}
+
+.fotoRanking{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+.nombreRanking{
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+.saldoRanking{
+
+    color:#FFD700;
+
+    font-size:14px;
+
+    text-align:right;
+
+    font-weight:bold;
+
+}
