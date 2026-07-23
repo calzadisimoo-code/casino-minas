@@ -536,23 +536,16 @@ document.getElementById("foto").src = foto;
 
         google.accounts.id.prompt();
 
-        google.accounts.id.renderButton(
-
-            document.getElementById("loginGoogle"),
-
-            {
-
-                theme:"filled_blue",
-
-                size:"large",
-
-                width:260
-
-            }
-
-        );
-
+google.accounts.id.renderButton(
+    document.getElementById("loginGoogle"),
+    {
+        theme: "filled_blue",
+        size: "medium",
+        text: "signin_with",
+        shape: "pill",
+        width: 180
     }
+);
 
     dibujarTablero(
 
