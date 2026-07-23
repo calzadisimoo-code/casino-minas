@@ -1575,3 +1575,37 @@ JUGAR CON AMIGOS
     cursor:pointer;
 
 }
+
+#vozPartida{
+
+    display:none;
+    margin:12px auto;
+
+}
+
+#btnHablar{
+
+    width:240px;
+    height:46px;
+
+    border:none;
+    border-radius:25px;
+
+    background:#2563eb;
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+#btnHablar:active{
+
+    background:#dc2626;
+    transform:scale(.96);
+
+}

@@ -567,6 +567,40 @@ socket.on("pedirMesas",()=>{
 
 });
 
+// ===============================
+// WEBRTC VOZ
+// ===============================
+
+socket.on("ofertaRTC",(datos)=>{
+
+    socket.to(datos.partida).emit("ofertaRTC",{
+
+        oferta:datos.oferta
+
+    });
+
+});
+
+socket.on("respuestaRTC",(datos)=>{
+
+    socket.to(datos.partida).emit("respuestaRTC",{
+
+        respuesta:datos.respuesta
+
+    });
+
+});
+
+socket.on("ice",(datos)=>{
+
+    socket.to(datos.partida).emit("ice",{
+
+        candidate:datos.candidate
+
+    });
+
+});
+
 
 //=====================================
 // CREAR SALA PRIVADA

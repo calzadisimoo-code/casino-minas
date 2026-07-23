@@ -1,3 +1,60 @@
+let peer = null;
+let audioRemoto = new Audio();
+
+audioRemoto.autoplay = true;
+
+const rtcConfig = {
+
+    iceServers:[
+
+        {
+
+            urls:"stun:stun.l.google.com:19302"
+
+        }
+
+    ]
+
+};
+
+async function crearPeer(){
+
+    peer = new RTCPeerConnection(rtcConfig);
+
+    if(streamVoz){
+
+        streamVoz.getTracks().forEach(track=>{
+
+            peer.addTrack(track,streamVoz);
+
+        });
+
+    }
+
+    peer.ontrack=(e)=>{
+
+        audioRemoto.srcObject=e.streams[0];
+
+    };
+
+    peer.onicecandidate=(e)=>{
+
+        if(e.candidate){
+
+            socket.emit("ice",{
+
+                partida:miPartida,
+
+                candidate:e.candidate
+
+            });
+
+        }
+
+    };
+
+}
+
 const socket = io();
 
 const tablero = document.getElementById("tablero");
@@ -254,6 +311,24 @@ document.getElementById("saldoJugador2").innerHTML =
 	document.getElementById("vozPartida").style.display = "block";
 
     actualizarTurno();
+	
+	await crearPeer();
+
+if(datos.turno==socket.id){
+
+    const oferta = await peer.createOffer();
+
+    await peer.setLocalDescription(oferta);
+
+    socket.emit("ofertaRTC",{
+
+        partida:miPartida,
+
+        oferta
+
+    });
+
+}
 
 });
 
@@ -1002,6 +1077,55 @@ window.addEventListener("blur", () => {
 
 });
 
+let peer = null;
+let audioRemoto = new Audio();
+
+audioRemoto.autoplay = true;
+
+const configuracionRTC = {
+    iceServers: [
+        {
+            urls: "stun:stun.l.google.com:19302"
+        }
+    ]
+};
+
+async function crearConexion(){
+
+    peer = new RTCPeerConnection(configuracionRTC);
+
+    if(streamVoz){
+
+        streamVoz.getTracks().forEach(track=>{
+
+            peer.addTrack(track,streamVoz);
+
+        });
+
+    }
+
+    peer.ontrack = (e)=>{
+
+        audioRemoto.srcObject = e.streams[0];
+
+    };
+
+    peer.onicecandidate = (e)=>{
+
+        if(e.candidate){
+
+            socket.emit("ice",{
+
+                partida:miPartida,
+                candidate:e.candidate
+
+            });
+
+        }
+
+    };
+
+}
 
 let streamVoz = null;
 
@@ -1016,10 +1140,22 @@ btnHablar.addEventListener("pointerdown", async ()=>{
             streamVoz = await navigator.mediaDevices.getUserMedia({
                 audio:true
             });
+			
+			streamVoz.getAudioTracks().forEach(track=>{
+
+    track.enabled = false;
+
+});
 
         }
 
         btnHablar.innerHTML="🔴 Hablando...";
+		streamVoz.getAudioTracks().forEach(track=>{
+
+    track.enabled = true;
+
+});
+btnHablar.style.background="linear-gradient(45deg,#dc2626,#ef4444)";
 
     }catch(e){
 
@@ -1032,11 +1168,77 @@ btnHablar.addEventListener("pointerdown", async ()=>{
 btnHablar.addEventListener("pointerup",()=>{
 
     btnHablar.innerHTML="🎤 Mantén pulsado para hablar";
+	streamVoz.getAudioTracks().forEach(track=>{
+
+    track.enabled = false;
+
+});
+btnHablar.style.background="linear-gradient(45deg,#2563eb,#3b82f6)";
 
 });
 
 btnHablar.addEventListener("pointerleave",()=>{
 
     btnHablar.innerHTML="🎤 Mantén pulsado para hablar";
+	streamVoz.getAudioTracks().forEach(track=>{
+
+    track.enabled = false;
+
+});
+btnHablar.style.background="linear-gradient(45deg,#2563eb,#3b82f6)";
+
+});
+
+socket.on("ofertaRTC",async(datos)=>{
+
+    if(!peer){
+
+        await crearPeer();
+
+    }
+
+    await peer.setRemoteDescription(
+        new RTCSessionDescription(datos.oferta)
+    );
+
+    const respuesta = await peer.createAnswer();
+
+    await peer.setLocalDescription(respuesta);
+
+    socket.emit("respuestaRTC",{
+
+        partida:miPartida,
+
+        respuesta
+
+    });
+
+});
+
+socket.on("respuestaRTC",async(datos)=>{
+
+    await peer.setRemoteDescription(
+
+        new RTCSessionDescription(datos.respuesta)
+
+    );
+
+});
+
+socket.on("ice",async(datos)=>{
+
+    if(peer){
+
+        try{
+
+            await peer.addIceCandidate(
+
+                new RTCIceCandidate(datos.candidate)
+
+            );
+
+        }catch(e){}
+
+    }
 
 });
