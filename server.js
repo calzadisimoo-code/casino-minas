@@ -508,10 +508,14 @@ socket.on("crearSalaPrivada",()=>{
 //=====================================
 
 socket.on("entrarSalaPrivada",(datos)=>{
+	
+	console.log("Código recibido:", datos.codigo);
+console.log("Salas actuales:", Object.keys(salasPrivadas));
 
     const codigo = datos.codigo.trim().toUpperCase();
 
     // ¿Ya hay alguien esperando?
+	console.log("¿Existe la sala?", !!salasPrivadas[codigo]);
     if(salasPrivadas[codigo]){
 
         const espera = salasPrivadas[codigo];
