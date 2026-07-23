@@ -1092,7 +1092,15 @@ btnRanking.onclick=()=>{
     socket.emit("pedirRanking");
 
 };
-console.log("RANKING RECIBIDO", lista);
+
+
+
+
+
+
+socket.on("ranking",(lista)=>{
+
+    console.log("RANKING RECIBIDO", lista);
 
     let html="";
 
@@ -1100,13 +1108,9 @@ console.log("RANKING RECIBIDO", lista);
 
         html+=`
         <div class="filaRanking">
-
             <span>#${i+1}</span>
-
             <span>${j.nombre}</span>
-
             <span>$${Number(j.puntos).toLocaleString("es-CO")}</span>
-
         </div>
         `;
 
