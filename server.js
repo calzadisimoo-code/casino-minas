@@ -468,6 +468,8 @@ socket.on("pedirMesas",()=>{
         USAR_ONLINE_REAL ? jugadoresOnline : onlineFake
     );
 
+    enviarDemo(socket);
+
 });
 
 
