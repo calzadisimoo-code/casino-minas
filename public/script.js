@@ -236,7 +236,7 @@ socket.on("esperando",()=>{
 
 });
 
-socket.on("partidaEncontrada",(datos)=>{
+socket.on("partidaEncontrada", async (datos)=>{
 
 	
 	buscandoMesa = false;
