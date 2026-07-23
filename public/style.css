@@ -1458,6 +1458,21 @@ JUGAR CON AMIGOS
 
 }
 
+#popupRanking .ventanaAmigos{
+
+    width:95%;
+    max-width:450px;
+
+    border-radius:20px;
+
+    background:#111827;
+
+    border:2px solid #FFD700;
+
+    padding:20px;
+
+}
+
 .ventanaAmigos h2{
 
     margin-bottom:20px;
