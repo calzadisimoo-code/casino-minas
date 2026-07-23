@@ -1454,6 +1454,16 @@ io.to(partida.id).emit("actualizarTablero",{
     // DESCONECTAR
     // ==========================================
 
+socket.on("pedirRanking",()=>{
+
+    const ranking = Object.values(usuarios)
+        .sort((a,b)=>b.puntos-a.puntos)
+        .slice(0,100);
+
+    socket.emit("ranking",ranking);
+
+});
+
     socket.on("disconnect",()=>{
 
 jugadoresOnline--;
@@ -1539,18 +1549,7 @@ setInterval(() => {
 
 server.listen(3000,()=>{
 
+
     console.log("Servidor iniciado en puerto 3000");
-
-});
-
-socket.on("pedirRanking",()=>{
-
-    const ranking = Object.values(usuarios)
-
-        .sort((a,b)=>b.puntos-a.puntos)
-
-        .slice(0,100);
-
-    socket.emit("ranking",ranking);
 
 });

@@ -1077,6 +1077,14 @@ window.addEventListener("blur", () => {
 
 });
 
+const btnRanking = document.getElementById("btnRanking");
+
+const btnCerrarRanking = document.getElementById("cerrarRanking");
+
+btnCerrarRanking.onclick = ()=>{
+    document.getElementById("popupRanking").style.display = "none";
+};
+
 btnRanking.onclick=()=>{
 
     socket.emit("pedirRanking");
