@@ -428,6 +428,8 @@ setTimeout(()=>{
 	console.log("✅ ENVIANDO PARTIDA", id);
 	
 	console.log(io.sockets.adapter.rooms.get(id));
+console.log("J1:", j1);
+console.log("J2:", j2);
 
     io.to(id).emit("partidaEncontrada",{
 
