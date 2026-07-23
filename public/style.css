@@ -1464,6 +1464,54 @@ JUGAR CON AMIGOS
 
 }
 
+.btnPerfil,
+#jugarAmigos,
+#btnRanking,
+#cerrarRanking{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    margin-top:10px;
+
+}
+
+#jugarAmigos{
+
+    background:#1877F2;
+
+    color:white;
+
+}
+
+#btnRanking{
+
+    background:linear-gradient(45deg,#FFD700,#ff9800);
+
+    color:black;
+
+}
+
+#cerrarRanking,
+.btnCerrar{
+
+    background:#E53935;
+
+    color:white;
+
+}
+
 #popupRanking .ventanaAmigos{
 
     width:95%;

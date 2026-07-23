@@ -557,6 +557,8 @@ if(miPartida==""){
 // LOGIN GOOGLE
 // ==========================================
 
+document.getElementById("foto").onclick = abrirPerfil;
+
 window.onload = ()=>{
 
     const guardado = localStorage.getItem("usuarioGoogle");
@@ -694,11 +696,23 @@ document.getElementById("foto").src = foto;
 
 function abrirPerfil(){
 
-    document.getElementById("fotoPerfilModal").src =
-    usuarioGoogle.picture;
+    if(usuarioGoogle){
 
-    document.getElementById("nombrePerfil").innerHTML =
-    usuarioGoogle.name;
+        document.getElementById("fotoPerfilModal").src =
+        usuarioGoogle.picture;
+
+        document.getElementById("nombrePerfil").innerHTML =
+        usuarioGoogle.name;
+
+    }else{
+
+        document.getElementById("fotoPerfilModal").src =
+        "/img/sin-perfil.png";
+
+        document.getElementById("nombrePerfil").innerHTML =
+        "Invitado";
+
+    }
 
     document.getElementById("modalPerfil").style.display="flex";
 
