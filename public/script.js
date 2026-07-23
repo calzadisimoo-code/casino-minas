@@ -1109,7 +1109,7 @@ socket.on("ranking",(lista)=>{
 html+=`
 <div class="filaRanking">
 
-    <div class="posicionRanking">
+    <div class="posRanking">
         ${i+1}
     </div>
 
@@ -1117,16 +1117,12 @@ html+=`
         class="fotoRanking"
         src="${j.foto}">
 
-    <div class="datosRanking">
+    <div class="nombreRanking">
+        ${j.nombre}
+    </div>
 
-        <div class="nombreRanking">
-            ${j.nombre}
-        </div>
-
-        <div class="saldoRanking">
-            💰 $${Number(j.puntos).toLocaleString("es-CO")}
-        </div>
-
+    <div class="saldoRanking">
+        💰 $${Number(j.puntos).toLocaleString("es-CO")}
     </div>
 
 </div>
