@@ -1076,3 +1076,34 @@ window.addEventListener("blur", () => {
     musica.pause();
 
 });
+
+btnRanking.onclick=()=>{
+
+    socket.emit("pedirRanking");
+
+};
+socket.on("ranking",(lista)=>{
+
+    let html="";
+
+    lista.forEach((j,i)=>{
+
+        html+=`
+        <div class="filaRanking">
+
+            <span>#${i+1}</span>
+
+            <span>${j.nombre}</span>
+
+            <span>$${Number(j.puntos).toLocaleString("es-CO")}</span>
+
+        </div>
+        `;
+
+    });
+
+    document.getElementById("listaRanking").innerHTML=html;
+
+    document.getElementById("popupRanking").style.display="flex";
+
+});
