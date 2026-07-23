@@ -894,6 +894,13 @@ btnCerrarAmigos.onclick = ()=>{
 btnEntrarSala.onclick = ()=>{
 
     const codigo = codigoSala.value.trim().toUpperCase();
+	const monto = Number(apuesta.value);
+
+if (monto <= 0) {
+    alert("💰 Escribe una apuesta mayor a 0.");
+    apuesta.focus();
+    return;
+}
 
     if(codigo==""){
 
@@ -925,7 +932,7 @@ document.getElementById("esperando").style.display = "flex";
 
         foto:usuarioGoogle.picture,
 
-        apuesta:Number(apuesta.value)
+        apuesta:monto
 
     });
 
