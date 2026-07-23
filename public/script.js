@@ -250,6 +250,8 @@ document.getElementById("saldoJugador2").innerHTML =
 "$"+Number(datos.apuesta).toLocaleString("es-CO");
 
     dibujarTablero(datos.tablero);
+	
+	document.getElementById("vozPartida").style.display = "block";
 
     actualizarTurno();
 
@@ -278,6 +280,7 @@ socket.on("finPartida",(datos)=>{
 	document.getElementById("esperando").style.display="none";
 
     miTurno = false;
+	document.getElementById("vozPartida").style.display = "none";
 
     dibujarTablero(datos.tablero);
 
@@ -1000,3 +1003,40 @@ window.addEventListener("blur", () => {
 });
 
 
+let streamVoz = null;
+
+const btnHablar = document.getElementById("btnHablar");
+
+btnHablar.addEventListener("pointerdown", async ()=>{
+
+    try{
+
+        if(!streamVoz){
+
+            streamVoz = await navigator.mediaDevices.getUserMedia({
+                audio:true
+            });
+
+        }
+
+        btnHablar.innerHTML="🔴 Hablando...";
+
+    }catch(e){
+
+        alert("Debes permitir el uso del micrófono.");
+
+    }
+
+});
+
+btnHablar.addEventListener("pointerup",()=>{
+
+    btnHablar.innerHTML="🎤 Mantén pulsado para hablar";
+
+});
+
+btnHablar.addEventListener("pointerleave",()=>{
+
+    btnHablar.innerHTML="🎤 Mantén pulsado para hablar";
+
+});
