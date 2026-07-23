@@ -764,11 +764,10 @@ timersBot[mesa.id] = setTimeout(() => {
             nombre: mesa.nombre,
             foto: mesa.foto
         },
-        {
-            socket: null,
-...bots[Math.floor(Math.random()*bots.length)],
-socket:null
-        },
+{
+    ...bots[Math.floor(Math.random()*bots.length)],
+    socket: null
+},
         mesa.apuesta
     );
 
