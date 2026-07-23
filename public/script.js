@@ -489,26 +489,26 @@ function crearAvatar(id,nombre){
 
     const foto = document.getElementById(id);
 
-    const inicial = nombre.trim().charAt(0).toUpperCase();
+    if(!foto) return;
 
-    const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-        <rect width="100%" height="100%" fill="#2563eb"/>
-        <text x="50%" y="54%"
-            text-anchor="middle"
-            dominant-baseline="middle"
-            font-size="55"
-            fill="white"
-            font-family="Arial"
-            font-weight="bold">
-            ${inicial}
-        </text>
-    </svg>`;
+    const inicial = nombre.charAt(0).toUpperCase();
+
+    const svg =
+`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+<circle cx="50" cy="50" r="50" fill="#2563eb"/>
+<text x="50%" y="56%"
+text-anchor="middle"
+font-size="55"
+fill="white"
+font-family="Arial"
+font-weight="bold">${inicial}</text>
+</svg>`;
+
+    foto.removeAttribute("src");
 
     foto.src =
-    "data:image/svg+xml;charset=UTF-8,"+
-    encodeURIComponent(svg);
-
+    "data:image/svg+xml;base64," +
+    btoa(unescape(encodeURIComponent(svg)));
 }
 
 // ==========================================
