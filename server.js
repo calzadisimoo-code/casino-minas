@@ -1115,6 +1115,16 @@ if (USAR_ONLINE_REAL) {
 
 );
 
+document.getElementById("puestoJugador1").textContent =
+datos.puesto1 <= 3
+    ? ["🥇","🥈","🥉"][datos.puesto1-1] + " #" + datos.puesto1
+    : "#" + datos.puesto1;
+
+document.getElementById("puestoJugador2").textContent =
+datos.puesto2 <= 3
+    ? ["🥇","🥈","🥉"][datos.puesto2-1] + " #" + datos.puesto2
+    : "#" + datos.puesto2;
+
 jugador.nombre = datos.nombre;
 
 jugador.foto = datos.foto;
