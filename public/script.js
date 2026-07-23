@@ -1106,13 +1106,28 @@ socket.on("ranking",(lista)=>{
 
     lista.forEach((j,i)=>{
 
-        html+=`
-        <div class="filaRanking">
-            <span>#${i+1}</span>
-            <span>${j.nombre}</span>
-            <span>$${Number(j.puntos).toLocaleString("es-CO")}</span>
+html+=`
+<div class="filaRanking">
+
+    <img
+        class="fotoRanking"
+        src="${j.foto || 'https://ui-avatars.com/api/?name='+encodeURIComponent(j.nombre)}">
+
+    <div class="infoRanking">
+
+        <div class="nombreRanking">
+            ${i==0?"🥇":i==1?"🥈":i==2?"🥉":"#"+(i+1)}
+            ${j.nombre}
         </div>
-        `;
+
+        <div class="saldoRanking">
+            💰 $${Number(j.puntos).toLocaleString("es-CO")}
+        </div>
+
+    </div>
+
+</div>
+`;
 
     });
 
