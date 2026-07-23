@@ -860,6 +860,14 @@ socket.on("solicitarRetiro",(datos)=>{
 	console.log("LLEGÓ RETIRO:", datos);
 
     const jugador = usuarios[datos.googleId];
+	
+	if (datos.monto < 10000) {
+    socket.emit(
+        "mensaje",
+        "❌ El retiro mínimo es de $10.000."
+    );
+    return;
+}
 
     if(!jugador){
 
