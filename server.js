@@ -1410,7 +1410,7 @@ io.to(partida.id).emit("actualizarTablero",{
 
 });
 
-    },1000);
+    }, Math.floor(Math.random() * 2500) + 500);
 
 }
 
