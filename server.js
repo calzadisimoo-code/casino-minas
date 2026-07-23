@@ -755,15 +755,15 @@ console.log("Mesa encontrada:", mesa);
 
     }
 
-    const jugador2 = obtenerJugador(
+const jugador2 = obtenerJugador(
 
-        socket.googleId,
+    datos.googleId,
 
-        usuarios[socket.googleId].nombre,
+    datos.nombre,
 
-        usuarios[socket.googleId].foto
+    datos.foto
 
-    );
+);
 
     if(jugador2.puntos < mesa.apuesta){
 
