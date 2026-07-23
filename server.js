@@ -428,8 +428,6 @@ setTimeout(()=>{
 	console.log("✅ ENVIANDO PARTIDA", id);
 	
 	console.log(io.sockets.adapter.rooms.get(id));
-console.log("J1:", j1);
-console.log("J2:", j2);
 
     io.to(id).emit("partidaEncontrada",{
 
@@ -757,15 +755,15 @@ console.log("Mesa encontrada:", mesa);
 
     }
 
-const jugador2 = obtenerJugador(
+    const jugador2 = obtenerJugador(
 
-    datos.googleId,
+        socket.googleId,
 
-    datos.nombre,
+        usuarios[socket.googleId].nombre,
 
-    datos.foto
+        usuarios[socket.googleId].foto
 
-);
+    );
 
     if(jugador2.puntos < mesa.apuesta){
 
