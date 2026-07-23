@@ -454,6 +454,17 @@ function enviarMesas(socket = null){
 
 }
 
+function obtenerPuesto(googleId){
+
+    const ranking = [
+        ...Object.values(usuarios),
+        ...bots
+    ].sort((a,b)=>b.puntos-a.puntos);
+
+    return ranking.findIndex(j=>j.googleId===googleId)+1;
+
+}
+
 function crearPartida(j1,j2,apuesta){
 
     const id = Date.now().toString() + Math.floor(Math.random()*999999);
@@ -544,13 +555,15 @@ setTimeout(()=>{
 
         tablero,
 
-        jugador1:j1.nombre,
-        foto1:j1.foto,
+jugador1:j1.nombre,
+foto1:j1.foto,
+puesto1: obtenerPuesto(j1.googleId),
 
-        jugador2:j2.nombre,
-        foto2:j2.foto,
+jugador2:j2.nombre,
+foto2:j2.foto,
+puesto2: obtenerPuesto(j2.googleId),
 
-        turno: partidas[id].turno
+turno: partidas[id].turno
 
     });
 
@@ -789,6 +802,8 @@ enviarMesas();
     puntos: Math.floor(Math.random()*50000)+500
 
 }));
+
+
 	
 	/*
 setTimeout(()=>{
