@@ -1109,14 +1109,17 @@ socket.on("ranking",(lista)=>{
 html+=`
 <div class="filaRanking">
 
+    <div class="posicionRanking">
+        ${i+1}
+    </div>
+
     <img
         class="fotoRanking"
-        src="${j.foto || 'https://ui-avatars.com/api/?name='+encodeURIComponent(j.nombre)}">
+        src="${j.foto}">
 
-    <div class="infoRanking">
+    <div class="datosRanking">
 
         <div class="nombreRanking">
-            ${i==0?"🥇":i==1?"🥈":i==2?"🥉":"#"+(i+1)}
             ${j.nombre}
         </div>
 
