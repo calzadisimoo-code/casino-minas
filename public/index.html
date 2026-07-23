@@ -128,7 +128,23 @@ font-weight:bold;
 
 </div>
 		
-		<div id="panelJuego">
+		<div id="selectorJuego">
+
+<select id="tipoJuego">
+
+    <option value="minas">
+        💣 Minas
+    </option>
+
+    <option value="slots">
+        🎰 Tragamonedas
+    </option>
+
+</select>
+
+</div>
+
+<div id="panelJuego">
 
     <input
         id="apuesta"
@@ -468,7 +484,18 @@ font-size:24px;
 
 </div>
 
-<div id="slots" class="pantallaSlots" style="display:none;">
+<div
+id="slots"
+class="pantallaSlots"
+style="display:none;">
+
+<h2>🎰 TRAGAMONEDAS</h2>
+
+<button id="volverMinas">
+
+⬅ Volver
+
+</button>
 
     <div class="slotMachine">
 

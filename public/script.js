@@ -1218,3 +1218,39 @@ function verificar(a,b,c){
     }
 
 }
+
+const tipoJuego=document.getElementById("tipoJuego");
+
+tipoJuego.onchange=()=>{
+
+    if(tipoJuego.value==="minas"){
+
+        document.getElementById("panelJuego").style.display="block";
+
+        document.getElementById("jugadoresPartida").style.display="flex";
+
+        document.getElementById("tablero").style.display="grid";
+
+        document.getElementById("slots").style.display="none";
+
+    }else{
+
+        document.getElementById("panelJuego").style.display="none";
+
+        document.getElementById("jugadoresPartida").style.display="none";
+
+        document.getElementById("tablero").style.display="none";
+
+        document.getElementById("slots").style.display="block";
+
+    }
+
+};
+
+document.getElementById("volverMinas").onclick=()=>{
+
+    tipoJuego.value="minas";
+
+    tipoJuego.onchange();
+
+};
