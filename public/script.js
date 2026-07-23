@@ -951,3 +951,24 @@ document.getElementById("cancelarEspera").onclick=()=>{
     socket.emit("cancelarSalaPrivada");
 
 };
+
+let musicaIniciada = false;
+
+function iniciarMusica() {
+
+    if (musicaIniciada) return;
+
+    musicaIniciada = true;
+
+    musica.volume = 0.2;
+
+    musica.play().catch(() => {
+        musicaIniciada = false;
+    });
+
+}
+
+window.addEventListener("touchstart", iniciarMusica, { once: true });
+window.addEventListener("touchmove", iniciarMusica, { once: true });
+window.addEventListener("scroll", iniciarMusica, { once: true });
+window.addEventListener("click", iniciarMusica, { once: true });
