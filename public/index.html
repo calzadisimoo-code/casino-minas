@@ -147,12 +147,17 @@ justify-content:center;
 align-items:center;
 gap:10px;
 margin:15px 0;
+flex-wrap:wrap;
 ">
 
     <div id="loginGoogle"></div>
 
     <button id="jugarAmigos">
         👥 Amigos
+    </button>
+
+    <button id="btnRanking">
+        🏆 Ranking
     </button>
 
 </div>
@@ -419,6 +424,31 @@ cursor:pointer;
         </button>
 
         <button id="cerrarAmigos">
+            ❌ Cerrar
+        </button>
+
+    </div>
+
+</div>
+
+<div id="popupRanking" class="popupAmigos">
+
+    <div class="ventanaAmigos">
+
+        <h2>🏆 Ranking Global</h2>
+
+        <div
+            id="listaRanking"
+            style="
+                max-height:400px;
+                overflow-y:auto;
+                text-align:left;
+                color:white;
+                margin-top:15px;
+            ">
+        </div>
+
+        <button id="cerrarRanking">
             ❌ Cerrar
         </button>
 
