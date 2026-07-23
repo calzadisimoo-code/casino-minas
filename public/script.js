@@ -1149,15 +1149,23 @@ html+=`
 
 lista.forEach((j,i)=>{
 
-    if(j.foto){
+const img = document.getElementById("fotoRanking"+i);
 
-        document.getElementById("fotoRanking"+i).src = j.foto;
+img.onerror = ()=>{
 
-    }else{
+    crearAvatar("fotoRanking"+i, j.nombre);
 
-        crearAvatar("fotoRanking"+i, j.nombre);
+};
 
-    }
+if(j.foto){
+
+    img.src = j.foto;
+
+}else{
+
+    crearAvatar("fotoRanking"+i, j.nombre);
+
+}
 
 });
 
