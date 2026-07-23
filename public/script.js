@@ -622,7 +622,7 @@ google.accounts.id.renderButton(
         size: "large",
         text: "continue_with",
         shape: "rectangular",
-        width: 330
+        width: 310
     }
 );
 
