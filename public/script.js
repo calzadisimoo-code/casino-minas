@@ -524,13 +524,12 @@ document.getElementById("foto").src = foto;
 
 }
 
-    google.accounts.id.initialize({
 
-        client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
-
-        callback:loginGoogle
-
-    });
+google.accounts.id.initialize({
+    client_id:"758592725329-b0d58g87fn5ihqpu3fp32b7ok6lo1ida.apps.googleusercontent.com",
+    callback:loginGoogle,
+    auto_select:true
+});
 
     if(!usuarioGoogle){
 
