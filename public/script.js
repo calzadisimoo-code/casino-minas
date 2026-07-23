@@ -547,6 +547,8 @@ google.accounts.id.renderButton(
     }
 );
 
+    }
+
     dibujarTablero(
 
         Array(25).fill({
