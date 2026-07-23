@@ -1175,3 +1175,46 @@ if(j.foto){
     document.getElementById("popupRanking").style.display="flex";
 
 });
+
+const simbolos = [
+    "🍒",
+    "🍋",
+    "🍇",
+    "⭐",
+    "💎",
+    "7️⃣"
+];
+
+document.getElementById("girarSlots").onclick = girar;
+
+function girar(){
+
+    const r1 = simbolos[Math.floor(Math.random()*simbolos.length)];
+    const r2 = simbolos[Math.floor(Math.random()*simbolos.length)];
+    const r3 = simbolos[Math.floor(Math.random()*simbolos.length)];
+
+    document.getElementById("r1").textContent = r1;
+    document.getElementById("r2").textContent = r2;
+    document.getElementById("r3").textContent = r3;
+
+    verificar(r1,r2,r3);
+
+}
+
+function verificar(a,b,c){
+
+    if(a===b && b===c){
+
+        alert("🎉 JACKPOT");
+
+    }else if(a===b || b===c || a===c){
+
+        alert("Ganaste un premio pequeño");
+
+    }else{
+
+        alert("Sigue intentando");
+
+    }
+
+}
