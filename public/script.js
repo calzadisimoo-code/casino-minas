@@ -237,6 +237,9 @@ socket.on("esperando",()=>{
 });
 
 socket.on("partidaEncontrada", async (datos)=>{
+	
+	document.getElementById("puestoJugador1").textContent = "#" + datos.puesto1;
+document.getElementById("puestoJugador2").textContent = "#" + datos.puesto2;
 
 	
 	buscandoMesa = false;
