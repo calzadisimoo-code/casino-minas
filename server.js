@@ -149,6 +149,18 @@ const nombresDemo = [
 
 ];
 
+const bots = nombresDemo.map((nombre, i) => ({
+
+    googleId: "BOT"+i,
+
+    nombre,
+
+    foto: `/img/bots/${(i % 20) + 1}.png`,
+
+    puntos: Math.floor(Math.random()*2000000)+5000
+
+}));
+
 // Puntos de cada jugador
 const ARCHIVO = "./usuarios.json";
 const ARCHIVO_DEPOSITOS = "./depositos.json";
