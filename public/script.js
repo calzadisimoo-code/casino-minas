@@ -772,16 +772,16 @@ socket.on("listaMesas",(lista)=>{
 function aceptarMesa(id){
 
     if(miPartida!=""){
-
         alert("⚠️ Primero termina tu partida actual.");
-
         return;
-
     }
 
     socket.emit("aceptarMesa",{
 
-        mesa:id
+        mesa:id,
+        googleId:usuarioGoogle.sub,
+        nombre:usuarioGoogle.name,
+        foto:usuarioGoogle.picture
 
     });
 
