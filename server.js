@@ -1221,18 +1221,6 @@ console.log("CLICK EN CASILLA:", datos);
             }
 
 if(ganador.googleId!="BOT"){
-	
-	else{
-
-    const bot = bots.find(b=>b.googleId==ganador.googleId);
-
-    if(bot){
-
-        bot.puntos += partida.apuesta * 1.5;
-
-    }
-
-}
 
     const ganadorBD = usuarios[ganador.googleId];
 
@@ -1243,32 +1231,20 @@ if(ganador.googleId!="BOT"){
     guardarUsuarios();
 
     ganador.socket.emit("misPuntos",{
-
         puntos: ganadorBD.puntos
-
     });
+
+}else{
+
+    const bot = bots.find(b=>b.googleId==ganador.googleId);
+
+    if(bot){
+        bot.puntos += partida.apuesta * 1.5;
+    }
 
 }
 
 if(perdedor.googleId!="BOT"){
-	
-	else{
-
-    const bot = bots.find(b=>b.googleId==perdedor.googleId);
-
-    if(bot){
-
-        bot.puntos -= partida.apuesta;
-
-        if(bot.puntos<500){
-
-            bot.puntos=500;
-
-        }
-
-    }
-
-}
 
     const perdedorBD = usuarios[perdedor.googleId];
 
@@ -1277,10 +1253,22 @@ if(perdedor.googleId!="BOT"){
     guardarUsuarios();
 
     perdedor.socket.emit("misPuntos",{
-
         puntos: perdedorBD.puntos
-
     });
+
+}else{
+
+    const bot = bots.find(b=>b.googleId==perdedor.googleId);
+
+    if(bot){
+
+        bot.puntos -= partida.apuesta;
+
+        if(bot.puntos < 500){
+            bot.puntos = 500;
+        }
+
+    }
 
 }
 io.to(partida.id).emit("finPartida",{
