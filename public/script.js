@@ -1128,8 +1128,25 @@ html+=`
     </div>
 
     <img
-        class="fotoRanking"
-        src="${j.foto}">
+    class="fotoRanking"
+    src="${
+        j.foto
+        ? j.foto
+        : 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+<rect width="100%" height="100%" fill="#2563eb"/>
+<text x="50%" y="54%"
+text-anchor="middle"
+dominant-baseline="middle"
+font-size="55"
+fill="white"
+font-family="Arial"
+font-weight="bold">
+${j.nombre.trim().charAt(0).toUpperCase()}
+</text>
+</svg>
+`)
+    }">
 
     <div class="nombreRanking">
         ${j.nombre}

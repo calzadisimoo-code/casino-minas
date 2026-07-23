@@ -778,6 +778,17 @@ console.log(mesas);
 
 enviarMesas();
 	
+	const bots = nombresDemo.map((nombre, i) => ({
+
+    googleId: "BOT"+i,
+
+    nombre,
+
+    foto: `/img/bots/${(i % 20) + 1}.png`,
+
+    puntos: Math.floor(Math.random()*50000)+500
+
+}));
 	
 	/*
 setTimeout(()=>{
