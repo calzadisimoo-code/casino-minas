@@ -113,7 +113,7 @@ btnJugar.onclick = ()=>{
 
     });
 
-    alert("Primero inicia sesión con Google.");
+    alert("Primero inicia sesión con Google. Toca tu foto de perfil (arriba a la izqueirda) y selecciona (Iniciar sesion con Google) ");
 
     return;
 
@@ -121,7 +121,7 @@ btnJugar.onclick = ()=>{
 
     if(!usuarioGoogle){
 
-        alert("Primero inicia sesión con Google");
+        alert("Primero inicia sesión con Google Toca tu foto de perfil (arriba a la izqueirda) y selecciona (Iniciar sesion con Google) ");
 
         return;
 
