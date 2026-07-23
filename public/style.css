@@ -1766,3 +1766,60 @@ JUGAR CON AMIGOS
     font-weight:bold;
 
 }
+
+#selectorJuego{
+
+    display:flex;
+    justify-content:center;
+    margin:18px 0;
+
+}
+
+.casinoSelect{
+
+    width:260px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(145deg,#1b1b35,#111);
+
+    color:#FFD700;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    outline:none;
+
+    box-shadow:
+        0 0 15px rgba(255,215,0,.25),
+        inset 0 0 10px rgba(255,255,255,.05);
+
+    transition:.25s;
+
+}
+
+.casinoSelect:hover{
+
+    transform:scale(1.04);
+
+    box-shadow:
+        0 0 25px gold;
+
+}
+
+.casinoSelect option{
+
+    background:#101020;
+
+    color:white;
+
+}
