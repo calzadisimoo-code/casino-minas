@@ -531,12 +531,12 @@ console.log("Salas actuales:", Object.keys(salasPrivadas));
                 foto:espera.foto
             },
 
-            {
-                socket,
-                googleId:socket.googleId,
-                nombre:usuarios[socket.googleId].nombre,
-                foto:usuarios[socket.googleId].foto
-            },
+{
+    socket,
+    googleId: datos.googleId,
+    nombre: datos.nombre,
+    foto: datos.foto
+},
 
             espera.apuesta
 
@@ -548,15 +548,15 @@ console.log("Salas actuales:", Object.keys(salasPrivadas));
 
     // Si no existe, queda esperando
 
-    salasPrivadas[codigo]={
+salasPrivadas[codigo]={
 
-        socket,
-        googleId:socket.googleId,
-        nombre:usuarios[socket.googleId].nombre,
-        foto:usuarios[socket.googleId].foto,
-        apuesta:Number(datos.apuesta)
+    socket,
+    googleId: datos.googleId,
+    nombre: datos.nombre,
+    foto: datos.foto,
+    apuesta: Number(datos.apuesta)
 
-    };
+};
 
 });
     // AQUÍ SIGUE TODO TU CÓDIGO ACTUAL DE crearMesa
@@ -812,9 +812,9 @@ crearPartida(
 },
 {
     socket,
-    googleId: socket.googleId,
-    nombre: usuarios[socket.googleId].nombre,
-    foto: usuarios[socket.googleId].foto
+    googleId: datos.googleId,
+    nombre: datos.nombre,
+    foto: datos.foto
 },
 mesa.apuesta
 );
