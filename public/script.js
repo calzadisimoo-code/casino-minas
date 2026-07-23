@@ -619,10 +619,10 @@ google.accounts.id.renderButton(
     document.getElementById("loginGoogle"),
     {
         theme: "filled_blue",
-        size: "large",
-        text: "continue_with",
-        shape: "rectangular",
-        width: 330
+        size: "medium",
+        text: "signin_with",
+        shape: "pill",
+        width: 180
     }
 );
 
