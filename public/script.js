@@ -367,7 +367,7 @@ function dibujarTablero(tab){
 
         div.id="c"+i;
 
-        if(casilla.abierta){
+        if(casilla.abierta || miTurno === false){
 
     if(casilla.tipo=="diamante"){
 
