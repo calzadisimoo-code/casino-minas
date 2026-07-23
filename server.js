@@ -33,7 +33,7 @@ const mesas = [];
 const salasPrivadas = {};
 
 // Partidas activas
-const ESPERA_BOT = 1000;
+const ESPERA_BOT = 3000;
 const partidas = {};
 
 let partidaEspectada = null;
