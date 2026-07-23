@@ -1087,10 +1087,12 @@ btnCerrarRanking.onclick = ()=>{
 
 btnRanking.onclick=()=>{
 
+    console.log("CLICK RANKING");
+
     socket.emit("pedirRanking");
 
 };
-socket.on("ranking",(lista)=>{
+console.log("RANKING RECIBIDO", lista);
 
     let html="";
 
