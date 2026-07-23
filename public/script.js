@@ -829,7 +829,9 @@ function iniciarMusica(){
 
     musica.volume = 0.2;
 
-    musica.play().catch(()=>{});
+    musica.play()
+    .then(()=>console.log("Música iniciada"))
+    .catch(err=>console.log(err));
 
     document.removeEventListener("pointerdown", iniciarMusica);
     document.removeEventListener("touchstart", iniciarMusica);
