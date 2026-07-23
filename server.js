@@ -363,7 +363,9 @@ function crearPartida(j1,j2,apuesta){
 
         tablero,
 
-        turno:j1.socket.id,
+        turno: Math.random() < 0.5
+    ? j1.socket.id
+    : (j2.socket ? j2.socket.id : j1.socket.id),
 
         terminada:false,
 
@@ -443,7 +445,7 @@ setTimeout(()=>{
         jugador2:j2.nombre,
         foto2:j2.foto,
 
-        turno:j1.socket.id
+        turno: partidas[id].turno
 
     });
 
