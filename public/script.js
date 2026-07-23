@@ -972,3 +972,31 @@ window.addEventListener("touchstart", iniciarMusica, { once: true });
 window.addEventListener("touchmove", iniciarMusica, { once: true });
 window.addEventListener("scroll", iniciarMusica, { once: true });
 window.addEventListener("click", iniciarMusica, { once: true });
+
+document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+
+        musica.pause();
+
+    } else {
+
+        musica.play().catch(() => {});
+
+    }
+
+});
+
+window.addEventListener("pagehide", () => {
+
+    musica.pause();
+
+});
+
+window.addEventListener("blur", () => {
+
+    musica.pause();
+
+});
+
+
