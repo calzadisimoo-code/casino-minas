@@ -1458,9 +1458,21 @@ JUGAR CON AMIGOS
 
 }
 
-#loginGoogle>div{
+#loginGoogle{
+
+    width:100%;
+
+    margin-top:10px;
+
+}
+
+#loginGoogle > div{
 
     width:100% !important;
+
+    display:flex !important;
+
+    justify-content:center;
 
 }
 
