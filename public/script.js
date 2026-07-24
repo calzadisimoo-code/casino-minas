@@ -1120,18 +1120,19 @@ socket.on("ranking",(lista)=>{
 
     lista.forEach((j,i)=>{
 
-html += `
+html+=`
 <div class="filaRanking"
-     onclick="verPerfil('${j.googleId}')">
+onclick="verPerfil('${j.googleId}')">
+
 
     <div class="posRanking">
         ${i+1}
     </div>
 
-    <img
-        id="fotoRanking${i}"
-        class="fotoRanking"
-        src="">
+<img
+    id="fotoRanking${i}"
+    class="fotoRanking"
+    src="">
 
     <div class="nombreRanking">
         ${j.nombre}
