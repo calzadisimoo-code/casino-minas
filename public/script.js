@@ -103,19 +103,16 @@ socket.on("connect",()=>{
 
 btnJugar.onclick = ()=>{
 	
-	if(!usuarioGoogle){
+if(!usuarioGoogle){
+    google.accounts.id.prompt();
 
     document.getElementById("loginGoogle").scrollIntoView({
-
         behavior:"smooth",
-
         block:"center"
-
     });
 
-    alert("Primero inicia sesión con Google. Toca tu foto de perfil (arriba a la izqueirda) y selecciona (Continuar con Google) ");
-
     return;
+}
 
 }
 
@@ -1123,17 +1120,18 @@ socket.on("ranking",(lista)=>{
 
     lista.forEach((j,i)=>{
 
-html+=`
-<div class="filaRanking">
+html += `
+<div class="filaRanking"
+     onclick="verPerfil('${j.googleId}')">
 
     <div class="posRanking">
         ${i+1}
     </div>
 
-<img
-    id="fotoRanking${i}"
-    class="fotoRanking"
-    src="">
+    <img
+        id="fotoRanking${i}"
+        class="fotoRanking"
+        src="">
 
     <div class="nombreRanking">
         ${j.nombre}
@@ -1254,3 +1252,35 @@ document.getElementById("volverMinas").onclick=()=>{
     tipoJuego.onchange();
 
 };
+
+function verPerfil(id){
+
+    socket.emit("pedirPerfilJugador",id);
+
+}
+
+socket.on("perfilJugador",(j)=>{
+
+    document.getElementById("perfilFoto").src = j.foto;
+
+    document.getElementById("perfilNombre").innerHTML =
+        j.nombre;
+
+    document.getElementById("perfilDinero").innerHTML =
+        "$"+Number(j.dinero).toLocaleString("es-CO");
+
+    document.getElementById("perfilVictorias").innerHTML =
+        j.victorias;
+
+    document.getElementById("perfilDerrotas").innerHTML =
+        j.derrotas;
+
+    document.getElementById("perfilPartidas").innerHTML =
+        j.partidas;
+
+    document.getElementById("perfilPuesto").innerHTML =
+        "#"+j.puesto;
+
+    document.getElementById("modalPerfilJugador").style.display="flex";
+
+});
