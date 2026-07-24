@@ -1112,7 +1112,6 @@ socket.on("ranking",(lista)=>{
 
 html += `
 <div class="filaRanking"
-     onclick="verPerfil('${j.googleId}')">
 
     <div class="posRanking">
         ${i+1}
@@ -1242,35 +1241,3 @@ document.getElementById("volverMinas").onclick=()=>{
     tipoJuego.onchange();
 
 };
-
-function verPerfil(id){
-
-    socket.emit("pedirPerfilJugador",id);
-
-}
-
-socket.on("perfilJugador",(j)=>{
-
-    document.getElementById("perfilFoto").src = j.foto;
-
-    document.getElementById("perfilNombre").innerHTML =
-        j.nombre;
-
-    document.getElementById("perfilDinero").innerHTML =
-        "$"+Number(j.dinero).toLocaleString("es-CO");
-
-    document.getElementById("perfilVictorias").innerHTML =
-        j.victorias;
-
-    document.getElementById("perfilDerrotas").innerHTML =
-        j.derrotas;
-
-    document.getElementById("perfilPartidas").innerHTML =
-        j.partidas;
-
-    document.getElementById("perfilPuesto").innerHTML =
-        "#"+j.puesto;
-
-    document.getElementById("modalPerfilJugador").style.display="flex";
-
-});
