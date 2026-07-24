@@ -102,20 +102,30 @@ socket.on("connect",()=>{
 
 
 btnJugar.onclick = ()=>{
+	
+if(!usuarioGoogle){
+    google.accounts.id.prompt();
+
+    document.getElementById("loginGoogle").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+    return;
+}
+
+}
 
     if(!usuarioGoogle){
-        google.accounts.id.prompt();
 
-        document.getElementById("loginGoogle").scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
+        alert("Primero inicia sesión con Google Toca tu foto de perfil (arriba a la izqueirda) y selecciona (Continuar con Google");
 
         return;
+
     }
 
-    buscandoMesa = true;
 
+    buscandoMesa = true;
 
     socket.emit("crearMesa",{
 

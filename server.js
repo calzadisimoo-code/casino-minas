@@ -592,30 +592,6 @@ socket.on("pedirMesas",()=>{
 
 });
 
-socket.on("pedirPerfilJugador",(googleId)=>{
-
-    const ranking = [
-        ...Object.values(usuarios),
-        ...bots
-    ].sort((a,b)=>b.puntos-a.puntos);
-
-    const jugador = ranking.find(j=>j.googleId==googleId);
-
-    if(!jugador) return;
-
-    socket.emit("perfilJugador",{
-        nombre: jugador.nombre,
-        foto: jugador.foto,
-        dinero: jugador.puntos,
-        victorias: jugador.victorias || 0,
-        derrotas: jugador.derrotas || 0,
-        partidas: jugador.partidas || 0,
-        puesto: obtenerPuesto(jugador.googleId)
-    });
-
-});
-
-
 // ===============================
 // WEBRTC VOZ
 // ===============================
@@ -1647,3 +1623,29 @@ server.listen(3000,()=>{
     console.log("Servidor iniciado en puerto 3000");
 
 });
+
+socket.on("pedirPerfilJugador",(googleId)=>{
+
+    const ranking = [
+        ...Object.values(usuarios),
+        ...bots
+    ].sort((a,b)=>b.puntos-a.puntos);
+
+    const jugador = ranking.find(j=>j.googleId==googleId);
+
+    if(!jugador) return;
+
+    socket.emit("perfilJugador",{
+
+        nombre: jugador.nombre,
+        foto: jugador.foto,
+        dinero: jugador.puntos,
+        victorias: jugador.victorias || 0,
+        derrotas: jugador.derrotas || 0,
+        partidas: jugador.partidas || 0,
+        puesto: obtenerPuesto(jugador.googleId)
+
+    });
+
+});
+
