@@ -102,30 +102,20 @@ socket.on("connect",()=>{
 
 
 btnJugar.onclick = ()=>{
-	
-if(!usuarioGoogle){
-    google.accounts.id.prompt();
-
-    document.getElementById("loginGoogle").scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
-
-    return;
-}
-
-}
 
     if(!usuarioGoogle){
+        google.accounts.id.prompt();
 
-        alert("Primero inicia sesión con Google Toca tu foto de perfil (arriba a la izqueirda) y selecciona (Continuar con Google");
+        document.getElementById("loginGoogle").scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
 
         return;
-
     }
 
-
     buscandoMesa = true;
+
 
     socket.emit("crearMesa",{
 
@@ -1120,19 +1110,18 @@ socket.on("ranking",(lista)=>{
 
     lista.forEach((j,i)=>{
 
-html+=`
+html += `
 <div class="filaRanking"
-onclick="verPerfil('${j.googleId}')">
-
+     onclick="verPerfil('${j.googleId}')">
 
     <div class="posRanking">
         ${i+1}
     </div>
 
-<img
-    id="fotoRanking${i}"
-    class="fotoRanking"
-    src="">
+    <img
+        id="fotoRanking${i}"
+        class="fotoRanking"
+        src="">
 
     <div class="nombreRanking">
         ${j.nombre}
