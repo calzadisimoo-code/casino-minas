@@ -1255,25 +1255,30 @@ console.log("CLICK EN CASILLA:", datos);
 
             }
 
-if(ganador.googleId!="BOT"){
+if (ganador.googleId != "BOT") {
 
-    const ganadorBD = usuarios[ganador.googleId];
+    const ganadorBD = obtenerJugador(
+        ganador.googleId,
+        ganador.nombre,
+        ganador.foto || ""
+    );
 
     ganadorBD.puntos += partida.apuesta * 1.5;
-
     ganadorBD.victorias++;
 
     guardarUsuarios();
 
-    ganador.socket.emit("misPuntos",{
-        puntos: ganadorBD.puntos
-    });
+    if (ganador.socket) {
+        ganador.socket.emit("misPuntos", {
+            puntos: ganadorBD.puntos
+        });
+    }
 
-}else{
+} else {
 
-    const bot = bots.find(b=>b.googleId==ganador.googleId);
+    const bot = bots.find(b => b.googleId == ganador.googleId);
 
-    if(bot){
+    if (bot) {
         bot.puntos += partida.apuesta * 1.5;
     }
 
