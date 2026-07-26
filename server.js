@@ -1115,12 +1115,10 @@ if (USAR_ONLINE_REAL) {
 
 );
 
-document.getElementById("puestoJugador1").textContent =
 datos.puesto1 <= 3
     ? ["🥇","🥈","🥉"][datos.puesto1-1] + " #" + datos.puesto1
     : "#" + datos.puesto1;
 
-document.getElementById("puestoJugador2").textContent =
 datos.puesto2 <= 3
     ? ["🥇","🥈","🥉"][datos.puesto2-1] + " #" + datos.puesto2
     : "#" + datos.puesto2;
@@ -1463,13 +1461,16 @@ if(partida.turno=="BOT"){
 
             const ganador = partida.jugadores[0];
 
-            const ganadorBD = usuarios[ganador.googleId];
+const ganadorBD = obtenerJugador(
+    ganador.googleId,
+    ganador.nombre,
+    ganador.foto || ""
+);
 
-            ganadorBD.puntos += partida.apuesta * 1.5;
+ganadorBD.puntos += partida.apuesta * 1.5;
+ganadorBD.victorias++;
 
-            ganadorBD.victorias++;
-
-            guardarUsuarios();
+guardarUsuarios();
 
             ganador.socket.emit("misPuntos",{
 
