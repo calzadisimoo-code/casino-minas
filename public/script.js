@@ -1242,6 +1242,3 @@ document.getElementById("volverMinas").onclick=()=>{
 
 };
 
-function ponerApuesta(valor){
-    document.getElementById("apuesta").value = valor;
-}
