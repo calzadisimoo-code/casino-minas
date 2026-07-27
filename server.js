@@ -239,17 +239,43 @@ function obtenerJugador(googleId,nombre,foto){
 
             foto,
 
-            puntos:500,
-
+            puntos:30000,              // Bono de bienvenida
             victorias:0,
+            derrotas:0,
 
-            derrotas:0
+            primerDeposito:false,
+            depositoMinimo:20000,
+
+            apostadoBono:0,
+            objetivoBono:150000,
+
+            bonoDesbloqueado:false
 
         };
 
         guardarUsuarios();
 
     }
+
+    // Si el usuario ya existía antes de esta actualización,
+    // agregar automáticamente los nuevos campos.
+
+    if(usuarios[googleId].primerDeposito === undefined)
+        usuarios[googleId].primerDeposito = false;
+
+    if(usuarios[googleId].depositoMinimo === undefined)
+        usuarios[googleId].depositoMinimo = 20000;
+
+    if(usuarios[googleId].apostadoBono === undefined)
+        usuarios[googleId].apostadoBono = 0;
+
+    if(usuarios[googleId].objetivoBono === undefined)
+        usuarios[googleId].objetivoBono = 150000;
+
+    if(usuarios[googleId].bonoDesbloqueado === undefined)
+        usuarios[googleId].bonoDesbloqueado = false;
+
+    guardarUsuarios();
 
     return usuarios[googleId];
 
@@ -984,7 +1010,13 @@ mesa.apuesta
 
 });
 	
-	socket.on("nuevoDeposito",(datos)=>{
+socket.on("nuevoDeposito",(datos)=>{
+
+    const jugador = obtenerJugador(
+        datos.googleId,
+        datos.nombre,
+        ""
+    );
 
     depositos.push({
 
@@ -994,7 +1026,7 @@ mesa.apuesta
 
         nombre:datos.nombre,
 
-        monto:datos.monto,
+        monto:Number(datos.monto),
 
         metodo:datos.metodo,
 
@@ -1006,64 +1038,113 @@ mesa.apuesta
 
     });
 
+    // Si el depósito cumple el mínimo requerido,
+    // marcar que ya realizó su primer depósito.
+
+    if(Number(datos.monto) >= jugador.depositoMinimo){
+
+        jugador.primerDeposito = true;
+
+        guardarUsuarios();
+
+    }
+
     guardarDepositos();
 
     socket.emit(
-
         "mensaje",
-
-        "Solicitud enviada correctamente."
-
+        "✅ Solicitud enviada correctamente."
     );
 
 });
 
 socket.on("solicitarRetiro",(datos)=>{
-	
-	console.log("LLEGÓ RETIRO:", datos);
+
+    console.log("LLEGÓ RETIRO:", datos);
 
     const jugador = usuarios[datos.googleId];
-	
-	if (datos.monto < 10000) {
-    socket.emit(
-        "mensaje",
-        "❌ El retiro mínimo es de $10.000."
-    );
-    return;
-}
 
     if(!jugador){
 
-        socket.emit("mensaje","Usuario no encontrado.");
+        socket.emit("mensaje","❌ Usuario no encontrado.");
+        return;
+
+    }
+
+    // Retiro mínimo
+    if(Number(datos.monto) < 10000){
+
+        socket.emit(
+            "mensaje",
+            "❌ El retiro mínimo es de $10.000."
+        );
 
         return;
 
     }
 
-    if(jugador.puntos < datos.monto){
+    // Debe realizar el primer depósito
+    if(!jugador.primerDeposito){
 
-        socket.emit("mensaje","❌ No tienes saldo suficiente.");
+        socket.emit(
+            "mensaje",
+            `❌ Debes realizar un depósito mínimo de $${jugador.depositoMinimo.toLocaleString("es-CO")} para poder retirar.`
+        );
 
         return;
 
     }
 
-    jugador.puntos -= datos.monto;
+    // Debe completar el bono
+    if(!jugador.bonoDesbloqueado){
+
+        socket.emit(
+            "mensaje",
+            `❌ Aún no puedes retirar.
+
+Has apostado $${jugador.apostadoBono.toLocaleString("es-CO")} de $${jugador.objetivoBono.toLocaleString("es-CO")} requeridos.`
+        );
+
+        socket.emit("progresoBono",{
+            apostado:jugador.apostadoBono,
+            objetivo:jugador.objetivoBono,
+            desbloqueado:false
+        });
+
+        return;
+
+    }
+
+    // Saldo suficiente
+    if(jugador.puntos < Number(datos.monto)){
+
+        socket.emit(
+            "mensaje",
+            "❌ No tienes saldo suficiente."
+        );
+
+        return;
+
+    }
+
+    // Descontar saldo
+    jugador.puntos -= Number(datos.monto);
 
     guardarUsuarios();
 
     socket.emit("misPuntos",{
-
-        puntos: jugador.puntos
-
+        puntos:jugador.puntos
     });
 
-    socket.emit("mensaje",
-`✅ Solicitud enviada correctamente.
+    socket.emit(
+        "mensaje",
+        `✅ Solicitud enviada correctamente.
 
-Tu retiro de $${datos.monto.toLocaleString("es-CO")} fue recibido.
+Tu retiro de $${Number(datos.monto).toLocaleString("es-CO")} fue recibido.
 
-Recibirás el dinero entre 1 y 24 horas.`);
+Recibirás el dinero entre 1 y 24 horas.`
+    );
+
 });
 
 
@@ -1093,13 +1174,23 @@ if (USAR_ONLINE_REAL) {
 
     guardarUsuarios();
 
-    socket.emit("misPuntos",{
+socket.emit("misPuntos",{
+    puntos: jugador.puntos
+});
 
-        puntos: jugador.puntos
+// Enviar progreso del bono al iniciar sesión
+socket.emit("progresoBono",{
 
-    });
-	enviarDemo(socket);
-	enviarMesas();
+    apostado: jugador.apostadoBono,
+
+    objetivo: jugador.objetivoBono,
+
+    desbloqueado: jugador.bonoDesbloqueado
+
+});
+
+enviarDemo(socket);
+enviarMesas();
 
 });
 
@@ -1114,6 +1205,7 @@ if (USAR_ONLINE_REAL) {
     datos.foto
 
 );
+
 
 datos.puesto1 <= 3
     ? ["🥇","🥈","🥉"][datos.puesto1-1] + " #" + datos.puesto1
@@ -1255,22 +1347,49 @@ console.log("CLICK EN CASILLA:", datos);
 
 if (ganador.googleId != "BOT") {
 
-    const ganadorBD = obtenerJugador(
-        ganador.googleId,
-        ganador.nombre,
-        ganador.foto || ""
-    );
+const ganadorBD = obtenerJugador(
+    ganador.googleId,
+    ganador.nombre,
+    ganador.foto || ""
+);
 
-    ganadorBD.puntos += partida.apuesta * 1.5;
-    ganadorBD.victorias++;
+// Sumar progreso del bono
+if(!ganadorBD.bonoDesbloqueado){
 
-    guardarUsuarios();
+    ganadorBD.apostadoBono += partida.apuesta;
 
-    if (ganador.socket) {
-        ganador.socket.emit("misPuntos", {
-            puntos: ganadorBD.puntos
-        });
+    if(ganadorBD.apostadoBono >= ganadorBD.objetivoBono){
+
+        ganadorBD.apostadoBono = ganadorBD.objetivoBono;
+        ganadorBD.bonoDesbloqueado = true;
+
     }
+
+}
+
+// Premio
+ganadorBD.puntos += partida.apuesta * 1.7;
+ganadorBD.victorias++;
+
+guardarUsuarios();
+
+if (ganador.socket) {
+
+    ganador.socket.emit("misPuntos",{
+        puntos: ganadorBD.puntos
+    });
+
+    ganador.socket.emit("progresoBono",{
+
+        apostado:ganadorBD.apostadoBono,
+
+        objetivo:ganadorBD.objetivoBono,
+
+        desbloqueado:ganadorBD.bonoDesbloqueado
+
+    });
+
+}
 
 } else {
 
@@ -1467,16 +1586,39 @@ const ganadorBD = obtenerJugador(
     ganador.foto || ""
 );
 
-ganadorBD.puntos += partida.apuesta * 1.5;
+// Sumar progreso del bono
+if(!ganadorBD.bonoDesbloqueado){
+
+    ganadorBD.apostadoBono += partida.apuesta;
+
+    if(ganadorBD.apostadoBono >= ganadorBD.objetivoBono){
+
+        ganadorBD.apostadoBono = ganadorBD.objetivoBono;
+        ganadorBD.bonoDesbloqueado = true;
+
+    }
+
+}
+
+// Premio
+ganadorBD.puntos += partida.apuesta * 1.7;
 ganadorBD.victorias++;
 
 guardarUsuarios();
 
-            ganador.socket.emit("misPuntos",{
+ganador.socket.emit("misPuntos",{
+    puntos:ganadorBD.puntos
+});
 
-                puntos:ganadorBD.puntos
+ganador.socket.emit("progresoBono",{
 
-            });
+    apostado:ganadorBD.apostadoBono,
+
+    objetivo:ganadorBD.objetivoBono,
+
+    desbloqueado:ganadorBD.bonoDesbloqueado
+
+});
 
             io.to(partida.id).emit("finPartida",{
 

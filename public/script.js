@@ -142,6 +142,36 @@ socket.on("misPuntos",(datos)=>{
 
 });
 
+socket.on("progresoBono",(datos)=>{
+
+    const barra = document.getElementById("barraBono");
+    const texto = document.getElementById("textoBono");
+
+    if(!barra || !texto) return;
+
+    const porcentaje =
+        (datos.apostado / datos.objetivo) * 100;
+
+    barra.style.width =
+        Math.min(100, porcentaje) + "%";
+
+    texto.innerHTML =
+        "$" +
+        Number(datos.apostado).toLocaleString("es-CO") +
+        " / $" +
+        Number(datos.objetivo).toLocaleString("es-CO");
+
+    if(datos.desbloqueado){
+
+        texto.innerHTML =
+        "🎉 Bono desbloqueado";
+
+        barra.style.background="#16a34a";
+
+    }
+
+});
+
 socket.on("partidaDemo",(datos)=>{
 
     if(miPartida!="") return;
@@ -657,6 +687,20 @@ function loginGoogle(response){
     foto: datos.picture
 
 });
+
+setTimeout(()=>{
+
+    socket.emit("cargarUsuario",{
+
+        googleId: datos.sub,
+
+        nombre: datos.name,
+
+        foto: datos.picture
+
+    });
+
+},300);
 
     document.getElementById("loginGoogle").style.display = "none";
 
