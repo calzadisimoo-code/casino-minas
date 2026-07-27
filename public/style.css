@@ -24,7 +24,9 @@ background-attachment:fixed;
 
 color:white;
 
-overflow-x:hidden;
+    overflow-y:auto;
+
+    overflow-x:hidden;
 
 }
 
