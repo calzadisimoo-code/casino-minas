@@ -100,35 +100,29 @@ socket.on("connect",()=>{
 
 });
 
-
 btnJugar.onclick = ()=>{
 
     if(!usuarioGoogle){
+        document.getElementById("popupLogin").style.display = "flex";
+        return;
+    }
 
-    document.getElementById("popupLogin").style.display="flex";
     buscandoMesa = true;
 
-
     socket.emit("crearMesa",{
-
         googleId: usuarioGoogle.sub,
-
         nombre: usuarioGoogle.name,
-
         foto: usuarioGoogle.picture,
-
         apuesta: Number(apuesta.value || 0)
-
     });
-	
-	document.getElementById("tituloEspera").innerHTML =
-"🔎 Buscando rival...";
 
-document.getElementById("textoEspera").innerHTML =
-"Espera un momento";
+    document.getElementById("tituloEspera").innerHTML =
+    "🔎 Buscando rival...";
 
-    document.getElementById("pantallaBusqueda").style.display="flex";
+    document.getElementById("textoEspera").innerHTML =
+    "Espera un momento";
 
+    document.getElementById("pantallaBusqueda").style.display = "flex";
 };
 
 socket.on("online",(cantidad)=>{
@@ -1233,5 +1227,3 @@ document.getElementById("volverMinas").onclick=()=>{
     tipoJuego.onchange();
 
 };
-
-document.getElementById("popupLogin").style.display = "flex";
