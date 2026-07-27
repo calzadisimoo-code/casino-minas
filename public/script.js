@@ -1154,10 +1154,10 @@ socket.on("ranking",(lista)=>{
     lista.forEach((j,i)=>{
 
 html += `
-<div class="filaRanking"
+<div class="filaRanking">
 
     <div class="posRanking">
-        ${i+1}
+        ${j.puesto}
     </div>
 
     <img
