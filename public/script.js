@@ -870,10 +870,9 @@ console.log("Mostrando popup", mesa);
 
     popupMesa.style.display="block";
 
-}else{
+}else if (popupMesa.style.display !== "block"){
 
-    // No ocultar automáticamente el popup.
-    // Solo dejarlo como está.
+    popupMesa.style.display = "none";
 
 }
 
