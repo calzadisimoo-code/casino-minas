@@ -277,16 +277,6 @@ function obtenerJugador(googleId,nombre,foto){
 
     guardarUsuarios();
 	
-	j2.socket.emit("progresoBono",{
-
-    apostado: jugador2.apostadoBono,
-
-    objetivo: jugador2.objetivoBono,
-
-    desbloqueado: jugador2.bonoDesbloqueado
-
-});
-
     return usuarios[googleId];
 
 }
@@ -576,6 +566,12 @@ setTimeout(()=>{
         puntos: jugador1.puntos
 
     });
+	
+	j1.socket.emit("progresoBono",{
+    apostado: jugador1.apostadoBono,
+    objetivo: jugador1.objetivoBono,
+    desbloqueado: jugador1.bonoDesbloqueado
+});
 
     if(j2.socket){
 
@@ -604,6 +600,12 @@ setTimeout(()=>{
             puntos: jugador2.puntos
 
         });
+		
+		j2.socket.emit("progresoBono",{
+    apostado: jugador2.apostadoBono,
+    objetivo: jugador2.objetivoBono,
+    desbloqueado: jugador2.bonoDesbloqueado
+});
 
     }
 	
@@ -1266,28 +1268,6 @@ socket.emit("misPuntos",{
 });
 
 guardarUsuarios();
-
-j1.socket.emit("progresoBono",{
-
-    apostado: jugador1.apostadoBono,
-
-    objetivo: jugador1.objetivoBono,
-
-    desbloqueado: jugador1.bonoDesbloqueado
-
-});
-
-io.to(jugador1.socket).emit("progresoBono",{
-    apostado: jugador1.apostadoBono,
-    objetivo: jugador1.objetivoBono,
-    desbloqueado: jugador1.bonoDesbloqueado
-});
-
-io.to(jugador2.socket).emit("progresoBono",{
-    apostado: jugador2.apostadoBono,
-    objetivo: jugador2.objetivoBono,
-    desbloqueado: jugador2.bonoDesbloqueado
-});
 
         const apuesta = Number(datos.apuesta);
 
