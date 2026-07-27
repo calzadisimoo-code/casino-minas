@@ -1292,7 +1292,10 @@ document.getElementById("volverMinas").onclick=()=>{
 
 };
 
-/////////////////////////////////////////
+
+
+
+
 const btnBonus = document.getElementById("claimBonus");
 
 if(btnBonus){
