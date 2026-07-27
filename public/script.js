@@ -1004,7 +1004,9 @@ document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
     const texto = `🎮 ¡Te reto a una partida!
 
 💣 El que encuentre la mina pierde.
-🏆 ¿Aceptas el reto?`;
+🏆 ¿Aceptas el reto?
+
+`;
 
     if (navigator.share) {
         try{
