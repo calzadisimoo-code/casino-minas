@@ -150,15 +150,26 @@ font-weight:bold;
 
 <div id="panelJuego">
 
-    <input
-        id="apuesta"
-        type="number"
-        placeholder="¿Cuánto deseas apostar?">
+    <div class="panelApuesta">
 
-<button id="jugar">
-    <span>🎰</span>
-    <span>JUGAR</span>
-</button>
+        <h2>💰 Ingresa tu apuesta</h2>
+
+        <input id="apuesta" type="number">
+
+        <div class="apuestasRapidas">
+
+            <button onclick="ponerApuesta(2000)">$2.000</button>
+            <button onclick="ponerApuesta(5000)">$5.000</button>
+            <button onclick="ponerApuesta(10000)">$10.000</button>
+            <button onclick="ponerApuesta(20000)">$20.000</button>
+            <button onclick="ponerApuesta(50000)">$50.000</button>
+            <button onclick="ponerApuesta(100000)">$100.000</button>
+
+        </div>
+
+        <button id="jugar">🔍 Buscar rival</button>
+
+    </div>
 
 </div>
 		
