@@ -276,6 +276,16 @@ function obtenerJugador(googleId,nombre,foto){
         usuarios[googleId].bonoDesbloqueado = false;
 
     guardarUsuarios();
+	
+	j2.socket.emit("progresoBono",{
+
+    apostado: jugador2.apostadoBono,
+
+    objetivo: jugador2.objetivoBono,
+
+    desbloqueado: jugador2.bonoDesbloqueado
+
+});
 
     return usuarios[googleId];
 
@@ -544,6 +554,20 @@ setTimeout(()=>{
     const jugador1 = usuarios[j1.googleId];
 
     jugador1.puntos -= apuesta;
+	
+	if(!jugador1.bonoDesbloqueado){
+
+    jugador1.apostadoBono += apuesta;
+
+    if(jugador1.apostadoBono >= jugador1.objetivoBono){
+
+        jugador1.apostadoBono = jugador1.objetivoBono;
+
+        jugador1.bonoDesbloqueado = true;
+
+    }
+
+}
 
     guardarUsuarios();
 
@@ -558,6 +582,20 @@ setTimeout(()=>{
         const jugador2 = usuarios[j2.googleId];
 
         jugador2.puntos -= apuesta;
+		
+		if(!jugador2.bonoDesbloqueado){
+
+    jugador2.apostadoBono += apuesta;
+
+    if(jugador2.apostadoBono >= jugador2.objetivoBono){
+
+        jugador2.apostadoBono = jugador2.objetivoBono;
+
+        jugador2.bonoDesbloqueado = true;
+
+    }
+
+}
 
         guardarUsuarios();
 
@@ -1229,6 +1267,28 @@ socket.emit("misPuntos",{
 
 guardarUsuarios();
 
+j1.socket.emit("progresoBono",{
+
+    apostado: jugador1.apostadoBono,
+
+    objetivo: jugador1.objetivoBono,
+
+    desbloqueado: jugador1.bonoDesbloqueado
+
+});
+
+io.to(jugador1.socket).emit("progresoBono",{
+    apostado: jugador1.apostadoBono,
+    objetivo: jugador1.objetivoBono,
+    desbloqueado: jugador1.bonoDesbloqueado
+});
+
+io.to(jugador2.socket).emit("progresoBono",{
+    apostado: jugador2.apostadoBono,
+    objetivo: jugador2.objetivoBono,
+    desbloqueado: jugador2.bonoDesbloqueado
+});
+
         const apuesta = Number(datos.apuesta);
 
         if(apuesta<=0){
@@ -1356,7 +1416,6 @@ const ganadorBD = obtenerJugador(
 // Sumar progreso del bono
 if(!ganadorBD.bonoDesbloqueado){
 
-    ganadorBD.apostadoBono += partida.apuesta;
 
     if(ganadorBD.apostadoBono >= ganadorBD.objetivoBono){
 
@@ -1589,7 +1648,6 @@ const ganadorBD = obtenerJugador(
 // Sumar progreso del bono
 if(!ganadorBD.bonoDesbloqueado){
 
-    ganadorBD.apostadoBono += partida.apuesta;
 
     if(ganadorBD.apostadoBono >= ganadorBD.objetivoBono){
 
