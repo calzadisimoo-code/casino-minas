@@ -1001,11 +1001,25 @@ document.getElementById("esperando").style.display = "flex";
 
 document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
 
-    const enlace="https://performs-montgomery-lovely-corporation.trycloudflare.com/";
+    const texto = `🎮 ¡Te reto a una partida!
 
-    await navigator.clipboard.writeText(enlace);
+💣 El que encuentre la mina pierde.
+🏆 ¿Aceptas el reto?
 
-    alert("✅ Enlace copiado. Envíaselo a tu amigo y dile que ponga el mismo codigo que uses.");
+https://www.kyrocasino.online/`;
+
+    if (navigator.share) {
+        try{
+            await navigator.share({
+                title: "Kyro Casino",
+                text: texto,
+                url: "https://www.kyrocasino.online/"
+            });
+        }catch(e){}
+    }else{
+        await navigator.clipboard.writeText(texto);
+        alert("✅ Mensaje copiado.");
+    }
 
 };
 
