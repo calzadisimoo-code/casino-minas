@@ -888,12 +888,6 @@ socket.on("listaMesas",(lista)=>{
 
 });
 
-    console.log("📢 RECIBÍ LISTA DE MESAS:", lista);
-
-    actualizarListaMesas(lista);
-
-});
-
 function aceptarMesa(id){
 
     if(miPartida!=""){
