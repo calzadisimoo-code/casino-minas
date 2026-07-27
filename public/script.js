@@ -872,7 +872,8 @@ console.log("Mostrando popup", mesa);
 
 }else{
 
-    popupMesa.style.display="none";
+    // No ocultar automáticamente el popup.
+    // Solo dejarlo como está.
 
 }
 
