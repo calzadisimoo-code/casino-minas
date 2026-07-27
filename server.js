@@ -1714,7 +1714,13 @@ socket.on("pedirRanking",()=>{
 
     .sort((a,b)=>b.puntos-a.puntos)
 
-    .slice(0,100);
+    .map((jugador,index)=>({
+
+        ...jugador,
+
+        puesto:index+1
+
+    }));
 
     socket.emit("ranking",ranking);
 
