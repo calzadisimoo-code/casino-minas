@@ -881,7 +881,6 @@ console.log("Mostrando popup", mesa);
 }
 
 socket.on("listaMesas",(lista)=>{
-	socket.on("listaMesas",(lista)=>{
 
     console.log("📩 LISTA DE MESAS:", lista);
 
