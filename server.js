@@ -643,6 +643,56 @@ partidaEspectada = id;
 }
 
 io.on("connection",(socket)=>{
+	
+	socket.on("reclamarBonoDiario",(datos)=>{
+
+    const jugador = usuarios[datos.googleId];
+
+    if(!jugador) return;
+
+    if(!jugador.ultimoBono){
+
+        jugador.ultimoBono = 0;
+
+    }
+
+    const ahora = Date.now();
+
+    const espera = 24*60*60*1000;
+
+    if(ahora - jugador.ultimoBono < espera){
+
+        socket.emit("bonoDiario",{
+
+            reclamado:true,
+
+            puntos:jugador.puntos,
+
+            mensaje:"Vuelve en 24 horas."
+
+        });
+
+        return;
+
+    }
+
+    jugador.ultimoBono = ahora;
+
+    jugador.puntos += 500;
+
+    guardarUsuarios();
+
+    socket.emit("bonoDiario",{
+
+        reclamado:true,
+
+        puntos:jugador.puntos,
+
+        mensaje:"🎉 Recibiste $500."
+
+    });
+
+});
 
 socket.on("pedirMesas",()=>{
 

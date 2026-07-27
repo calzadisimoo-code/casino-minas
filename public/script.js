@@ -866,6 +866,7 @@ popupAceptar.onclick = ()=>{
     aceptarMesa(mesa.id);
 
 };
+console.log("Mostrando popup", mesa);
 
     popupMesa.style.display="block";
 
@@ -880,6 +881,13 @@ popupAceptar.onclick = ()=>{
 }
 
 socket.on("listaMesas",(lista)=>{
+	socket.on("listaMesas",(lista)=>{
+
+    console.log("📩 LISTA DE MESAS:", lista);
+
+    actualizarListaMesas(lista);
+
+});
 
     console.log("📢 RECIBÍ LISTA DE MESAS:", lista);
 
@@ -1302,15 +1310,32 @@ if(btnBonus){
 
     btnBonus.onclick = ()=>{
 
-        alert("🎁 Bono reclamado.");
+        if(!usuarioGoogle){
+            alert("Primero inicia sesión.");
+            return;
+        }
 
-        btnBonus.disabled = true;
-
-        btnBonus.innerHTML = "BONO RECLAMADO";
-
-        document.getElementById("bonusStatus").innerHTML =
-        "Disponible nuevamente en 24 horas";
+        socket.emit("reclamarBonoDiario",{
+            googleId: usuarioGoogle.sub
+        });
 
     };
 
 }
+
+socket.on("bonoDiario",(datos)=>{
+
+    misPuntos.innerHTML =
+    Number(datos.puntos).toLocaleString("es-CO");
+
+    document.getElementById("bonusStatus").innerHTML =
+    datos.mensaje;
+
+    if(datos.reclamado){
+
+        document.getElementById("claimBonus").disabled = true;
+        document.getElementById("claimBonus").innerHTML = "BONO RECLAMADO";
+
+    }
+
+});
