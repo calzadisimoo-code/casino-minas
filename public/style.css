@@ -1901,3 +1901,40 @@ JUGAR CON AMIGOS
     background:gold;
     color:black;
 }
+
+.topbar{
+    height:60px;
+    background:#0b0b0b;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    border-radius:20px 20px 0 0;
+}
+
+.menu-btn,
+.user-btn{
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo{
+    font-family:Arial,sans-serif;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.verde{
+    color:#7dff2b;
+}
+
+.blanco{
+    color:#ffffff;
+}
