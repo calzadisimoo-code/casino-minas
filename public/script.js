@@ -173,10 +173,17 @@ socket.on("progresoBono",(datos)=>{
 });
 
 socket.on("partidaDemo",(datos)=>{
+	
 
     if(miPartida!="") return;
 
     viendoDemo = true;
+	
+	document.getElementById("puestoJugador1").textContent =
+    datos.puesto1 ? "#" + datos.puesto1 : "#--";
+
+document.getElementById("puestoJugador2").textContent =
+    datos.puesto2 ? "#" + datos.puesto2 : "#--";
 
     document.getElementById("nombreJugador1").innerHTML =
     datos.jugadores[0].nombre;
