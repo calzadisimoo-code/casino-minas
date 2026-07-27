@@ -319,25 +319,22 @@ function crearPartidaDemo(){
 
     const tablero = crearTablero();
 
-    const jugadores=[
+const ranking = [
+    ...Object.values(usuarios),
+    ...bots
+];
 
-        {
+const i1 = Math.floor(Math.random() * ranking.length);
 
-            nombre:nombresDemo[
-                Math.floor(Math.random()*nombresDemo.length)
-            ]
+let i2;
+do{
+    i2 = Math.floor(Math.random() * ranking.length);
+}while(i2 === i1);
 
-        },
-
-        {
-
-            nombre:nombresDemo[
-                Math.floor(Math.random()*nombresDemo.length)
-            ]
-
-        }
-
-    ];
+const jugadores = [
+    ranking[i1],
+    ranking[i2]
+];
 
 const apuestas=[
 
@@ -370,23 +367,27 @@ const apuestas=[
 
 ];
 
-    partidaDemo={
+partidaDemo = {
 
-        jugadores,
+    jugadores,
 
-        apuesta:
+    apuesta:
+    apuestas[
+        Math.floor(Math.random()*apuestas.length)
+    ],
 
-        apuestas[
-            Math.floor(Math.random()*apuestas.length)
-        ],
+    tablero,
 
-        tablero,
+    turno:0,
 
-        turno:0,
+    terminada:false,
 
-        terminada:false
+    puesto1: obtenerPuesto(jugadores[0].googleId),
+    puesto2: obtenerPuesto(jugadores[1].googleId),
+    foto1: jugadores[0].foto,
+    foto2: jugadores[1].foto
 
-    };
+};
 
 }
 
