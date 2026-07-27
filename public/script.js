@@ -1006,8 +1006,7 @@ document.getElementById("copiarEnlaceCasino").onclick = async ()=>{
 💣 El que encuentre la mina pierde.
 🏆 ¿Aceptas el reto?
 
-
-entra:`;
+Entra:`;
 
     if (navigator.share) {
         try{
