@@ -1242,3 +1242,4 @@ document.getElementById("volverMinas").onclick=()=>{
 
 };
 
+document.getElementById("popupLogin").style.display = "flex";

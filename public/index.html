@@ -136,6 +136,59 @@ justify-content:center;
     </button>
 
 </div>
+
+<div id="popupLogin" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.75);
+justify-content:center;
+align-items:center;
+z-index:999999;
+">
+
+    <div style="
+    width:90%;
+    max-width:340px;
+    background:#171717;
+    border:2px solid gold;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    color:white;
+    ">
+
+        <h2 style="color:#FFD700;margin-bottom:15px;">
+            🔒 Inicia sesión
+        </h2>
+
+        <p style="
+        line-height:1.6;
+        margin-bottom:20px;
+        ">
+            Primero inicia sesión con Google para poder buscar un rival.
+        </p>
+
+        <button onclick="document.getElementById('popupLogin').style.display='none'" style="
+        width:100%;
+        height:46px;
+        border:none;
+        border-radius:10px;
+        background:#d90429;
+        color:white;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+        ">
+            ❌ Cerrar
+        </button>
+
+    </div>
+
+</div>
 		
 		<!--
 
