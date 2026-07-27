@@ -104,16 +104,8 @@ socket.on("connect",()=>{
 btnJugar.onclick = ()=>{
 
     if(!usuarioGoogle){
-        google.accounts.id.prompt();
 
-        document.getElementById("loginGoogle").scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-        return;
-    }
-
+    document.getElementById("popupLogin").style.display="flex";
     buscandoMesa = true;
 
 
