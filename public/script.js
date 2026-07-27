@@ -1241,3 +1241,7 @@ document.getElementById("volverMinas").onclick=()=>{
     tipoJuego.onchange();
 
 };
+
+function ponerApuesta(valor){
+    document.getElementById("apuesta").value = valor;
+}
