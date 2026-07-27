@@ -1291,3 +1291,23 @@ document.getElementById("volverMinas").onclick=()=>{
     tipoJuego.onchange();
 
 };
+
+/////////////////////////////////////////
+const btnBonus = document.getElementById("claimBonus");
+
+if(btnBonus){
+
+    btnBonus.onclick = ()=>{
+
+        alert("🎁 Bono reclamado.");
+
+        btnBonus.disabled = true;
+
+        btnBonus.innerHTML = "BONO RECLAMADO";
+
+        document.getElementById("bonusStatus").innerHTML =
+        "Disponible nuevamente en 24 horas";
+
+    };
+
+}
