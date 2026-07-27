@@ -161,7 +161,7 @@ socket.on("partidaDemo",(datos)=>{
     "$"+Number(datos.apuesta).toLocaleString("es-CO");
 
     document.getElementById("premioPartida").innerHTML =
-"$"+Number(datos.apuesta*1.5).toLocaleString("es-CO");
+"$"+Number(datos.apuesta*1.7).toLocaleString("es-CO");
 	
 crearAvatar(
 
@@ -218,7 +218,7 @@ document.getElementById("puestoJugador2").textContent = "#" + datos.puesto2;
 	buscandoMesa = false;
 	
 	document.getElementById("premioPartida").innerHTML =
-"$"+Number(datos.apuesta*1.5).toLocaleString("es-CO");
+"$"+Number(datos.apuesta*1.7).toLocaleString("es-CO");
 	
 	viendoDemo = false;
 	document.getElementById("pantallaResultado").style.display="none";
